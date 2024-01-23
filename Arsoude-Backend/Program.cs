@@ -14,6 +14,24 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAlmostAll", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200");
+
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+
+        policy.AllowCredentials();
+    });
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = false;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +46,8 @@ else
     app.UseHsts();
 }
 
+app.UseCors("AllowAlmostAll");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -38,7 +58,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();
