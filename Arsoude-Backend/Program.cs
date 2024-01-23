@@ -21,14 +21,14 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAlmostAll", policy =>
     {
-        policy.WithOrigins("http://localhost:4200", "https://localhost:4200", "http://localhost:49210", "https://localhost:49210");
+        //policy.WithOrigins("http://localhost:4200", "https://localhost:4200", "http://localhost:49210", "https://localhost:49210");
 
-        
 
+        policy.AllowAnyOrigin();
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
 
-        policy.AllowCredentials();
+        //policy.AllowCredentials();
     });
 });
 
