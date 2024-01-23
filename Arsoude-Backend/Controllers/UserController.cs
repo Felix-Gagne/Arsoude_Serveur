@@ -18,7 +18,6 @@ namespace Arsoude_Backend.Controllers
         [HttpGet]
         public HelloWorld GetWord()
         {
-            var helloWorld = "hello world";
             return new HelloWorld();
         }
 
