@@ -11,13 +11,63 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240123214211_auth")]
-    partial class auth
+    [Migration("20240124210345_Initial_Create")]
+    partial class Initial_Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
+
+            modelBuilder.Entity("Arsoude_Backend.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AreaCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("HouseNo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("IdentityUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MonthOfBirth")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("YearOfBirth")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserId");
+
+                    b.ToTable("Users");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -48,7 +98,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "d6f3febd-d8ca-4c9a-955c-779bf95b9c69",
+                            ConcurrencyStamp = "80a0dbd6-a215-4777-8f00-31893915a019",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -145,15 +195,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4e4ef517-c4f6-48b1-8524-3a0fc6c9166d",
+                            ConcurrencyStamp = "83f9343b-be85-4633-a107-dbed0e800a2d",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKTMzJxZBeefKvDsSryg16M0duAlLdBNGf1RpTeVCngdF2BcTbWQIs5r/BXxs81k3A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENMET0YcObMpIGrdzXnMLN9kzOQKF9qG/W1DGmDy6Hc2mcc24i6EtgpeeuUw8KNCYA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e6ea4c9d-32e1-48f3-8083-93c769d6ed1d",
+                            SecurityStamp = "24c9d5f2-66fd-480c-b732-2964fc3e98a1",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -161,15 +211,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "59d16756-dd24-4395-b00e-53ee8d418318",
+                            ConcurrencyStamp = "0b6fc52d-cbb0-4b9f-8236-5f0fe76b8375",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEConC4KfGz6tS+HOKEYJ2allEZesstquSQHMB2tw0bu/XGjnz3OceXvNlrdeKbOc7w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIXCa9KGz6xr8BNyxwtNTrvOxy9LYrHoRBrDGrLxurKRlzPYo7fqfH0NtYVx93WXzg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "07ed0c1a-9f07-45dd-9519-bdbc4176b21b",
+                            SecurityStamp = "3edabc9f-c609-42eb-91af-744b03ecb0c4",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -263,6 +313,17 @@ namespace Arsoude_Backend.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Arsoude_Backend.Models.User", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

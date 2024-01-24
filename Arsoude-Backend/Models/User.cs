@@ -1,11 +1,14 @@
 ﻿using Arsoude_Backend.Models.Validations;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Text.Json.Serialization;
 
-namespace Arsoude_Backend.Models.DTOs
+namespace Arsoude_Backend.Models
 {
-    public class RegisterDTO
+    public class User
     {
+        public int Id { get; set; }
         [Required]
         public string LastName { get; set; }
 
@@ -13,25 +16,8 @@ namespace Arsoude_Backend.Models.DTOs
         public string FirstName { get; set; }
 
         [Required]
-        public string Username { get; set; }
-
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
-        [Required]
         [AreaCode]
-        public String AreaCode { get; set; }
-
-
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Required]
-        [Compare("Password", ErrorMessage = "Les mots de passe ne correspondent pas.")]
-        [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
+        public string AreaCode { get; set; }
 
         public int HouseNo { get; set; }
 
@@ -46,5 +32,11 @@ namespace Arsoude_Backend.Models.DTOs
 
         [Range(1, 12)]
         public int MonthOfBirth { get; set; }
+
+        [Required]
+        public string IdentityUserId { get; set; }
+
+        [JsonIgnore]
+        public virtual IdentityUser? IdentityUser { get; set; }
     }
 }

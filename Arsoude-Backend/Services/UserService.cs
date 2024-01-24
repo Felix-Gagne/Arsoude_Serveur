@@ -1,4 +1,5 @@
 ﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
 using Microsoft.AspNetCore.Identity;
 using System.Numerics;
@@ -25,29 +26,30 @@ namespace Arsoude_Backend.Services
                 return IdentityResult.Failed(new IdentityError { Description = "Les deux mots de passe spécifiés sont différents." });
             }
 
-            var user = new IdentityUser
+            var identityUser = new IdentityUser
             {
                 UserName = register.Username,
+                Email = register.Email,
             };
 
-            var result = await _userManager.CreateAsync(user, register.Password);
+            var result = await _userManager.CreateAsync(identityUser, register.Password);
 
+            var user = new User
+            {
+                LastName = register.LastName,
+                FirstName = register.FirstName,
+                AreaCode = register.AreaCode,
+                HouseNo = register.HouseNo,
+                Street = register.Street,
+                City = register.City,
+                State = register.State,
+                YearOfBirth = register.YearOfBirth,
+                MonthOfBirth = register.MonthOfBirth,
+                IdentityUserId = identityUser.Id
+            };
 
-            //Créer le profil utilisateur ici
-            //if (result.Succeeded)
-            //{
-            //    Player player = new Player
-            //    {
-            //        IdentityUserId = user.Id,
-            //        Name = register.Email,
-            //        OwnedCards = cardList,
-            //        IdentityUser = user,
-            //        Money = 500
-            //    };
-
-            //    _context.Players.Add(player);
-            //    _context.SaveChanges();
-            //}
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
 
             return result;
         }
