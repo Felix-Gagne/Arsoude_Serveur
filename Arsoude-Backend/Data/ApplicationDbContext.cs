@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Arsoude_Backend.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,5 +60,7 @@ namespace Arsoude_Backend.Data
             user.PasswordHash = hasher2.HashPassword(user, "Passw0rd!");
             builder.Entity<IdentityUser>().HasData(user);
         }
+
+        public DbSet<User> Users { get; set; } = default!;
     }
 }
