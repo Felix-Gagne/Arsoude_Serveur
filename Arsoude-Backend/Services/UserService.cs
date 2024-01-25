@@ -2,6 +2,7 @@
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 
 namespace Arsoude_Backend.Services
@@ -55,11 +56,11 @@ namespace Arsoude_Backend.Services
         }
 
         //Modèle à utiliser quand on aura le modèle User
-        //public async Task<Player> LoginUserAsync(LoginDTO login, ApplicationDbContext context)
-        //{
-        //    Player player = await context.Players.FirstOrDefaultAsync(player => player.Name == login.UserName);
-        //    return player;
-        //}
+        public async Task<User> LoginUserAsync(LoginDTO login, ApplicationDbContext context)
+        {
+            User user = await context.Users.FirstOrDefaultAsync(p => p.IdentityUser.UserName == login.Username);
+            return user;
+        }
 
 
         public async Task SignOutUserAsync()
