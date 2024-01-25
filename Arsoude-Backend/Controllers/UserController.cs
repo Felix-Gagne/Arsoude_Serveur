@@ -22,7 +22,7 @@ namespace Arsoude_Backend.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        readonly UserManager<IdentityUser> UserManager;
+        readonly UserManager<IdentityUser> UserManager; 
         readonly SignInManager<IdentityUser> SignInManager;
         private ApplicationDbContext _context;
         private readonly UserService _userService;
@@ -108,7 +108,7 @@ namespace Arsoude_Backend.Controllers
         //Génère le token JWT pour l'authentification
         private async Task<string> GenerateToken(User user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("16BE46973DE593EF93B8CC6D39FF1DNVV7FD7DFJGH34"));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GenerateRandomString(32)));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var userRoles = await UserManager.GetRolesAsync(user.IdentityUser);
 
@@ -131,6 +131,15 @@ namespace Arsoude_Backend.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+
+        public static string GenerateRandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+            return randomString;
+        }
 
         // GET: api/<UserController>
         [HttpGet]
