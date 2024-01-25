@@ -19,22 +19,22 @@ namespace Arsoude_Backend.Models
         [AreaCode]
         public string AreaCode { get; set; }
 
-        public int HouseNo { get; set; }
+        public int? HouseNo { get; set; }
 
-        public string Street { get; set; }
+        public string? Street { get; set; }
 
-        public string City { get; set; }
+        public string? City { get; set; }
 
-        public string State { get; set; }
+        public string? State { get; set; }
 
         [YearOfBirthRange(1900)]
-        public int YearOfBirth { get; set; }
+        public int? YearOfBirth { get; set; }
 
         [Range(1, 12)]
-        public int MonthOfBirth { get; set; }
+        public int? MonthOfBirth { get; set; }
 
         [Required]
-        public string IdentityUserId { get; set; }
+        public string? IdentityUserId { get; set; }
 
         [JsonIgnore]
         public virtual IdentityUser? IdentityUser { get; set; }

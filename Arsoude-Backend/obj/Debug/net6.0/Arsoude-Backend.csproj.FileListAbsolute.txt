@@ -303,3 +303,5 @@ C:\Users\2070094\Desktop\Arsoude_Serveur\Arsoude-Backend\bin\Debug\net6.0\runtim
 C:\Users\2070094\Desktop\Arsoude_Serveur\Arsoude-Backend\bin\Debug\net6.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\2132141\Desktop\repo\Arsoude_Serveur\Arsoude-Backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\2132141\Desktop\repo\Arsoude_Serveur\Arsoude-Backend\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\2070094\Desktop\Arsoude_Serveur\Arsoude-Backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\2070094\Desktop\Arsoude_Serveur\Arsoude-Backend\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

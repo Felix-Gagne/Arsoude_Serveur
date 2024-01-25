@@ -33,18 +33,18 @@ namespace Arsoude_Backend.Models.DTOs
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-        public int HouseNo { get; set; }
+        public int? HouseNo { get; set; }
 
-        public string Street { get; set; }
+        public string? Street { get; set; }
 
-        public string City { get; set; }
+        public string? City { get; set; }
 
-        public string State { get; set; }
+        public string? State { get; set; }
 
         [YearOfBirthRange(1900)]
-        public int YearOfBirth { get; set; }
+        public int? YearOfBirth { get; set; }
 
         [Range(1, 12)]
-        public int MonthOfBirth { get; set; }
+        public int? MonthOfBirth { get; set; }
     }
 }
