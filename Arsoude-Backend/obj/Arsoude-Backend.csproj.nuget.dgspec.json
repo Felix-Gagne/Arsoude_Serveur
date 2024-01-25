@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2028873\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {}
+    "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2028873\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {
+    "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2028873\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
+        "projectUniqueName": "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
         "projectName": "Arsoude-Backend",
-        "projectPath": "C:\\Users\\2028873\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
-        "packagesPath": "C:\\Users\\2028873\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2028873\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\obj\\",
+        "projectPath": "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
+        "packagesPath": "C:\\Users\\2070094\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\2028873\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\2070094\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.308\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.307\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -41,25 +41,43 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.26, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.19, )"
+              "version": "[6.0.26, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.19, )"
+              "version": "[6.0.26, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[6.0.19, )"
+              "version": "[6.0.26, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[6.0.26, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.19, )"
+              "version": "[6.0.26, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.26, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.19, )"
+              "version": "[6.0.26, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.35.0, )"
             },
             "Swashbuckle.AspNetCore.SwaggerGen": {
               "target": "Package",
@@ -68,6 +86,10 @@
             "Swashbuckle.AspNetCore.SwaggerUI": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.35.0, )"
             }
           },
           "imports": [
@@ -84,19 +106,19 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
+              "version": "[6.0.21, 6.0.21]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.22, 6.0.22]"
+              "version": "[6.0.21, 6.0.21]"
             },
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
+              "version": "[6.0.21, 6.0.21]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
+              "version": "[6.0.21, 6.0.21]"
             }
           ],
           "frameworkReferences": {
@@ -107,7 +129,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.308\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     }
