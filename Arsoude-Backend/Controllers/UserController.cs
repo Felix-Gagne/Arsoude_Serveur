@@ -65,7 +65,11 @@ namespace Arsoude_Backend.Controllers
                 if (user != null)
                 {
                     var token = await GenerateToken(user);
-                    return Ok(token);
+                    LoginResponse token1 = new LoginResponse
+                    {
+                        Token = token
+                    };
+                    return Ok(token1);
                 }
 
                 return Ok("Utilisateur connecté");
