@@ -96,11 +96,11 @@ namespace Arsoude_Backend.Controllers
 
                     _context.SaveChangesAsync();
 
-                    return Ok("User info updated");
+                    return Ok(new { Message = "User info updated" });
                 }
                 else
                 {
-                    return NotFound("User not found");
+                    return NotFound(new { Message = "User not found" });
                 }
             }
             catch(Exception ex)
