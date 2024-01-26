@@ -4,6 +4,7 @@ using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -40,6 +41,14 @@ namespace Arsoude_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(RegisterDTO register)
         {
+            User emailCheck = await _context.Users.Where(x => x.IdentityUser.Email == register.Email).FirstOrDefaultAsync();
+            User usernameCheck = await _context.Users.Where(x => x.IdentityUser.UserName == register.Username).FirstOrDefaultAsync();
+
+            if (emailCheck != null || usernameCheck != null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Le courriel ou le nom d'utilisateur existe déjà." });
+            }
+
             var result = await _userService.RegisterUserAsync(register);
 
             if (result.Succeeded)
@@ -79,6 +88,37 @@ namespace Arsoude_Backend.Controllers
 
             //À retourner quand le user est pas trouvé
             //return NotFound(new { Error = "L'utilisateur est introuvable ou le mot de passe de concorde pas" });
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> AddAditionnalInfo(InfoRegDTO dto)
+        {
+            try
+            {
+                User user = await _context.Users.Where(x => x.IdentityUser.UserName == dto.Username).FirstOrDefaultAsync();
+
+                if (user != null)
+                {
+                    user.HouseNo = dto.HouseNo;
+                    user.Street = dto.Street;
+                    user.City = dto.City;
+                    user.State = dto.State;
+                    user.YearOfBirth = dto.YearOfBirth;
+                    user.MonthOfBirth = dto.MonthOfBirth;
+
+                    _context.SaveChangesAsync();
+
+                    return Ok(new { Message = "User info updated" });
+                }
+                else
+                {
+                    return NotFound(new { Message = "User not found" });
+                }
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, $"An error occured: {ex.Message}");
+            }
         }
 
 

@@ -1,4 +1,5 @@
-﻿using Arsoude_Backend.Data;
+﻿using Arsoude_Backend.Controllers;
+using Arsoude_Backend.Data;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
 using Microsoft.AspNetCore.Identity;
@@ -40,12 +41,6 @@ namespace Arsoude_Backend.Services
                 LastName = register.LastName,
                 FirstName = register.FirstName,
                 AreaCode = register.AreaCode,
-                HouseNo = register.HouseNo,
-                Street = register.Street,
-                City = register.City,
-                State = register.State,
-                YearOfBirth = register.YearOfBirth,
-                MonthOfBirth = register.MonthOfBirth,
                 IdentityUserId = identityUser.Id
             };
 
