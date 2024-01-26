@@ -41,6 +41,14 @@ namespace Arsoude_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(RegisterDTO register)
         {
+            User emailCheck = await _context.Users.Where(x => x.IdentityUser.Email == register.Email).FirstOrDefaultAsync();
+            User usernameCheck = await _context.Users.Where(x => x.IdentityUser.UserName == register.Username).FirstOrDefaultAsync();
+
+            if (emailCheck != null || usernameCheck != null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Le courriel ou le nom d'utilisateur existe déjà." });
+            }
+
             var result = await _userService.RegisterUserAsync(register);
 
             if (result.Succeeded)
@@ -83,7 +91,7 @@ namespace Arsoude_Backend.Controllers
         {
             try
             {
-                User user = await _context.Users.FirstOrDefaultAsync(x => x.IdentityUser.UserName == dto.Username);
+                User user = await _context.Users.Where(x => x.IdentityUser.UserName == dto.Username).FirstOrDefaultAsync();
 
                 if (user != null)
                 {
