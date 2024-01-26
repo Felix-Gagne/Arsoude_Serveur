@@ -4,6 +4,7 @@ using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -75,6 +76,37 @@ namespace Arsoude_Backend.Controllers
 
             //À retourner quand le user est pas trouvé
             //return NotFound(new { Error = "L'utilisateur est introuvable ou le mot de passe de concorde pas" });
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> AddAditionnalInfo(InfoRegDTO dto)
+        {
+            try
+            {
+                User user = await _context.Users.FirstOrDefaultAsync(x => x.IdentityUser.UserName == dto.Username);
+
+                if (user != null)
+                {
+                    user.HouseNo = dto.HouseNo;
+                    user.Street = dto.Street;
+                    user.City = dto.City;
+                    user.State = dto.State;
+                    user.YearOfBirth = dto.YearOfBirth;
+                    user.MonthOfBirth = dto.MonthOfBirth;
+
+                    _context.SaveChangesAsync();
+
+                    return Ok("User info updated");
+                }
+                else
+                {
+                    return NotFound("User not found");
+                }
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, $"An error occured: {ex.Message}");
+            }
         }
 
 
