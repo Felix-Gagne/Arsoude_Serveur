@@ -114,12 +114,9 @@ namespace Arsoude_Backend.Data
         }
 
         public DbSet<User> Users { get; set; } = default!;
-<<<<<<< HEAD
+
         public DbSet<Trail> Trails { get; set; } = default!;
         public DbSet<Coordinates> Coordinates { get; set; } = default!;   
-=======
-        public DbSet<Trail> Trails { get; set; } = default!; 
-        public DbSet<Coordinates> Coordinates { get; set; } = default!;
->>>>>>> FCT_TrailsCRUD
+
     }
 }
