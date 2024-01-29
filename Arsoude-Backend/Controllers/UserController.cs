@@ -127,37 +127,6 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<ActionResult> AddAditionnalInfo(InfoRegDTO dto)
-        {
-            try
-            {
-                User user = await _context.Users.Where(x => x.IdentityUser.UserName == dto.Username).FirstOrDefaultAsync();
-
-                if (user != null)
-                {
-                    user.HouseNo = dto.HouseNo;
-                    user.Street = dto.Street;
-                    user.City = dto.City;
-                    user.State = dto.State;
-                    user.YearOfBirth = dto.YearOfBirth;
-                    user.MonthOfBirth = dto.MonthOfBirth;
-
-                    _context.SaveChangesAsync();
-
-                    return Ok(new { Message = "User info updated" });
-                }
-                else
-                {
-                    return NotFound(new { Message = "User not found" });
-                }
-            }
-            catch(Exception ex)
-            {
-                return StatusCode(500, $"An error occured: {ex.Message}");
-            }
-        }
-
 
 
         public async Task<ActionResult> Logout()
