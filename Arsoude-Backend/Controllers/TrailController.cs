@@ -3,6 +3,7 @@ using Arsoude_Backend.Models;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -78,8 +79,16 @@ namespace Arsoude_Backend.Controllers
 
         // POST api/<TrailController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Trail>> CreateTrail(Trail trail)
         {
+            if (_context.Trails == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Trails'  is null.");
+            }
+            _context.Trails.Add(trail);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetTrail", new { id = trail.Id }, trail);
         }
 
         // PUT api/<TrailController>/5
