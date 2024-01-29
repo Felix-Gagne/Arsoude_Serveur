@@ -1,4 +1,4 @@
-﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Data;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
@@ -64,12 +64,13 @@ namespace Arsoude_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(LoginDTO login)
         {
-            var result = await SignInManager.PasswordSignInAsync(login.Username, login.Password, true, lockoutOnFailure: false);
+            // Try to sign in with username
+            var result = await SignInManager.PasswordSignInAsync(login.Username, login.Password, false, lockoutOnFailure: false);
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                var user = await _userService.LoginUserAsync(login, _context);
-                //PlayerDTO playerDTO = new PlayerDTO(player);
+                // If sign in with username fails, try with email
+                var user = await UserManager.FindByEmailAsync(login.Username);
 
                 if (user != null)
                 {
@@ -81,13 +82,18 @@ namespace Arsoude_Backend.Controllers
                     return Ok(token1);
                 }
 
-                return Ok("Utilisateur connecté");
+                return BadRequest(new { Message = "Le mot de passe ou le nom d'utilisateur ne correspond pas." });
             }
-            else
-                return BadRequest(new {Message = "Le mot de passe ou le nom d'utilisateur ne correspond pas."});
 
-            //À retourner quand le user est pas trouvé
-            //return NotFound(new { Error = "L'utilisateur est introuvable ou le mot de passe de concorde pas" });
+            var loggedInUser = await _userService.LoginUserAsync(login, _context);
+
+            if (loggedInUser != null)
+            {
+                var token = await GenerateToken(loggedInUser.IdentityUser);
+                return Ok(token);
+            }
+
+            return Ok("Utilisateur connecté");
         }
 
         [HttpPut]
@@ -122,6 +128,7 @@ namespace Arsoude_Backend.Controllers
         }
 
 
+
         public async Task<ActionResult> Logout()
         {
             await SignInManager.SignOutAsync();
@@ -149,16 +156,15 @@ namespace Arsoude_Backend.Controllers
 
         //}
 
-        //Génère le token JWT pour l'authentification
-        private async Task<string> GenerateToken(User user)
+        private async Task<string> GenerateToken(IdentityUser user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GenerateRandomString(32)));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var userRoles = await UserManager.GetRolesAsync(user.IdentityUser);
+            var userRoles = await UserManager.GetRolesAsync(user);
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.IdentityUser.Id),
+                new Claim(ClaimTypes.NameIdentifier, user.UserName),
             };
 
             if (userRoles.Any())
