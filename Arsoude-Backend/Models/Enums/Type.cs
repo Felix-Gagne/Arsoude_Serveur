@@ -1,6 +1,6 @@
 ﻿namespace Arsoude_Backend.Models.Enums
 {
-    public enum Type
+    public enum TrailType
     {
         Pied,
         Vélo
