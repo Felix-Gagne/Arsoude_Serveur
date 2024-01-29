@@ -1,6 +1,9 @@
-﻿namespace Arsoude_Backend.Models.Enums
+﻿using Newtonsoft.Json.Linq;
+using System.Runtime.Serialization;
+
+namespace Arsoude_Backend.Models.Enums
 {
-    public enum Type
+    public enum TrailType
     {
         Pied,
         Vélo
