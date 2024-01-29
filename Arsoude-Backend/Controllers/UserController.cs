@@ -118,7 +118,7 @@ namespace Arsoude_Backend.Controllers
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.IdentityUser.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.IdentityUser.Id),
             };
 
             if (userRoles.Any())

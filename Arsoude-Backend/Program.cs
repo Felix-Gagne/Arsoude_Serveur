@@ -22,7 +22,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+
+//Ajouter les Scoped de service ici
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<TrailService>();
 
 //Authentification JWT (token)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
