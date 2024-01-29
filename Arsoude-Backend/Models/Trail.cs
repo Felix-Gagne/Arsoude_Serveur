@@ -1,36 +1,45 @@
-﻿using Arsoude_Backend.Models.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json.Converters;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Arsoude_Backend.Models
 {
     public class Trail
     {
-        public int Id { get; set; }
+        public int id { get; set; }
+
 
         [Required]
         public string Name { get; set; }
 
      
-        [Required, MaxLength(255, ErrorMessage = "Description Trop Longue")]
+        [Required, MaxLength(255, ErrorMessage ="Description Trop Longue")]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Place where the trail starts (ex : Mont Saint-Grégoire)
+        /// </summary>
         [Required]
-        public string Location { get; set; }
+        public string location { get; set; }
 
+        /// <summary>
+        /// Enum Defining what the trail is made for
+        /// </summary>
         [Required]
-        public virtual TrailType Type { get; set; }
+        public Type type { get; set; }
 
 
         public string? ImageUrl {get; set;}
 
         [Required]
-        public virtual Coordinates StartingCoordinates { get; set; }
+        public Coordinates StartingCoordinates { get; set; }
 
         [Required]
-        public virtual Coordinates EndingCoordinates { get; set; }
+        public Coordinates EndingCoordinates { get; set; }
 
         public int OwnerId { get; set; }
+
+
+
+
+
     }
 }

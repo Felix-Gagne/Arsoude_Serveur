@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {}
+    "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {
+    "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
+        "projectUniqueName": "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
         "projectName": "Arsoude-Backend",
-        "projectPath": "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
-        "packagesPath": "C:\\Users\\2157338\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\obj\\",
+        "projectPath": "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
+        "packagesPath": "C:\\Users\\2070094\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\2070094\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\2157338\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\2070094\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.309\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.307\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -79,14 +79,6 @@
               "target": "Package",
               "version": "[6.35.0, )"
             },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-              "target": "Package",
-              "version": "[6.0.16, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.3, )"
-            },
             "Swashbuckle.AspNetCore.SwaggerGen": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -98,10 +90,6 @@
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.35.0, )"
-            },
-            "System.Text.Json": {
-              "target": "Package",
-              "version": "[8.0.1, )"
             }
           },
           "imports": [
@@ -118,19 +106,19 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.21, 6.0.21]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.21, 6.0.21]"
             },
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.21, 6.0.21]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.21, 6.0.21]"
             }
           ],
           "frameworkReferences": {
@@ -141,7 +129,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.309\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     }

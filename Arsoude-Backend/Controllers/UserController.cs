@@ -4,6 +4,7 @@ using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -40,6 +41,14 @@ namespace Arsoude_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(RegisterDTO register)
         {
+            User emailCheck = await _context.Users.Where(x => x.IdentityUser.Email == register.Email).FirstOrDefaultAsync();
+            User usernameCheck = await _context.Users.Where(x => x.IdentityUser.UserName == register.Username).FirstOrDefaultAsync();
+
+            if (emailCheck != null || usernameCheck != null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Le courriel ou le nom d'utilisateur existe déjà." });
+            }
+
             var result = await _userService.RegisterUserAsync(register);
 
             if (result.Succeeded)
@@ -55,39 +64,62 @@ namespace Arsoude_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(LoginDTO login)
         {
-            // Try to sign in with username
-            var result = await SignInManager.PasswordSignInAsync(login.Username, login.Password, false, lockoutOnFailure: false);
+            var result = await SignInManager.PasswordSignInAsync(login.Username, login.Password, true, lockoutOnFailure: false);
 
-            if (!result.Succeeded)
+            if (result.Succeeded)
             {
-                // If sign in with username fails, try with email
-                var user = await UserManager.FindByEmailAsync(login.Username);
+                var user = await _userService.LoginUserAsync(login, _context);
+                //PlayerDTO playerDTO = new PlayerDTO(player);
 
                 if (user != null)
                 {
-                    result = await SignInManager.PasswordSignInAsync(user.UserName, login.Password, false, lockoutOnFailure: false);
-
-                    if (result.Succeeded)
+                    var token = await GenerateToken(user);
+                    LoginResponse token1 = new LoginResponse
                     {
-                        var token = await GenerateToken(user);
-                        return Ok(token);
-                    }
+                        Token = token
+                    };
+                    return Ok(token1);
                 }
 
-                return BadRequest(new { Message = "Le mot de passe ou le nom d'utilisateur ne correspond pas." });
+                return Ok("Utilisateur connecté");
             }
+            else
+                return BadRequest(new {Message = "Le mot de passe ou le nom d'utilisateur ne correspond pas."});
 
-            var loggedInUser = await _userService.LoginUserAsync(login, _context);
-
-            if (loggedInUser != null)
-            {
-                var token = await GenerateToken(loggedInUser.IdentityUser);
-                return Ok(token);
-            }
-
-            return Ok("Utilisateur connecté");
+            //À retourner quand le user est pas trouvé
+            //return NotFound(new { Error = "L'utilisateur est introuvable ou le mot de passe de concorde pas" });
         }
 
+        [HttpPut]
+        public async Task<ActionResult> AddAditionnalInfo(InfoRegDTO dto)
+        {
+            try
+            {
+                User user = await _context.Users.Where(x => x.IdentityUser.UserName == dto.Username).FirstOrDefaultAsync();
+
+                if (user != null)
+                {
+                    user.HouseNo = dto.HouseNo;
+                    user.Street = dto.Street;
+                    user.City = dto.City;
+                    user.State = dto.State;
+                    user.YearOfBirth = dto.YearOfBirth;
+                    user.MonthOfBirth = dto.MonthOfBirth;
+
+                    _context.SaveChangesAsync();
+
+                    return Ok(new { Message = "User info updated" });
+                }
+                else
+                {
+                    return NotFound(new { Message = "User not found" });
+                }
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, $"An error occured: {ex.Message}");
+            }
+        }
 
 
         public async Task<ActionResult> Logout()
@@ -117,15 +149,16 @@ namespace Arsoude_Backend.Controllers
 
         //}
 
-        private async Task<string> GenerateToken(IdentityUser user)
+        //Génère le token JWT pour l'authentification
+        private async Task<string> GenerateToken(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GenerateRandomString(32)));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var userRoles = await UserManager.GetRolesAsync(user);
+            var userRoles = await UserManager.GetRolesAsync(user.IdentityUser);
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.IdentityUser.UserName),
             };
 
             if (userRoles.Any())
