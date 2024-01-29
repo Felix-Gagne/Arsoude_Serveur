@@ -51,14 +51,7 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin();
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
-
-        //policy.AllowCredentials();
     });
-});
-
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.HttpOnly = false;
 });
 
 var app = builder.Build();
