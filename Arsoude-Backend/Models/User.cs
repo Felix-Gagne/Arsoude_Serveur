@@ -1,6 +1,7 @@
 ﻿using Arsoude_Backend.Models.Validations;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Text.Json.Serialization;
 
