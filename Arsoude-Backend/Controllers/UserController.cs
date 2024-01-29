@@ -74,22 +74,12 @@ namespace Arsoude_Backend.Controllers
 
                 if (user != null)
                 {
-<<<<<<< HEAD
                     var token = await GenerateToken(user);
                     LoginResponse token1 = new LoginResponse
                     {
                         Token = token
                     };
                     return Ok(token1);
-=======
-                    result = await SignInManager.PasswordSignInAsync(user.UserName, login.Password, false, lockoutOnFailure: false);
-
-                    if (result.Succeeded)
-                    {
-                        var token = await GenerateToken(user);
-                        return Ok(token);
-                    }
->>>>>>> FCT_TrailsCRUD
                 }
 
                 return BadRequest(new { Message = "Le mot de passe ou le nom d'utilisateur ne correspond pas." });

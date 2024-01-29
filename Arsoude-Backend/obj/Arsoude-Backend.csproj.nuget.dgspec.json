@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2132141\\Desktop\\repo\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {}
+    "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2132141\\Desktop\\repo\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {
+    "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2132141\\Desktop\\repo\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
+        "projectUniqueName": "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
         "projectName": "Arsoude-Backend",
-        "projectPath": "C:\\Users\\2132141\\Desktop\\repo\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
-        "packagesPath": "C:\\Users\\2132141\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2132141\\Desktop\\repo\\Arsoude_Serveur\\Arsoude-Backend\\obj\\",
+        "projectPath": "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\Arsoude-Backend.csproj",
+        "packagesPath": "C:\\Users\\2157338\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\2157338\\Desktop\\Arsoude_Serveur\\Arsoude-Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\2132141\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\2157338\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.307\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.309\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -110,19 +110,19 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.21, 6.0.21]"
+              "version": "[6.0.23, 6.0.23]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.21, 6.0.21]"
+              "version": "[6.0.23, 6.0.23]"
             },
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.21, 6.0.21]"
+              "version": "[6.0.23, 6.0.23]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.21, 6.0.21]"
+              "version": "[6.0.23, 6.0.23]"
             }
           ],
           "frameworkReferences": {
@@ -133,7 +133,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.309\\RuntimeIdentifierGraph.json"
         }
       }
     }
