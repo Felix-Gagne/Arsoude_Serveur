@@ -34,10 +34,6 @@ namespace Arsoude_Backend.Controllers
         public async Task<ActionResult> GetUserTrails()
         {
 
-            var bb = User.Claims.ToList();
-
-            var aaa = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
 

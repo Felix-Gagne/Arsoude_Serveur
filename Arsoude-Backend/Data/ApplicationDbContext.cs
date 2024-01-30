@@ -104,15 +104,17 @@ namespace Arsoude_Backend.Data
             Description = "UNE MECHANT GROS TRAJET",
             Location = "Bar chez Diane",
             Type = TrailType.Pied,
-            StartingCoordinates = coordinates.First(),
-            EndingCoordinates = coordinates.Last(),
+           
+            
+            StartingCoordinatesId = 1,
+            EndingCoordinatesId = 1,
             OwnerId = test.Id
 
 
 
             };
 
-
+            builder.Entity<Trail>().HasData(trail);
 
         }
 
