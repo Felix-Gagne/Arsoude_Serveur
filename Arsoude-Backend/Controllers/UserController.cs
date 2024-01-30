@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -70,15 +71,38 @@ namespace Arsoude_Backend.Controllers
             if (user != null && await UserManager.CheckPasswordAsync(user, login.Password))
             {
                 // If sign in with username fails, try with email 
-                if (user != null)
+
+                //var token = await GenerateToken(user);
+                //LoginResponse token1 = new LoginResponse
+                //{
+                //    Token = token
+                //};
+                IList<string> roles = await UserManager.GetRolesAsync(user);
+                List<Claim> authClaim = new List<Claim>();
+                foreach (string role in roles)
                 {
-                    var token = await GenerateToken(user);
-                    LoginResponse token1 = new LoginResponse
-                    {
-                        Token = token
-                    };
-                    return Ok(token1);
+
+                    authClaim.Add(new Claim(ClaimTypes.Role, role));
                 }
+                authClaim.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Cette Phrase est tellement longue quelle va empecher les hackers de passer"));
+                JwtSecurityToken token = new JwtSecurityToken(
+                    issuer: "https://localhost:7127",
+                    claims: authClaim,
+                    expires: DateTime.Now.AddMinutes(30),
+                    signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature));
+
+
+
+
+
+                return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        validTo = token.ValidTo,
+                        Message = "Connection Réussie :)"
+                    });
+                
 
                 
             }

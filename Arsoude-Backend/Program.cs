@@ -40,12 +40,9 @@ options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = "http://localhost:5050",
-        ValidAudience = "http://localhost:4200",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Cette Phrase est tellement longue quelle va emp�cher les hackers de passer"))
+        ValidateAudience = false,
+        ValidIssuer = "https://localhost:7127",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Cette Phrase est tellement longue quelle va empecher les hackers de passer"))
     };
 });
 

@@ -29,11 +29,12 @@ namespace Arsoude_Backend.Services
                 List<Trail> usertrails = new List<Trail>();
 
                 usertrails = await _context.Trails.Where(T => T.OwnerId == owner.Id).ToListAsync();
+                return usertrails;
             }
             else { throw new UnauthorizedAccessException(); }
  
 
-            return new List<Trail>();
+           
         }
 
 
