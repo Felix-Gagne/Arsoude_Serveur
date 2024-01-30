@@ -38,9 +38,14 @@ namespace Arsoude_Backend.Services
         }
 
 
-        public async Task<Trail> CreateTrail(Trail trail)
+        public async Task<Trail> CreateTrail(Trail trail, IdentityUser user)
         {
 
+            if( user == null)
+            {
+                throw new Exception("Create Trail: the user is null");
+
+            }
             if (trail == null)
             {
                 throw new Exception("Create Trail: the trail is null");
@@ -51,6 +56,9 @@ namespace Arsoude_Backend.Services
                 throw new Exception("Create Trail: Entity set 'ApplicationDbContext.Trails'  is null.");
             }
 
+            User userOfficial = _context.TrailUsers.Where(_u => _u.IdentityUserId == user.Id).FirstOrDefault();
+
+            trail.OwnerId = userOfficial.Id;
             _context.Trails.Add(trail);
             await _context.SaveChangesAsync();
 
