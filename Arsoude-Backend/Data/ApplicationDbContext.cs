@@ -113,7 +113,7 @@ namespace Arsoude_Backend.Data
 
         }
 
-        public DbSet<User> Users { get; set; } = default!;
+        public DbSet<User> TrailUsers { get; set; } = default!;
 
         public DbSet<Trail> Trails { get; set; } = default!;
         public DbSet<Coordinates> Coordinates { get; set; } = default!;   

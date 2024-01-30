@@ -22,7 +22,7 @@ namespace Arsoude_Backend.Services
         public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user) {
 
 
-            User? owner = _context.Users.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
+            User? owner = _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
 
             if (owner != null)
             {

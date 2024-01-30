@@ -41,8 +41,8 @@ namespace Arsoude_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(RegisterDTO register)
         {
-            User emailCheck = await _context.Users.Where(x => x.IdentityUser.Email == register.Email).FirstOrDefaultAsync();
-            User usernameCheck = await _context.Users.Where(x => x.IdentityUser.UserName == register.Username).FirstOrDefaultAsync();
+            User emailCheck = await _context.TrailUsers.Where(x => x.IdentityUser.Email == register.Email).FirstOrDefaultAsync();
+            User usernameCheck = await _context.TrailUsers.Where(x => x.IdentityUser.UserName == register.Username).FirstOrDefaultAsync();
 
             if (emailCheck != null || usernameCheck != null)
             {
@@ -90,7 +90,7 @@ namespace Arsoude_Backend.Controllers
         {
             try
             {
-                User user = await _context.Users.Where(x => x.IdentityUser.UserName == dto.Username).FirstOrDefaultAsync();
+                User user = await _context.TrailUsers.Where(x => x.IdentityUser.UserName == dto.Username).FirstOrDefaultAsync();
 
                 if (user != null)
                 {

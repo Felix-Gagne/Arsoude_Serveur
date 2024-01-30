@@ -44,7 +44,7 @@ namespace Arsoude_Backend.Services
                 IdentityUserId = identityUser.Id
             };
 
-            await _context.Users.AddAsync(user);
+            await _context.TrailUsers.AddAsync(user);
             await _context.SaveChangesAsync();
 
             return result;
@@ -53,7 +53,7 @@ namespace Arsoude_Backend.Services
         //Modèle à utiliser quand on aura le modèle User
         public async Task<User> LoginUserAsync(LoginDTO login, ApplicationDbContext context)
         {
-            User user = await context.Users.FirstOrDefaultAsync(p => p.IdentityUser.UserName == login.Username);
+            User user = await context.TrailUsers.FirstOrDefaultAsync(p => p.IdentityUser.UserName == login.Username);
             return user;
         }
 
