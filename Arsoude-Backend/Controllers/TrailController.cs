@@ -70,10 +70,43 @@ namespace Arsoude_Backend.Controllers
         }
 
         // GET api/<TrailController>/5
-        [HttpGet()]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            return "balba";
+            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user != null)
+            {
+                try
+                {
+                    Trail trail = await _trailService.GetTrail(id, user);
+                    return Ok(trail);
+                }
+
+                catch(Exception e) {
+                    if (e.GetType() == typeof(UnauthorizedAccessException))
+                    {
+                        return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
+
+                    }
+                    else { 
+                    return BadRequest(e);
+                    }
+
+                }
+
+
+
+
+            }
+
+            else {
+
+                return Unauthorized(new { Message = "Get: Utilisateur non connecter" });
+            }
+
+
+            
         }
 
 

@@ -87,21 +87,32 @@ namespace Arsoude_Backend.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Trail> GetTrail(int id)
+        public async Task<Trail> GetTrail(int id, IdentityUser user)
         {
             if (id == null)
             {
-                throw new Exception("Get Trail: Id in paramater is null.");
+                throw new ArgumentNullException("Get Trail: Id in paramater is null.");
 
             }
             if (_context.Trails == null)
             {
                 throw new Exception("Get Trail: Entity set 'ApplicationDbContext.Trails'  is null.");
             }
+
+
+
+            User? owner = _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
+
             var trail = await _context.Trails.FindAsync(id);
+            
+
             if (trail == null)
             {
                 throw new Exception("Get Trail: the trail is null");
+            }
+
+            if(trail.OwnerId != owner.Id) {
+            throw new UnauthorizedAccessException();
             }
             return trail;
         }
