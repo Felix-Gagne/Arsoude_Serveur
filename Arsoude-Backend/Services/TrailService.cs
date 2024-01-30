@@ -57,7 +57,8 @@ namespace Arsoude_Backend.Services
             }
 
             User userOfficial = _context.TrailUsers.Where(_u => _u.IdentityUserId == user.Id).FirstOrDefault();
-
+            _context.Coordinates.Add(trail.EndingCoordinates);
+            _context.Coordinates.Add(trail.StartingCoordinates);
             trail.OwnerId = userOfficial.Id;
             _context.Trails.Add(trail);
             await _context.SaveChangesAsync();
