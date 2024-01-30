@@ -89,6 +89,19 @@ namespace Arsoude_Backend.Migrations
                     b.HasIndex("StartingCoordinatesId");
 
                     b.ToTable("Trails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "UNE MECHANT GROS TRAJET",
+                            EndingCoordinatesId = 1,
+                            Location = "Bar chez Diane",
+                            Name = "TestTrail",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 0
+                        });
                 });
 
             modelBuilder.Entity("Arsoude_Backend.Models.User", b =>
@@ -177,7 +190,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "b8cba0cd-c31a-4478-94f2-e3e2bb42dde3",
+                            ConcurrencyStamp = "45c8e1d8-1003-41fb-8172-5a8442a1ee4c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -274,15 +287,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b66ae2fc-bb29-476c-9a9a-ed885e7a7dd8",
+                            ConcurrencyStamp = "b8a05d82-98ec-4374-91dd-c48e48d372bb",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDXYWnEzNT4tozGGkoDIBnRf2ikfYpYuTImLOeVWsyyWOOS3LcF8Nu6YBPMEg8DtZQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJucMeR7JUoimcZL+rBBma7ilKWXuHnIY3OqIrkFaP0Tu6vRIso0TegyEJwLRorR3Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1dd1dd01-61ca-41e9-a76f-d211aa0618be",
+                            SecurityStamp = "06ce25a9-4f9d-4f90-9c06-277a9155b315",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -290,15 +303,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0b47ffea-947f-463f-8f6f-8fb84972aaa1",
+                            ConcurrencyStamp = "1bf18f98-64ea-4103-8558-b1ce6d2ed33c",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPSaf5lF4pTdWnsvS1PlHmsgQkjpktuDhOF4lCw/N+5xvJdfpyfH+WmYwR9o+YxlNw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEARZIlH+rqj4Eosa451ip5ZciAMZKum579Lo3iU1cfOga9OGWwUIoznHO4JsEfUsPg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "78de7332-438f-4ad9-a758-453d65e97d1a",
+                            SecurityStamp = "652ad5dd-eced-4ad1-8058-f61c00ba8b64",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });

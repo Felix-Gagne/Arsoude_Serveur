@@ -30,9 +30,13 @@ namespace Arsoude_Backend.Models
 
         [Required]
         public virtual Coordinates StartingCoordinates { get; set; }
+        [Required]
+        public int StartingCoordinatesId { get; set; }
 
         [Required]
         public virtual Coordinates EndingCoordinates { get; set; }
+        [Required]
+        public int EndingCoordinatesId { get; set; }
 
         public int OwnerId { get; set; }
     }
