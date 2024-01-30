@@ -57,5 +57,5 @@ jobs:
         with:
           app-name: 'Arsoudeserv'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CC7CC2BBD2F1420386C4747167B07767 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_46CB883695E34344BFF9D3972BD824D8 }}
           package: .
