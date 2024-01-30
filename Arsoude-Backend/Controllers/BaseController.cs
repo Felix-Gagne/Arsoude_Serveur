@@ -27,7 +27,7 @@ namespace Arsoude_Backend.Controllers
             {
                 if(user == null)
                 {
-                    user = _context.Users.FirstOrDefault(x => x.IdentityUserId == UserId);
+                    user = _context.TrailUsers.FirstOrDefault(x => x.IdentityUserId == UserId);
                 }
                 return user;
             }

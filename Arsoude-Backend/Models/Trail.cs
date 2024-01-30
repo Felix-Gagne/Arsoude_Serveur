@@ -1,6 +1,5 @@
-﻿using Arsoude_Backend.Models.Enums;
+using Arsoude_Backend.Models.Enums;
 using System.ComponentModel.DataAnnotations;
-
 namespace Arsoude_Backend.Models
 {
     public class Trail
@@ -27,7 +26,7 @@ namespace Arsoude_Backend.Models
         public virtual TrailType Type { get; set; }
 
 
-        public string? ImageUrl {get; set;}
+        public string? ImageUrl { get; set; }
 
         [Required]
         public virtual Coordinates StartingCoordinates { get; set; }
