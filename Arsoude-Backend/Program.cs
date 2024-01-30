@@ -23,6 +23,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<TrailsService>();
 
 //Authentification JWT (token)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
