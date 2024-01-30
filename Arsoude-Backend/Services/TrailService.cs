@@ -22,18 +22,19 @@ namespace Arsoude_Backend.Services
         public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user) {
 
 
-            User? owner = _context.Users.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
+            User? owner = _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
 
             if (owner != null)
             {
                 List<Trail> usertrails = new List<Trail>();
 
                 usertrails = await _context.Trails.Where(T => T.OwnerId == owner.Id).ToListAsync();
+                return usertrails;
             }
             else { throw new UnauthorizedAccessException(); }
  
 
-            return new List<Trail>();
+           
         }
 
 

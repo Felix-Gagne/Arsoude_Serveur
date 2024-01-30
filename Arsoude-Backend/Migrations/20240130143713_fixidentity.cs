@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class login : Migration
+    public partial class fixidentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -169,7 +169,7 @@ namespace Arsoude_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "TrailUsers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -187,9 +187,9 @@ namespace Arsoude_Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_TrailUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_AspNetUsers_IdentityUserId",
+                        name: "FK_TrailUsers_AspNetUsers_IdentityUserId",
                         column: x => x.IdentityUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -231,22 +231,42 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "f686abfb-f3b4-4f79-a45f-41b5ab4d1e30", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "b8cba0cd-c31a-4478-94f2-e3e2bb42dde3", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "01e77b8c-d283-41f3-945f-e9da3670806c", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDbKfr0j1m32wptRWcRDgnT6GRtwF72DEzbV9/VHpYlMTLJcEzkONKf4+BGgceDl+A==", null, false, "68bf0efe-964b-4698-b755-841a7d76d181", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "b66ae2fc-bb29-476c-9a9a-ed885e7a7dd8", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDXYWnEzNT4tozGGkoDIBnRf2ikfYpYuTImLOeVWsyyWOOS3LcF8Nu6YBPMEg8DtZQ==", null, false, "1dd1dd01-61ca-41e9-a76f-d211aa0618be", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "131509e4-1192-45b1-b962-d620471ae32a", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEHuAnujKMdD9GS1692LydHuxzxk2BZjYCpuaRT1tgBlmeGy8/FTVebHSs1mX512/Qw==", null, false, "7009f031-b034-4cca-a2dd-772fc1c9a6bb", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "0b47ffea-947f-463f-8f6f-8fb84972aaa1", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEPSaf5lF4pTdWnsvS1PlHmsgQkjpktuDhOF4lCw/N+5xvJdfpyfH+WmYwR9o+YxlNw==", null, false, "78de7332-438f-4ad9-a758-453d65e97d1a", false, "user@user.com" });
+
+            migrationBuilder.InsertData(
+                table: "Coordinates",
+                columns: new[] { "Id", "X", "Y" },
+                values: new object[] { 1, 45.559601999999998, -73.580235999999999 });
+
+            migrationBuilder.InsertData(
+                table: "Coordinates",
+                columns: new[] { "Id", "X", "Y" },
+                values: new object[] { 2, 45.671821999999999, -73.526653999999994 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "11111111-1111-1111-1111-111111111113", "11111111-1111-1111-1111-111111111111" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "11111111-1111-1111-1111-111111111112" });
+
+            migrationBuilder.InsertData(
+                table: "TrailUsers",
+                columns: new[] { "Id", "AreaCode", "City", "FirstName", "HouseNo", "IdentityUserId", "LastName", "MonthOfBirth", "State", "Street", "YearOfBirth" },
+                values: new object[] { 1, "111 111", null, "Test", null, "11111111-1111-1111-1111-111111111112", "Test", null, null, null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -296,8 +316,8 @@ namespace Arsoude_Backend.Migrations
                 column: "StartingCoordinatesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_IdentityUserId",
-                table: "Users",
+                name: "IX_TrailUsers_IdentityUserId",
+                table: "TrailUsers",
                 column: "IdentityUserId");
         }
 
@@ -322,7 +342,7 @@ namespace Arsoude_Backend.Migrations
                 name: "Trails");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "TrailUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

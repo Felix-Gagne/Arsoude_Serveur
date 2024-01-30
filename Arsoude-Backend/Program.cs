@@ -1,4 +1,4 @@
-using Arsoude_Backend.Data;
+﻿using Arsoude_Backend.Data;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -28,16 +28,21 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<TrailService>();
 
 //Authentification JWT (token)
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-    options.TokenValidationParameters = new TokenValidationParameters
+builder.Services.AddAuthentication(options =>
+{
+options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        ValidateAudience = false,
+        ValidIssuer = "https://localhost:7127",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Cette Phrase est tellement longue quelle va empecher les hackers de passer"))
     };
 });
 
@@ -48,7 +53,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAlmostAll", policy =>
     {
-        //policy.WithOrigins("http://localhost:4200/", "https://localhost:4200/", "http://localhost:49210", "https://localhost:49210");
+        
 
 
         policy.AllowAnyOrigin();

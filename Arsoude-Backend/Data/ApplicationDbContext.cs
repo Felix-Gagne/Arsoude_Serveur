@@ -57,6 +57,9 @@ namespace Arsoude_Backend.Data
                 NormalizedUserName = "USER@USER.COM",
                 EmailConfirmed = true
             };
+            builder.Entity<IdentityUserRole<string>>().HasData(
+               new IdentityUserRole<string> { UserId = user.Id, RoleId = "11111111-1111-1111-1111-111111111113" }
+           );
 
             User test = new User {
                 Id = 1,
@@ -113,7 +116,7 @@ namespace Arsoude_Backend.Data
 
         }
 
-        public DbSet<User> Users { get; set; } = default!;
+        public DbSet<User> TrailUsers { get; set; } = default!;
 
         public DbSet<Trail> Trails { get; set; } = default!;
         public DbSet<Coordinates> Coordinates { get; set; } = default!;   

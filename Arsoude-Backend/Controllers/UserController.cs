@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -41,8 +42,8 @@ namespace Arsoude_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(RegisterDTO register)
         {
-            User emailCheck = await _context.Users.Where(x => x.IdentityUser.Email == register.Email).FirstOrDefaultAsync();
-            User usernameCheck = await _context.Users.Where(x => x.IdentityUser.UserName == register.Username).FirstOrDefaultAsync();
+            User emailCheck = await _context.TrailUsers.Where(x => x.IdentityUser.Email == register.Email).FirstOrDefaultAsync();
+            User usernameCheck = await _context.TrailUsers.Where(x => x.IdentityUser.UserName == register.Username).FirstOrDefaultAsync();
 
             if (emailCheck != null || usernameCheck != null)
             {
@@ -65,35 +66,47 @@ namespace Arsoude_Backend.Controllers
         public async Task<ActionResult> Login(LoginDTO login)
         {
             // Try to sign in with username
-            var result = await SignInManager.PasswordSignInAsync(login.Username, login.Password, false, lockoutOnFailure: false);
+            IdentityUser? user = await UserManager.FindByNameAsync(login.Username);
 
-            if (!result.Succeeded)
+            if (user != null && await UserManager.CheckPasswordAsync(user, login.Password))
             {
-                // If sign in with username fails, try with email
-                var user = await UserManager.FindByEmailAsync(login.Username);
+                // If sign in with username fails, try with email 
 
-                if (user != null)
+                //var token = await GenerateToken(user);
+                //LoginResponse token1 = new LoginResponse
+                //{
+                //    Token = token
+                //};
+                IList<string> roles = await UserManager.GetRolesAsync(user);
+                List<Claim> authClaim = new List<Claim>();
+                foreach (string role in roles)
                 {
-                    var token = await GenerateToken(user);
-                    LoginResponse token1 = new LoginResponse
-                    {
-                        Token = token
-                    };
-                    return Ok(token1);
+
+                    authClaim.Add(new Claim(ClaimTypes.Role, role));
                 }
+                authClaim.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Cette Phrase est tellement longue quelle va empecher les hackers de passer"));
+                JwtSecurityToken token = new JwtSecurityToken(
+                    issuer: "https://localhost:7127",
+                    claims: authClaim,
+                    expires: DateTime.Now.AddMinutes(30),
+                    signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature));
 
-                return BadRequest(new { Message = "Le mot de passe ou le nom d'utilisateur ne correspond pas." });
+
+
+
+
+                return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        validTo = token.ValidTo,
+                        Message = "Connection Réussie :)"
+                    });
+                
+
+                
             }
-
-            var loggedInUser = await _userService.LoginUserAsync(login, _context);
-
-            if (loggedInUser != null)
-            {
-                var token = await GenerateToken(loggedInUser.IdentityUser);
-                return Ok(token);
-            }
-
-            return Ok("Utilisateur connecté");
+            return BadRequest(new { Message = "Le mot de passe ou le nom d'utilisateur ne correspond pas." });
         }
 
         [HttpPut]
@@ -101,7 +114,7 @@ namespace Arsoude_Backend.Controllers
         {
             try
             {
-                User user = await _context.Users.Where(x => x.IdentityUser.UserName == dto.Username).FirstOrDefaultAsync();
+                User user = await _context.TrailUsers.Where(x => x.IdentityUser.UserName == dto.Username).FirstOrDefaultAsync();
 
                 if (user != null)
                 {
@@ -128,7 +141,7 @@ namespace Arsoude_Backend.Controllers
         }
 
 
-
+        [HttpGet]
         public async Task<ActionResult> Logout()
         {
             await SignInManager.SignOutAsync();
@@ -158,25 +171,21 @@ namespace Arsoude_Backend.Controllers
 
         private async Task<string> GenerateToken(IdentityUser user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GenerateRandomString(32)));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var userRoles = await UserManager.GetRolesAsync(user);
-
-            var claims = new List<Claim>
+            IList<string> roles = await UserManager.GetRolesAsync(user);
+            List<Claim> authClaim = new List<Claim>();
+            foreach (string role in roles)
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserName),
-            };
 
-            if (userRoles.Any())
-            {
-                claims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
+                authClaim.Add(new Claim(ClaimTypes.Role, role));
             }
-
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-                _config["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddMinutes(15),
-                signingCredentials: credentials);
+            authClaim.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Cette Phrase est tellement longue quelle va empêcher les hackers de passer"));
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer: "http://localhost:5050",
+                audience: "http://localhost:4200",
+                claims: authClaim,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature));
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

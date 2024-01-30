@@ -3,7 +3,6 @@ using System;
 using Arsoude_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,10 +10,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240126164408_AddRelation")]
-    partial class AddRelation
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
@@ -137,7 +135,7 @@ namespace Arsoude_Backend.Migrations
 
                     b.HasIndex("IdentityUserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("TrailUsers");
 
                     b.HasData(
                         new
@@ -179,7 +177,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "510b3574-de2b-4afb-b9c0-5700230b0cf1",
+                            ConcurrencyStamp = "b8cba0cd-c31a-4478-94f2-e3e2bb42dde3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -276,15 +274,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "34f269b1-0335-4201-9851-d44ecf65736f",
+                            ConcurrencyStamp = "b66ae2fc-bb29-476c-9a9a-ed885e7a7dd8",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK28INhsnSln46czwUuuxtt/eCAHHte49cPbpO1kDUMDcgdoFG2jUzFNcv+x3PebkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDXYWnEzNT4tozGGkoDIBnRf2ikfYpYuTImLOeVWsyyWOOS3LcF8Nu6YBPMEg8DtZQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3d129980-aa9b-4c82-b577-ec767ddfb9ce",
+                            SecurityStamp = "1dd1dd01-61ca-41e9-a76f-d211aa0618be",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -292,15 +290,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f43e282c-0230-4d98-95b5-282c9066505f",
+                            ConcurrencyStamp = "0b47ffea-947f-463f-8f6f-8fb84972aaa1",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOacofg/s1mEeokOg6ZlJH0r9q4fBlZLGEorhHxeYdOhpzFvjOgBrHRb2a6hLgFkVA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPSaf5lF4pTdWnsvS1PlHmsgQkjpktuDhOF4lCw/N+5xvJdfpyfH+WmYwR9o+YxlNw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "72b59efa-e98f-4ad5-a6cc-184ba76f6e04",
+                            SecurityStamp = "78de7332-438f-4ad9-a758-453d65e97d1a",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -371,6 +369,11 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             UserId = "11111111-1111-1111-1111-111111111111",
+                            RoleId = "11111111-1111-1111-1111-111111111113"
+                        },
+                        new
+                        {
+                            UserId = "11111111-1111-1111-1111-111111111112",
                             RoleId = "11111111-1111-1111-1111-111111111113"
                         });
                 });
