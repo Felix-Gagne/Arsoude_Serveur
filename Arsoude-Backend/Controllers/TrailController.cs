@@ -3,6 +3,7 @@ using Arsoude_Backend.Models;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -79,30 +80,80 @@ namespace Arsoude_Backend.Controllers
             return "balba";
         }
 
-        // POST api/<TrailController>
+
+        // PUT: api/Trails/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTrail(int id, Trail trail)
+        {
+            if (id != trail.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(trail).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TrailExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/Trails
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Trail>> CreateTrail(Trail trail)
         {
-            if (_context.Trails == null)
+            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user != null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Trails'  is null.");
+                return await _trailService.CreateTrail(trail);
             }
-            _context.Trails.Add(trail);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTrail", new { id = trail.Id }, trail);
+            else
+            {
+                return NotFound("Create Trail: No user found");
+            }
         }
 
-        // PUT api/<TrailController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //// DELETE: api/Trails/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteTrail(int id)
+        //{
+        //    User? user = await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        // DELETE api/<TrailController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        //    if (user != null)
+        //    {
+
+        //        if(TrailExists(id))
+        //        {
+        //            await _trailsService.DeleteTrail(id);
+        //        }
+        //        return Ok("Deleted");
+        //    }
+        //    else
+        //    {
+        //        return Unauthorized("Delete Trail: No user found");
+        //    }
+        //}
+
+        private bool TrailExists(int id)
         {
+            return (_context.Trails?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
