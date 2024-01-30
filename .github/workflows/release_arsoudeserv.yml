@@ -58,4 +58,4 @@ jobs:
           app-name: 'Arsoudeserv'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CC7CC2BBD2F1420386C4747167B07767 }}
-          package: .
+          package: .\Arsoude-Backend
