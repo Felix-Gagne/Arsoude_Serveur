@@ -202,7 +202,7 @@ namespace Arsoude_Backend.Controllers
 
         // GET: api/<UserController>
         [HttpGet]
-        public async HelloWorld GetWord()
+        public async Task<HelloWorld> GetWord()
         {
             await _context.Database.MigrateAsync();
 
