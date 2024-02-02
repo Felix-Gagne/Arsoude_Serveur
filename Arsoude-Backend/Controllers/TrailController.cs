@@ -111,14 +111,24 @@ namespace Arsoude_Backend.Controllers
         // POST: api/Trails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Trail>> CreateTrail(Trail trail)
+        public async Task<ActionResult> CreateTrail(Trail trail)
         {
             IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             if (user != null)
             {
-                return await _trailService.CreateTrail(trail, user);
+                try
+                {
+                    trail = await _trailService.CreateTrail(trail, user);
+                    return Ok(trail);
+                }
+                catch(Exception e)
+                {
+                    return BadRequest(e);
+                }
+               
             }
+           
 
             else
             {
@@ -126,26 +136,26 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-        //// DELETE: api/Trails/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteTrail(int id)
-        //{
-        //    User? user = await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        // DELETE: api/Trails/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTrail(int id)
+        {
+            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        //    if (user != null)
-        //    {
+            if (user != null)
+            {
 
-        //        if(TrailExists(id))
-        //        {
-        //            await _trailsService.DeleteTrail(id);
-        //        }
-        //        return Ok("Deleted");
-        //    }
-        //    else
-        //    {
-        //        return Unauthorized("Delete Trail: No user found");
-        //    }
-        //}
+                if (TrailExists(id))
+                {
+                    await _trailService.DeleteTrail(id);
+                }
+                return Ok("Deleted");
+            }
+            else
+            {
+                return Unauthorized("Delete Trail: No user found");
+            }
+        }
 
         private bool TrailExists(int id)
         {
