@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Protocol.Plugins;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -54,12 +55,41 @@ namespace Arsoude_Backend.Controllers
 
             if (result.Succeeded)
             {
-                return Ok(new { Message = "Utilisateur inscrit" });
+                IdentityUser? user = await UserManager.FindByEmailAsync(register.Email);
+                if (user != null)
+                {
+                    IList<string> roles = await UserManager.GetRolesAsync(user);
+                    List<Claim> authClaim = new List<Claim>();
+                    foreach (string role in roles)
+                    {
+
+                        authClaim.Add(new Claim(ClaimTypes.Role, role));
+                    }
+                    authClaim.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+                    SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Cette Phrase est tellement longue quelle va empecher les hackers de passer"));
+                    JwtSecurityToken token = new JwtSecurityToken(
+                        issuer: "https://localhost:7127",
+                        claims: authClaim,
+                        expires: DateTime.Now.AddMinutes(30),
+                        signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature));
+
+
+
+
+
+                    return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        validTo = token.ValidTo,
+                        Message = "Inscription et connection réussie :)"
+                    });
+                }
+
+
             }
-            else
-            {
+            
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "La création de l'utilisateur a échoué." });
-            }
+            
         }
 
         [HttpPost]
