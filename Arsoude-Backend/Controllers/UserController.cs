@@ -66,7 +66,7 @@ namespace Arsoude_Backend.Controllers
         public async Task<ActionResult> Login(LoginDTO login)
         {
             // Try to sign in with username
-            IdentityUser? user = await UserManager.FindByNameAsync(login.Username);
+            IdentityUser? user = await UserManager.FindByEmailAsync(login.Username);
 
             if (user != null && await UserManager.CheckPasswordAsync(user, login.Password))
             {
@@ -202,8 +202,11 @@ namespace Arsoude_Backend.Controllers
 
         // GET: api/<UserController>
         [HttpGet]
-        public HelloWorld GetWord()
+        public async Task<HelloWorld> GetWord()
         {
+            await _context.Database.MigrateAsync();
+
+
             return new HelloWorld();
         }
 
