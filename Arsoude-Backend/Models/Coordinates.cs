@@ -8,6 +8,6 @@
 
         public double Y { get; set; }
 
-
+        //public int TrailId { get; set; }
     }
 }

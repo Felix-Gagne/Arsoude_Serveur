@@ -1,6 +1,7 @@
 ﻿using Arsoude_Backend.Data;
 using Arsoude_Backend.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Arsoude_Backend.Services
@@ -130,7 +131,24 @@ namespace Arsoude_Backend.Services
         }
 
 
+        public async Task<Trail> AddCoordinates(IdentityUser user, List<Coordinates> coords, int trailId)
+        {
+            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
+            Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+
+            if(trail.OwnerId == owner.Id)
+            {
+                foreach(Coordinates coord in coords)
+                {
+                    trail.Coordinates.Add(coord);
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
+            return trail;
+        }
 
 
 
