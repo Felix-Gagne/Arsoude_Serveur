@@ -3,6 +3,7 @@ using Arsoude_Backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Arsoude_Backend.Services
 {
@@ -12,12 +13,12 @@ namespace Arsoude_Backend.Services
         private readonly UserManager<IdentityUser> _userManager;
 
 
-        public TrailService(UserManager<IdentityUser> userManager, ApplicationDbContext context) { 
-        
-        _context = context;
+        public TrailService(UserManager<IdentityUser> userManager, ApplicationDbContext context) {
+
+            _context = context;
             _userManager = userManager;
-        
-        
+
+
         }
 
         public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user) {
@@ -33,16 +34,16 @@ namespace Arsoude_Backend.Services
                 return usertrails;
             }
             else { throw new UnauthorizedAccessException(); }
- 
 
-           
+
+
         }
 
 
         public async Task<Trail> CreateTrail(Trail trail, IdentityUser user)
         {
 
-            if( user == null)
+            if (user == null)
             {
                 throw new Exception("Create Trail: the user is null");
 
@@ -105,15 +106,15 @@ namespace Arsoude_Backend.Services
             User? owner = _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
 
             var trail = await _context.Trails.FindAsync(id);
-            
+
 
             if (trail == null)
             {
                 throw new Exception("Get Trail: the trail is null");
             }
 
-            if(trail.OwnerId != owner.Id) {
-            throw new UnauthorizedAccessException();
+            if (trail.OwnerId != owner.Id) {
+                throw new UnauthorizedAccessException();
             }
             return trail;
         }
@@ -137,9 +138,9 @@ namespace Arsoude_Backend.Services
 
             Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
 
-            if(trail.OwnerId == owner.Id)
+            if (trail.OwnerId == owner.Id)
             {
-                foreach(Coordinates coord in coords)
+                foreach (Coordinates coord in coords)
                 {
                     trail.Coordinates.Add(coord);
                 }
@@ -150,6 +151,23 @@ namespace Arsoude_Backend.Services
             return trail;
         }
 
+
+        public async Task<ActionResult<List<Coordinates>>> GetTrailCoordinates(IdentityUser user, int trailId)
+        {
+            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+
+            if (trail.Coordinates != null)
+            {
+                List<Coordinates> coords = trail.Coordinates;
+                return coords;
+            }
+            else
+            {
+                return new List<Coordinates>();
+            }
+        }
 
 
 

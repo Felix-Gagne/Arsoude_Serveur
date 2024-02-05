@@ -174,6 +174,21 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult<List<Coordinates>>> GetTrailCoordinates(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user != null)
+            {
+                return await _trailService.GetTrailCoordinates(user, trailId);
+            }
+            else
+            {
+                return NotFound("Get Trail Coordinates: No user found");
+            }
+        }
+
         //// DELETE: api/Trails/5
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> DeleteTrail(int id)
