@@ -85,15 +85,15 @@ namespace Arsoude_Backend.Data
             Coordinates c1 = new Coordinates()
             {
                 Id = 1,
-                X = 45.559602,
-                Y = -73.580236
+                Latitude = 45.559602,
+                Longitude = -73.580236
 
             };
             Coordinates c2 = new Coordinates()
             {
                 Id = 2,
-                X = 45.671822,
-                Y = -73.526654
+                Latitude = 45.671822,
+                Longitude = -73.526654
 
             };
             builder.Entity<Coordinates>().HasData(c1, c2);

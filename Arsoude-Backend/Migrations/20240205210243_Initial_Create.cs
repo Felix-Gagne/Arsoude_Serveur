@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class init : Migration
+    public partial class Initial_Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -188,8 +188,8 @@ namespace Arsoude_Backend.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    X = table.Column<double>(type: "REAL", nullable: false),
-                    Y = table.Column<double>(type: "REAL", nullable: false),
+                    Latitude = table.Column<double>(type: "REAL", nullable: false),
+                    Longitude = table.Column<double>(type: "REAL", nullable: false),
                     TrailId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -232,27 +232,27 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "f39bed1b-9c09-428a-99bd-0c662772c921", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "10d08989-49c0-419c-9c62-53e812bb188b", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "8aa63a71-8519-4f93-8f56-7b5d15370513", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEIT+QdFfLdwi5opWImXR9iUS5gIa9FWLblFGbgkeWm8rwS7pmxCMOeGr0deZss2M8w==", null, false, "c37b1a23-319d-4328-9f55-14aad16e4d27", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "7c71ec99-7db6-4a8f-b692-336463262b6d", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOzSd/ofuCl0XVqcBC2B/WW2Q1ZObYVRBqBBzJl/mppMOsC9dQcYAiK4Nztbf6ZRdw==", null, false, "ac4554b6-8d3f-4355-a287-eb8518b0dd1b", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "48fe76fc-3bf6-4374-9312-dff7e8c225a6", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEBm2/KqyadUygJ8k2L1hqIqVqTiJtq4MaJRswp8b/8zw1LJs4ch+uMyUA48eKzvetg==", null, false, "c76d16de-43ef-4eff-894a-e106544d92aa", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "66b182c6-729c-4287-8cb1-1bfab187e51a", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEEN6qSqQaZKQMoFsw0nKLwQwMnbPgRiCpeM4u0wWBuMBxc1+hRAgryoiKQc9WF/0gg==", null, false, "b6edf8f5-5ba7-4932-892c-5cbb11af7143", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
-                columns: new[] { "Id", "TrailId", "X", "Y" },
-                values: new object[] { 1, null, 45.559601999999998, -73.580235999999999 });
+                columns: new[] { "Id", "Latitude", "Longitude", "TrailId" },
+                values: new object[] { 1, 45.559601999999998, -73.580235999999999, null });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
-                columns: new[] { "Id", "TrailId", "X", "Y" },
-                values: new object[] { 2, null, 45.671821999999999, -73.526653999999994 });
+                columns: new[] { "Id", "Latitude", "Longitude", "TrailId" },
+                values: new object[] { 2, 45.671821999999999, -73.526653999999994, null });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240202185721_init")]
-    partial class init
+    [Migration("20240205210243_Initial_Create")]
+    partial class Initial_Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,14 +25,14 @@ namespace Arsoude_Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
+
                     b.Property<int?>("TrailId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<double>("X")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Y")
-                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
@@ -44,14 +44,14 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = 1,
-                            X = 45.559601999999998,
-                            Y = -73.580235999999999
+                            Latitude = 45.559601999999998,
+                            Longitude = -73.580235999999999
                         },
                         new
                         {
                             Id = 2,
-                            X = 45.671821999999999,
-                            Y = -73.526653999999994
+                            Latitude = 45.671821999999999,
+                            Longitude = -73.526653999999994
                         });
                 });
 
@@ -197,7 +197,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "f39bed1b-9c09-428a-99bd-0c662772c921",
+                            ConcurrencyStamp = "10d08989-49c0-419c-9c62-53e812bb188b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -294,15 +294,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8aa63a71-8519-4f93-8f56-7b5d15370513",
+                            ConcurrencyStamp = "7c71ec99-7db6-4a8f-b692-336463262b6d",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIT+QdFfLdwi5opWImXR9iUS5gIa9FWLblFGbgkeWm8rwS7pmxCMOeGr0deZss2M8w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOzSd/ofuCl0XVqcBC2B/WW2Q1ZObYVRBqBBzJl/mppMOsC9dQcYAiK4Nztbf6ZRdw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c37b1a23-319d-4328-9f55-14aad16e4d27",
+                            SecurityStamp = "ac4554b6-8d3f-4355-a287-eb8518b0dd1b",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -310,15 +310,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48fe76fc-3bf6-4374-9312-dff7e8c225a6",
+                            ConcurrencyStamp = "66b182c6-729c-4287-8cb1-1bfab187e51a",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBm2/KqyadUygJ8k2L1hqIqVqTiJtq4MaJRswp8b/8zw1LJs4ch+uMyUA48eKzvetg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEN6qSqQaZKQMoFsw0nKLwQwMnbPgRiCpeM4u0wWBuMBxc1+hRAgryoiKQc9WF/0gg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c76d16de-43ef-4eff-894a-e106544d92aa",
+                            SecurityStamp = "b6edf8f5-5ba7-4932-892c-5cbb11af7143",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
