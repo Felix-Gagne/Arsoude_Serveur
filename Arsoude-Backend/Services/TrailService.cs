@@ -180,7 +180,8 @@ namespace Arsoude_Backend.Services
 
                 if (!string.IsNullOrEmpty(dto.Keyword))
                 {
-                    query = query.Where(x => x.Name.ToLower().Contains(dto.Keyword.ToLower()) || x.Description.ToLower().Contains(dto.Keyword.ToLower()));
+                    query = query.Where(x => x.Name.ToLower().Contains(dto.Keyword.ToLower()) || x.Description.ToLower().Contains(dto.Keyword.ToLower()) || 
+                    x.Location.ToLower().Contains(dto.Keyword.ToLower()));
                 }
 
                 if(dto.Type != null)
