@@ -1,5 +1,7 @@
 using Arsoude_Backend.Models.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
 namespace Arsoude_Backend.Models
 {
     public class Trail
@@ -39,5 +41,8 @@ namespace Arsoude_Backend.Models
         public int EndingCoordinatesId { get; set; }
 
         public int OwnerId { get; set; }
+
+        [JsonIgnore]
+        public virtual List<Coordinates>? Coordinates { get; set; }
     }
 }

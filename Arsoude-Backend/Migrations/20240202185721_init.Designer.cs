@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240130155603_trailseed")]
-    partial class trailseed
+    [Migration("20240202185721_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,9 @@ namespace Arsoude_Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("TrailId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<double>("X")
                         .HasColumnType("REAL");
 
@@ -32,6 +35,8 @@ namespace Arsoude_Backend.Migrations
                         .HasColumnType("REAL");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TrailId");
 
                     b.ToTable("Coordinates");
 
@@ -97,7 +102,7 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = 1,
                             Description = "UNE MECHANT GROS TRAJET",
-                            EndingCoordinatesId = 1,
+                            EndingCoordinatesId = 2,
                             Location = "Bar chez Diane",
                             Name = "TestTrail",
                             OwnerId = 1,
@@ -192,7 +197,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "45c8e1d8-1003-41fb-8172-5a8442a1ee4c",
+                            ConcurrencyStamp = "f39bed1b-9c09-428a-99bd-0c662772c921",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -289,15 +294,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b8a05d82-98ec-4374-91dd-c48e48d372bb",
+                            ConcurrencyStamp = "8aa63a71-8519-4f93-8f56-7b5d15370513",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJucMeR7JUoimcZL+rBBma7ilKWXuHnIY3OqIrkFaP0Tu6vRIso0TegyEJwLRorR3Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIT+QdFfLdwi5opWImXR9iUS5gIa9FWLblFGbgkeWm8rwS7pmxCMOeGr0deZss2M8w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "06ce25a9-4f9d-4f90-9c06-277a9155b315",
+                            SecurityStamp = "c37b1a23-319d-4328-9f55-14aad16e4d27",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -305,15 +310,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1bf18f98-64ea-4103-8558-b1ce6d2ed33c",
+                            ConcurrencyStamp = "48fe76fc-3bf6-4374-9312-dff7e8c225a6",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEARZIlH+rqj4Eosa451ip5ZciAMZKum579Lo3iU1cfOga9OGWwUIoznHO4JsEfUsPg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBm2/KqyadUygJ8k2L1hqIqVqTiJtq4MaJRswp8b/8zw1LJs4ch+uMyUA48eKzvetg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "652ad5dd-eced-4ad1-8058-f61c00ba8b64",
+                            SecurityStamp = "c76d16de-43ef-4eff-894a-e106544d92aa",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -414,6 +419,13 @@ namespace Arsoude_Backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Arsoude_Backend.Models.Coordinates", b =>
+                {
+                    b.HasOne("Arsoude_Backend.Models.Trail", null)
+                        .WithMany("Coordinates")
+                        .HasForeignKey("TrailId");
+                });
+
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
                 {
                     b.HasOne("Arsoude_Backend.Models.Coordinates", "EndingCoordinates")
@@ -493,6 +505,11 @@ namespace Arsoude_Backend.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
+                {
+                    b.Navigation("Coordinates");
                 });
 #pragma warning restore 612, 618
         }

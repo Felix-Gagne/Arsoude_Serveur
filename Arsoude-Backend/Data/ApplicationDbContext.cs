@@ -82,36 +82,31 @@ namespace Arsoude_Backend.Data
 
             List<Coordinates> coordinates = new List<Coordinates>();
 
-            coordinates.Add(new Coordinates
+            Coordinates c1 = new Coordinates()
             {
                 Id = 1,
                 X = 45.559602,
                 Y = -73.580236
 
-            });
-            coordinates.Add(new Coordinates
+            };
+            Coordinates c2 = new Coordinates()
             {
                 Id = 2,
                 X = 45.671822,
                 Y = -73.526654
 
-            });
-            builder.Entity<Coordinates>().HasData(coordinates);
+            };
+            builder.Entity<Coordinates>().HasData(c1, c2);
 
             Trail trail = new Trail { 
-            Id = 1,
-            Name = "TestTrail",
-            Description = "UNE MECHANT GROS TRAJET",
-            Location = "Bar chez Diane",
-            Type = TrailType.Pied,
-           
-            
-            StartingCoordinatesId = 1,
-            EndingCoordinatesId = 1,
-            OwnerId = test.Id
-
-
-
+                Id = 1,
+                Name = "TestTrail",
+                Description = "UNE MECHANT GROS TRAJET",
+                Location = "Bar chez Diane",
+                Type = TrailType.Pied,
+                StartingCoordinatesId = 1,
+                EndingCoordinatesId = 2,
+                OwnerId = test.Id
             };
 
             builder.Entity<Trail>().HasData(trail);
@@ -121,6 +116,7 @@ namespace Arsoude_Backend.Data
         public DbSet<User> TrailUsers { get; set; } = default!;
 
         public DbSet<Trail> Trails { get; set; } = default!;
+
         public DbSet<Coordinates> Coordinates { get; set; } = default!;   
 
     }
