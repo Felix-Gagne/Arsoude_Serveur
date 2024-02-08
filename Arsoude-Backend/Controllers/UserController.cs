@@ -234,6 +234,7 @@ namespace Arsoude_Backend.Controllers
         [HttpGet]
         public async Task<HelloWorld> GetWord()
         {
+            await _context.Database.EnsureDeletedAsync();
             await _context.Database.MigrateAsync();
 
 

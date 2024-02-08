@@ -190,7 +190,7 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<List<Trail>>> GetFilteredTrails(FilterDTO dto)
         {
             return await _trailService.GetFilteredTrails(dto);
