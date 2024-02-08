@@ -163,6 +163,8 @@ namespace Arsoude_Backend.Services
             if (trail.Coordinates != null)
             {
                 List<Coordinates> coords = trail.Coordinates;
+                coords = coords.Where(c => c.Latitude != trail.StartingCoordinates.Latitude && c.Latitude != trail.EndingCoordinates.Latitude).ToList();
+                
                 return coords;
             }
             else
