@@ -190,10 +190,18 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<List<Trail>>> GetFilteredTrails(FilterDTO dto)
         {
             return await _trailService.GetFilteredTrails(dto);
+        }
+
+        [HttpPost("{trailId}")]
+        public async Task<ActionResult> AddToFavourites(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return await _trailService.AddToFavourites(user, trailId);
         }
 
         private bool TrailExists(int id)

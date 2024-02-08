@@ -34,6 +34,9 @@ namespace Arsoude_Backend.Models
         [Range(1, 12)]
         public int? MonthOfBirth { get; set; }
 
+        [JsonIgnore]
+        public List<Trail> FavouriteTrails { get; set; }
+
         [Required]
         public string? IdentityUserId { get; set; }
 
