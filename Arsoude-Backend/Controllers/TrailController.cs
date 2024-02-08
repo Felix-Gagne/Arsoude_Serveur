@@ -1,5 +1,6 @@
 ﻿using Arsoude_Backend.Data;
 using Arsoude_Backend.Models;
+using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -189,26 +190,11 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-        //// DELETE: api/Trails/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteTrail(int id)
-        //{
-        //    User? user = await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-        //    if (user != null)
-        //    {
-
-        //        if(TrailExists(id))
-        //        {
-        //            await _trailsService.DeleteTrail(id);
-        //        }
-        //        return Ok("Deleted");
-        //    }
-        //    else
-        //    {
-        //        return Unauthorized("Delete Trail: No user found");
-        //    }
-        //}
+        [HttpGet]
+        public async Task<ActionResult<List<Trail>>> GetFilteredTrails(FilterDTO dto)
+        {
+            return await _trailService.GetFilteredTrails(dto);
+        }
 
         private bool TrailExists(int id)
         {

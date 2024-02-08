@@ -1,8 +1,10 @@
 ﻿using Arsoude_Backend.Data;
 using Arsoude_Backend.Models;
+using Arsoude_Backend.Models.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop.Infrastructure;
 using System.Diagnostics;
 
 namespace Arsoude_Backend.Services
@@ -170,6 +172,61 @@ namespace Arsoude_Backend.Services
         }
 
 
+        public async Task<ActionResult<List<Trail>>> GetFilteredTrails(FilterDTO dto)
+        {
+            try
+            {
+                IQueryable<Trail> query = _context.Trails;
 
+                if (!string.IsNullOrEmpty(dto.Keyword))
+                {
+                    query = query.Where(x => x.Name.ToLower().Contains(dto.Keyword.ToLower()) || x.Description.ToLower().Contains(dto.Keyword.ToLower()) || 
+                    x.Location.ToLower().Contains(dto.Keyword.ToLower()));
+                }
+
+                if(dto.Type != null)
+                {
+                    query = query.Where(x => x.Type == dto.Type);
+                }
+
+                List<Trail> trails = await query.ToListAsync();
+
+                if (dto.Coordinates != null && dto.Distance.HasValue)
+                {
+                    double userLatitude = dto.Coordinates.Latitude;
+                    double userLongitude = dto.Coordinates.Longitude;
+
+                    trails = trails.Where(x => CalculateDistance(userLatitude, userLongitude,
+                        x.StartingCoordinates.Latitude, x.StartingCoordinates.Longitude) <= dto.Distance.Value).ToList();
+                }
+
+                return trails;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Internal Server Error");
+            }
+        }
+
+        private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            const double earthRadius = 6371;
+
+            double dLat = ConvertToRadians(lat2 - lat1);
+            double dLon = ConvertToRadians(lon2 - lon1);
+
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                Math.Cos(ConvertToRadians(lat1)) * Math.Cos(ConvertToRadians(lat2)) *
+                Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+            return earthRadius * c;
+        }
+
+        private double ConvertToRadians(double degree)
+        {
+            return degree * Math.PI / 180;
+        }
     }
 }
