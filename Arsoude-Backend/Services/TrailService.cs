@@ -210,6 +210,30 @@ namespace Arsoude_Backend.Services
             }
         }
 
+        public async Task SetTrailToPublic(IdentityUser user, int trailId)
+        {
+            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+
+            if (trail.Coordinates != null)
+            {
+                List<Coordinates> coords = trail.Coordinates;
+                coords = coords.Where(c => c.Latitude != trail.StartingCoordinates.Latitude && c.Latitude != trail.EndingCoordinates.Latitude).ToList();
+
+                
+            }
+            else
+            {
+                return new List<Coordinates>();
+            }
+        }
+
+        public async Task SetTrailToPrivate(int trailId)
+        {
+
+        }
+
         private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {
             const double earthRadius = 6371;

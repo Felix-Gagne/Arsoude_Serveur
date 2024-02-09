@@ -200,5 +200,36 @@ namespace Arsoude_Backend.Controllers
         {
             return (_context.Trails?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult> SetTrailToPublic(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user != null)
+            {
+                await _trailService.SetTrailToPublic(user ,trailId);
+                return Ok();
+            }
+            else
+            {
+                return NotFound("Get Trail Coordinates: No user found");
+            }
+        }
+
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult> SetTrailToPrivate(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user != null)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound("Get Trail Coordinates: No user found");
+            }
+        }
     }
 }
