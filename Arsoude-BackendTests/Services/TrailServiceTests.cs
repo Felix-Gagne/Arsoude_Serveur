@@ -16,48 +16,99 @@ using Microsoft.AspNetCore.Mvc;
 using Arsoude_Backend.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Arsoude_Backend.Data;
+using Microsoft.Extensions.Options;
 
 namespace Arsoude_Backend.Services.Tests
 {
     [TestClass()]
     public class TrailServiceTests
     {
-        [TestMethod()]
-        public void SwictchVisibility_ValidData()
+
+        DbContextOptions<ApplicationDbContext> options;
+
+        private User user;
+        private Trail trailInTheFavorite;
+        private Trail trailtIWantInTheFavorite;
+
+        public TrailServiceTests()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "SwictchVisibility_ValidData")
+            options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "TrailService")
+                .UseLazyLoadingProxies(true)
                 .Options;
+        }
 
-            using (var context = new ApplicationDbContext(options))
+        [TestInitialize]
+        public void Init()
+        {
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+
+            Coordinates coordinates = new Coordinates() { Id = 1, Latitude = 1, Longitude = 1 };
+            Coordinates coordinatesEnd = new Coordinates() { Id = 2, Latitude = 1, Longitude = 1 };
+            Coordinates simpleCoordinates = new Coordinates() { Id = 3, Latitude = 1, Longitude = 1 };
+
+
+
+            user = new User
             {
-                var trailService = new TrailService(null, context);
-                var coordinates = new Coordinates() { Id = 500 ,Latitude = 1, Longitude = 1 };
+                LastName = "Simeon",
+                FirstName = "Du bois",
+                AreaCode = "asdasd",
+                IdentityUserId = "11111111-1111-1111-1111-111111111113",
+                FavouriteTrails = new List<UserFavoriteTrail>()
+            };
 
-                var user = new User()
-                {
-                    Id = 500,
-                    AreaCode = "J4J5J8",
-                    FirstName = "Gabriel",
-                    LastName = "Gérard"
-                };
-                context.TrailUsers.Add(user);
+            trailInTheFavorite = new Trail
+            {
+                Name = "Favorite",
+                Description = "Test",
+                Location = "Canada",
+                Type = TrailType.Pied,
+                ImageUrl = "https://media.timeout.com/images/105824352/image.jpg",
+                StartingCoordinates = coordinates,
+                EndingCoordinates = coordinatesEnd,
+            };
 
-                var trail = new Trail() { 
-                    Id = 400,
-                    OwnerId = 2,
-                    Description = "Test", 
-                    EndingCoordinates = coordinates, 
-                    StartingCoordinates = coordinates, 
-                    EndingCoordinatesId = 500,
-                    StartingCoordinatesId = 500,
-                    Location = "location", 
-                    Name = "test", 
-                    Type = 0 };
-                context.Trails.Add(trail);
-                context.SaveChanges();
+            trailtIWantInTheFavorite = new Trail
+            {
+                Name = "Not in the favorite",
+                Description = "Test",
+                Location = "Canada",
+                Type = TrailType.Pied,
+                ImageUrl = "https://media.timeout.com/images/105824352/image.jpg",
+                StartingCoordinates = coordinates,
+                EndingCoordinates = coordinatesEnd,
+            };
 
-            }
+            UserFavoriteTrail userFavoriteTrail = new UserFavoriteTrail()
+            {
+                Id = 1,
+                UserId = user.Id,
+                TrailId = trailInTheFavorite.Id,
+            };
+
+            user.FavouriteTrails.Add(userFavoriteTrail);
+
+            db.AddRange(user);
+            db.AddRange(coordinates);
+            db.AddRange(coordinatesEnd);
+            db.AddRange(trailInTheFavorite); 
+            db.AddRange(trailtIWantInTheFavorite);
+            db.AddRange(userFavoriteTrail);
+            db.SaveChanges();
+            
+        }
+
+        [TestCleanup]
+        public void Dispose()
+        {
+            //TODO on efface les données de tests pour remettre la BD dans son état initial
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            db.RemoveRange(db.TrailUsers);
+            db.RemoveRange(db.Trails);
+            db.RemoveRange(db.Coordinates);
+            db.RemoveRange(db.UserFavoriteTrails); 
+            db.SaveChanges();
         }
 
         [TestMethod()]
@@ -76,6 +127,23 @@ namespace Arsoude_Backend.Services.Tests
         public void SwictchVisibility_NotOwner()
         {
 
+        }
+
+        [TestMethod()]
+        public async Task addTrailToFavorite()
+        {
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+          
+            TrailService trailService = new TrailService(db);
+
+            User currentUser = await db.TrailUsers.Where(x => x.IdentityUserId == user.IdentityUserId).FirstOrDefaultAsync();
+            Trail trail = await db.Trails.Where(x => x.Id == trailtIWantInTheFavorite.Id).FirstOrDefaultAsync();
+
+            await trailService.ControlTrailFavorite(currentUser, trail.Id);
+
+            User currentUserAfterAdd = await db.TrailUsers.Where(x => x.IdentityUserId == user.IdentityUserId).FirstOrDefaultAsync();
+
+            Assert.AreEqual(currentUserAfterAdd.FavouriteTrails.Count(), 2);
         }
     }
 }

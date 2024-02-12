@@ -57,7 +57,7 @@ namespace Arsoude_Backend.Services
          public async Task<List<Trail>> GetList()
         {
 
-           List<Trail> trails = await _context.Trails.Where(t => t.Ispublic == true && t.IsApproved == false).ToListAsync();
+           List<Trail> trails = await _context.Trails.Where(t => t.isPublic == true && t.IsApproved == false).ToListAsync();
 
             return trails;
 
