@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace Arsoude_Backend.Services
 {
-    public class TrailService : ITrailService
+    public class TrailService : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
@@ -173,10 +173,8 @@ namespace Arsoude_Backend.Services
         }
 
 
-        public async Task<ActionResult<List<Trail>>> GetFilteredTrails(FilterDTO dto)
+        public async Task<List<Trail>> GetFilteredTrails(FilterDTO dto)
         {
-            try
-            {
                 IQueryable<Trail> query = _context.Trails;
 
                 if (!string.IsNullOrEmpty(dto.Keyword))
@@ -201,12 +199,12 @@ namespace Arsoude_Backend.Services
                         x.StartingCoordinates.Latitude, x.StartingCoordinates.Longitude) <= dto.Distance.Value).ToList();
                 }
 
+                if(trails.Count == 0)
+                {
+                    throw new Exception("Pas de randonnées trouvé pour les filtres fournis");
+                }
+
                 return trails;
-            }
-            catch(Exception ex)
-            {
-                throw new Exception("Internal Server Error");
-            }
         }
 
         private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
