@@ -15,13 +15,11 @@ namespace Arsoude_Backend.Services
     public class TrailService : ITrailService
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
 
 
-        public TrailService(UserManager<IdentityUser> userManager, ApplicationDbContext context) {
+        public TrailService(ApplicationDbContext context) {
 
             _context = context;
-            _userManager = userManager;
         }
 
         public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user) {
@@ -230,9 +228,8 @@ namespace Arsoude_Backend.Services
             }
         }
 
-        public async Task SwitchVisiblityStatus(IdentityUser user, int trailId, bool status)
+        public async Task SwitchVisiblityStatus(User owner, int trailId, bool status)
         {
-            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
             Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
 
             if (owner == null)

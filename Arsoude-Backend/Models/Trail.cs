@@ -43,10 +43,7 @@ namespace Arsoude_Backend.Models
         public int OwnerId { get; set; }
         public Boolean isPublic { get; set; } = false;
 
-
         public bool? IsApproved { get; set; }
-
-        public bool Ispublic { get; set; }
 
         [JsonIgnore]
         public virtual List<Coordinates>? Coordinates { get; set; }

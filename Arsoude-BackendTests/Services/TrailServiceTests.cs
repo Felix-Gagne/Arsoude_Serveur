@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Arsoude_Backend.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Arsoude_Backend.Data;
+using Arsoude_Backend.Exceptions;
 
 namespace Arsoude_Backend.Services.Tests
 {
@@ -31,39 +32,72 @@ namespace Arsoude_Backend.Services.Tests
 
             using (var context = new ApplicationDbContext(options))
             {
-                var trailService = new TrailService(null, context);
-                var coordinates = new Coordinates() { Id = 500 ,Latitude = 1, Longitude = 1 };
+                var trailService = new TrailService(context);
+                var coordinates = new Coordinates() { Id = 501 ,Latitude = 1, Longitude = 1 };
 
                 var user = new User()
                 {
-                    Id = 500,
+                    Id = 501,
                     AreaCode = "J4J5J8",
                     FirstName = "Gabriel",
-                    LastName = "Gérard"
+                    LastName = "Gérard",
+                    IdentityUserId = "1"
                 };
                 context.TrailUsers.Add(user);
 
                 var trail = new Trail() { 
-                    Id = 400,
-                    OwnerId = 2,
+                    Id = 401,
+                    OwnerId = 501,
                     Description = "Test", 
                     EndingCoordinates = coordinates, 
                     StartingCoordinates = coordinates, 
-                    EndingCoordinatesId = 500,
-                    StartingCoordinatesId = 500,
+                    EndingCoordinatesId = 501,
+                    StartingCoordinatesId = 501,
                     Location = "location", 
                     Name = "test", 
-                    Type = 0 };
+                    Type = 0,
+                    isPublic = false};
                 context.Trails.Add(trail);
                 context.SaveChanges();
 
+                var result = trailService.SwitchVisiblityStatus(user, trail.Id, true);
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(context.Trails.FirstOrDefault(t => t.Id == trail.Id).isPublic, true);
             }
         }
 
         [TestMethod()]
         public void SwictchVisibility_UserNotFound()
         {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "SwictchVisibility_ValidData")
+                .Options;
 
+            using (var context = new ApplicationDbContext(options))
+            {
+                var trailService = new TrailService(context);
+                var coordinates = new Coordinates() { Id = 500, Latitude = 1, Longitude = 1 };
+
+                var trail = new Trail()
+                {
+                    Id = 401,
+                    OwnerId = 500,
+                    Description = "Test",
+                    EndingCoordinates = coordinates,
+                    StartingCoordinates = coordinates,
+                    EndingCoordinatesId = 500,
+                    StartingCoordinatesId = 500,
+                    Location = "location",
+                    Name = "test",
+                    Type = 0,
+                    isPublic = false
+                };
+                context.Trails.Add(trail);
+                context.SaveChanges();
+
+                Assert.ThrowsException<UserNotFoundException>(() => trailService.SwitchVisiblityStatus(null, trail.Id, true));
+            }
         }
 
         [TestMethod()]
