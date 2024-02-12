@@ -54,9 +54,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAlmostAll", policy =>
     {
-        
-
-
+       
         policy.AllowAnyOrigin();
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();

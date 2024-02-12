@@ -1,6 +1,7 @@
 using Arsoude_Backend.Data;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
+using Arsoude_Backend.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,22 +10,17 @@ using System.Diagnostics;
 
 namespace Arsoude_Backend.Services
 {
-    public class TrailService : ITrailService
+    public class TrailService
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
 
 
-        public TrailService(UserManager<IdentityUser> userManager, ApplicationDbContext context) {
-
+        public TrailService(ApplicationDbContext context) {
             _context = context;
-            _userManager = userManager;
-
-
         }
 
-        public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user) {
-
+        public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user) 
+        {
 
             User? owner = _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
 
@@ -38,10 +34,9 @@ namespace Arsoude_Backend.Services
             else { throw new UnauthorizedAccessException(); }
 
 
-
         }
 
-
+        
         public async Task<Trail> CreateTrail(Trail trail, IdentityUser user)
         {
 
@@ -56,7 +51,7 @@ namespace Arsoude_Backend.Services
 
             if (_context.Trails == null)
             {
-                throw new Exception("Create Trail: Entity set 'ApplicationDbContext.Trails'  is null.");
+                throw new Exception("Create Trail: Entity set 'ApplicationDbContext.Trails'  is null");
             }
 
             User userOfficial = _context.TrailUsers.Where(_u => _u.IdentityUserId == user.Id).FirstOrDefault();

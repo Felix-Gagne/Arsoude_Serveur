@@ -151,7 +151,8 @@ namespace Arsoude_Backend.Controllers
 
             if (user != null)
             {
-                return await _trailService.CreateTrail(trail, user);
+                await _trailService.CreateTrail(trail, user);
+                return Ok(trail);
             }
 
             else

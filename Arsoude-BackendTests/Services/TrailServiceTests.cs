@@ -14,74 +14,248 @@ using static System.Net.Mime.MediaTypeNames;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Arsoude_Backend.Models.Interfaces;
+using Arsoude_Backend.Data;
+using Microsoft.EntityFrameworkCore;
+using NuGet.ContentModel;
 
 namespace Arsoude_Backend.Services.Tests
 {
     [TestClass()]
     public class TrailServiceTests
     {
-        [TestMethod()]
-        public void CreateTrail()
+        DbContextOptions<ApplicationDbContext> options;
+
+        public TrailServiceTests()
         {
-            List<Coordinates> coordinates = new List<Coordinates>
+            options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "TrailService")
+                .Options;
+        }
+
+        //[TestInitialize]
+        //public void Init()
+        //{
+        //    using ApplicationDbContext db = new ApplicationDbContext(options);
+
+        //    IdentityUser user = new IdentityUser
+        //    {
+        //        Id = "11111111-1111-1111-1111-111111111112",
+        //        UserName = "user@user.com",
+        //        Email = "user@user.com",
+        //        NormalizedEmail = "USER@USER.COM",
+        //        NormalizedUserName = "USER@USER.COM",
+        //        EmailConfirmed = true
+        //    };
+
+        //    User userTest = new User
+        //    {
+        //        Id = 1,
+        //        LastName = "Test",
+        //        FirstName = "Test",
+        //        AreaCode = "111 111",
+        //        IdentityUserId = user.Id,
+        //    };
+
+        //    Trail trail = new Trail
+        //    {
+        //        Id = 1,  
+        //        Name = "Randonné Mtl",
+        //        Description = "Une randonnée à Montréal",
+        //        Location = "Mont-Royal",
+        //        Type = TrailType.Pied,
+        //        StartingCoordinates = new Coordinates
+        //        {
+        //            Id = 1,
+        //            Latitude = 45.559602,
+        //            Longitude = -73.580236
+        //        },
+        //        EndingCoordinates = new Coordinates
+        //        {
+        //            Id = 2,
+        //            Latitude = 45.671822,
+        //            Longitude = -73.526654
+        //        },
+        //        OwnerId = 1
+        //    };
+
+        //    db.AddRange(trail);
+        //    db.AddRange(userTest);
+        //    db.AddRange(user);
+        //    db.SaveChanges();
+        //}
+
+
+        [TestCleanup]
+        public void Dispose()
+        {
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            db.Trails.RemoveRange(db.Trails);
+            db.Users.RemoveRange(db.Users);
+            db.Coordinates.RemoveRange(db.Coordinates);
+            db.SaveChanges();
+        }
+
+        [TestMethod]
+        public void CreateTrail_Ok()
+        {
+            IdentityUser user = new IdentityUser
             {
-                new Coordinates
-                {
-                    Id = 1,
-                    X = 45.559602,
-                    Y = -73.580236
-
-                },
-                new Coordinates
-                {
-                    Id = 2,
-                    X = 45.671822,
-                    Y = -73.526654
-
-                }
+                Id = "11111111-1111-1111-1111-111111111112",
+                UserName = "user@user.com",
+                Email = "user@user.com",
+                // La comparaison d'identity se fait avec les versions normalis�s
+                NormalizedEmail = "USER@USER.COM",
+                NormalizedUserName = "USER@USER.COM",
+                EmailConfirmed = true
             };
 
-            Trail trail = new Trail
+
+
+            User userTest = new User
             {
                 Id = 1,
-                Name = "TestTrail",
-                Description = "UNE MECHANT GROS TRAJET",
-                Location = "Bar chez Diane",
-                Type = TrailType.Pied,
-
-
-                StartingCoordinatesId = 1,
-                EndingCoordinatesId = 1,
-                OwnerId = 1
+                LastName = "Test",
+                FirstName = "Test",
+                AreaCode = "111 111",
+                IdentityUserId = user.Id,
             };
 
-            Mock<ITrailService> serviceMock  = new Mock<ITrailService>();
-            Mock<TrailController> controller = new Mock<TrailController>(serviceMock.Object) { CallBase = true };
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            TrailService trailService = new TrailService(db);
 
-            serviceMock.Setup(s => s.CreateTrail(It.IsAny<Trail>(), It.IsAny<IdentityUser>())).ReturnsAsync(trail);
+            db.AddRange(user);
+            db.AddRange(userTest);
+            db.SaveChanges();
 
-            var actionResult = controller.Object.CreateTrail(trail);
+            Trail t = new Trail()
+            {
+                Id = 2,
+                Name = "Randonné Mtl",
+                Description = "Une randonnée à Montréal",
+                Location = "Mont-Royal",
+                Type = TrailType.Pied,
+                StartingCoordinates = new Coordinates
+                {
+                    Id = 3,
+                    Latitude = 45.559602,
+                    Longitude = -73.580236
+                },
+                EndingCoordinates = new Coordinates
+                {
+                    Id = 4,
+                    Latitude = 45.671822,
+                    Longitude = -73.526654
+                },
+                OwnerId = userTest.Id
+            };
 
-            var result = actionResult.Result as OkObjectResult;
-
-            Assert.IsNotNull(result);
+            trailService.CreateTrail(t,user);
+            Assert.AreEqual(1, db.Trails.Count());
         }
 
-        [TestMethod()]
-        public void CreateTrailTrailNull()
+        [TestMethod]
+        public void CreateTrail_NullUser()
         {
-            List<Coordinates> coordinates = new List<Coordinates>();
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            TrailService trailService = new TrailService(db);
 
-            Mock<TrailService> serviceMock = new Mock<TrailService>();
-            Mock<TrailController> controller = new Mock<TrailController>(serviceMock.Object) { CallBase = true };
+            Trail t = new Trail()
+            {
+                Id = 3,
+            };
+         
 
-            serviceMock.Setup(s => s.CreateTrail(It.IsAny<Trail>(), It.IsAny<IdentityUser>())).ThrowsAsync(new Exception());
-
-            var actionResult = controller.Object.CreateTrail(null);
-
-            var result = actionResult.Result as NotFoundResult;
-
-            Assert.IsNotNull(result);
+            try
+            {
+                trailService.CreateTrail(t, null);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Create Trail: the user is null", ex.Message);
+            }
         }
-    }
+
+        [TestMethod]
+        public void CreateTrail_NullTrail()
+        {
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            TrailService trailService = new TrailService(db);
+
+            IdentityUser user = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111114",
+                UserName = "user@user.com",
+                Email = "user@user.com",
+                // La comparaison d'identity se fait avec les versions normalis�s
+                NormalizedEmail = "USER@USER.COM",
+                NormalizedUserName = "USER@USER.COM",
+                EmailConfirmed = true
+            };
+
+            User userTest = new User
+            {
+                Id = 3,
+                LastName = "Test",
+                FirstName = "Test",
+                AreaCode = "111 111",
+                IdentityUserId = user.Id,
+            };
+
+            try
+            {
+                trailService.CreateTrail(null, user);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Create Trail: the trail is null", ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void CreateTrail_NullContext()
+        {
+            IdentityUser user = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111115",
+                UserName = "user@user.com",
+                Email = "user@user.com",
+                // La comparaison d'identity se fait avec les versions normalis�s
+                NormalizedEmail = "USER@USER.COM",
+                NormalizedUserName = "USER@USER.COM",
+                EmailConfirmed = true
+            };
+
+            User userTest = new User
+            {
+                Id = 4,
+                LastName = "Test",
+                FirstName = "Test",
+                AreaCode = "111 111",
+                IdentityUserId = user.Id,
+            };
+
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            TrailService trailService = new TrailService(db);
+
+            Trail t = new Trail()
+            {
+                Id = 4,
+                OwnerId = userTest.Id
+            };
+
+
+            db.Trails = null;
+            db.SaveChanges();
+
+            try
+            {
+                trailService.CreateTrail(t, user);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Create Trail: Entity set 'ApplicationDbContext.Trails' is null", ex.Message);
+            }
+        }
+
+    }                
 }
