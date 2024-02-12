@@ -210,6 +210,31 @@ namespace Arsoude_Backend.Services
             }
         }
 
+        public async Task controlTrailFavorite(IdentityUser user, int trailId)
+        {
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            Trail selectedTrail = await _context.Trails.Where(x => x.Id == trailId).FirstOrDefaultAsync();
+
+            if(currentUser != null)
+            {
+                if (!currentUser.FavouriteTrails.Contains(selectedTrail))
+                {
+                    currentUser.FavouriteTrails.Add(selectedTrail);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    currentUser.FavouriteTrails.Remove(selectedTrail);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                throw new Exception("Add To Favourites : No user found.");
+            }
+        }
+
         private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {
             const double earthRadius = 6371;
