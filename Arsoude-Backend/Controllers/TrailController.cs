@@ -197,11 +197,13 @@ namespace Arsoude_Backend.Controllers
         }
 
         [HttpPost("{trailId}")]
-        public async Task<ActionResult> AddToFavourites(int trailId)
+        public async Task<ActionResult> ManageTrailFavorite(int trailId)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            return await _trailService.AddToFavourites(user, trailId);
+            await _trailService.controlTrailFavorite(user, trailId);
+
+            return Ok();
         }
 
         private bool TrailExists(int id)

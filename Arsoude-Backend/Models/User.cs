@@ -35,7 +35,7 @@ namespace Arsoude_Backend.Models
         public int? MonthOfBirth { get; set; }
 
         [JsonIgnore]
-        public List<Trail> FavouriteTrails { get; set; }
+        public virtual List<Trail>? FavouriteTrails { get; set; }
 
         [Required]
         public string? IdentityUserId { get; set; }
