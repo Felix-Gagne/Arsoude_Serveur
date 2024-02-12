@@ -1,9 +1,11 @@
-﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Data;
+using Arsoude_Backend.Exceptions;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -144,7 +146,7 @@ namespace Arsoude_Backend.Controllers
 
         // POST: api/Trails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+         [HttpPost]
         public async Task<ActionResult<Trail>> CreateTrail(Trail trail)
         {
             IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -164,7 +166,6 @@ namespace Arsoude_Backend.Controllers
         public async Task<ActionResult<Trail>> AddCoordinates(List<Coordinates> coords, int trailId)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
             if(user != null)
             {
                 return await _trailService.AddCoordinates(user, coords, trailId);
@@ -174,7 +175,7 @@ namespace Arsoude_Backend.Controllers
                 return NotFound("Add Coordinates: No user found");
             }
         }
-
+        
         [HttpGet("{trailId}")]
         public async Task<ActionResult<List<Coordinates>>> GetTrailCoordinates(int trailId)
         {
@@ -187,6 +188,27 @@ namespace Arsoude_Backend.Controllers
             else
             {
                 return NotFound("Get Trail Coordinates: No user found");
+            }
+        }
+        
+         // DELETE: api/Trails/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTrail(int id)
+        {
+            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user != null)
+            {
+
+                if (TrailExists(id))
+                {
+                    await _trailService.DeleteTrail(id);
+                }
+                return Ok("Deleted");
+            }
+            else
+            {
+                return Unauthorized("Delete Trail: No user found");
             }
         }
 
@@ -210,5 +232,54 @@ namespace Arsoude_Backend.Controllers
         {
             return (_context.Trails?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult> SetTrailToPublic(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            try
+            {
+                await _trailService.SwitchVisiblityStatus(user, trailId, true);
+                return Ok();
+            }
+            catch (UserNotFoundException)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "Trail not found" });
+            }
+            catch (NotOwnerExcpetion)
+            {
+                return Unauthorized(new { Message = "You are not the owner of this trail" });
+            }
+        }
+
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult> SetTrailToPrivate(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            try
+            {
+                await _trailService.SwitchVisiblityStatus(user, trailId, false);
+                return Ok();
+            }
+            catch (UserNotFoundException)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "Trail not found" });
+            }
+            catch (NotOwnerExcpetion)
+            {
+                return Unauthorized(new { Message = "You are not the owner of this trail" });
+            }
+        }
     }
+    
 }

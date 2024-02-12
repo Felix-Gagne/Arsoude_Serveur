@@ -41,6 +41,7 @@ namespace Arsoude_Backend.Models
         public int EndingCoordinatesId { get; set; }
 
         public int OwnerId { get; set; }
+        public Boolean isPublic { get; set; } = false;
 
 
         public bool? IsApproved { get; set; }

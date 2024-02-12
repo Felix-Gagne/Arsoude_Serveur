@@ -1,15 +1,18 @@
-﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Data;
+using Arsoude_Backend.Exceptions;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
+using Arsoude_Backend.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop.Infrastructure;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Arsoude_Backend.Services
 {
-    public class TrailService
+    public class TrailService : ITrailService
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
@@ -19,8 +22,6 @@ namespace Arsoude_Backend.Services
 
             _context = context;
             _userManager = userManager;
-
-
         }
 
         public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user) {
@@ -36,9 +37,6 @@ namespace Arsoude_Backend.Services
                 return usertrails;
             }
             else { throw new UnauthorizedAccessException(); }
-
-
-
         }
 
 
@@ -48,7 +46,6 @@ namespace Arsoude_Backend.Services
             if (user == null)
             {
                 throw new Exception("Create Trail: the user is null");
-
             }
             if (trail == null)
             {
@@ -102,8 +99,6 @@ namespace Arsoude_Backend.Services
             {
                 throw new Exception("Get Trail: Entity set 'ApplicationDbContext.Trails'  is null.");
             }
-
-
 
             User? owner = _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
 
@@ -234,6 +229,29 @@ namespace Arsoude_Backend.Services
                 throw new Exception("Add To Favourites : No user found.");
             }
         }
+
+        public async Task SwitchVisiblityStatus(IdentityUser user, int trailId, bool status)
+        {
+            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
+            Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+
+            if (owner == null)
+            {
+                throw new UserNotFoundException();
+            }
+            else if (trail == null)
+            {
+                throw new TrailNotFoundException();
+            }
+            else if (trail.OwnerId != owner.Id)
+            {
+                throw new NotOwnerExcpetion();
+            }
+
+            trail.isPublic = status;
+            _context.SaveChangesAsync();
+        }
+
 
         private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {
