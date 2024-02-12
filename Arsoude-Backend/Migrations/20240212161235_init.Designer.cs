@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240205210243_Initial_Create")]
-    partial class Initial_Create
+    [Migration("20240212161235_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,12 @@ namespace Arsoude_Backend.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Ispublic")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -103,6 +109,7 @@ namespace Arsoude_Backend.Migrations
                             Id = 1,
                             Description = "UNE MECHANT GROS TRAJET",
                             EndingCoordinatesId = 2,
+                            Ispublic = false,
                             Location = "Bar chez Diane",
                             Name = "TestTrail",
                             OwnerId = 1,
@@ -197,7 +204,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "10d08989-49c0-419c-9c62-53e812bb188b",
+                            ConcurrencyStamp = "92574493-31f3-4c79-9ec3-e80d1d101243",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -294,15 +301,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7c71ec99-7db6-4a8f-b692-336463262b6d",
+                            ConcurrencyStamp = "b18c2df2-84e9-472a-a036-0c458cfcbc38",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOzSd/ofuCl0XVqcBC2B/WW2Q1ZObYVRBqBBzJl/mppMOsC9dQcYAiK4Nztbf6ZRdw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEgNOxJAEWDbifwblLw6+/rtfyTlbjQGnOQMT+WDmDNrLHftBth3hGK9GXgAu7wqcg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ac4554b6-8d3f-4355-a287-eb8518b0dd1b",
+                            SecurityStamp = "5fa4c6ef-f909-4c8d-8aea-b539c0c57bdd",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -310,15 +317,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "66b182c6-729c-4287-8cb1-1bfab187e51a",
+                            ConcurrencyStamp = "3b49d0c6-35e8-4c82-babb-8ba7571cdf90",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEN6qSqQaZKQMoFsw0nKLwQwMnbPgRiCpeM4u0wWBuMBxc1+hRAgryoiKQc9WF/0gg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEAZdDEABRxTFBlsoqMggx1dJ8R716taLVBejdDdfZQsl7a9q1ebgCWkBz1z2PoqUg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b6edf8f5-5ba7-4932-892c-5cbb11af7143",
+                            SecurityStamp = "2b1c06e2-0a59-4e36-94d4-86a88c77045a",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
