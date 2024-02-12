@@ -1,4 +1,4 @@
-﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Data;
 using Arsoude_Backend.Exceptions;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace Arsoude_Backend.Services
 {
-    public class TrailService
+    public class TrailService : ITrailService
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
@@ -49,7 +49,6 @@ namespace Arsoude_Backend.Services
             if (user == null)
             {
                 throw new Exception("Create Trail: the user is null");
-
             }
             if (trail == null)
             {
