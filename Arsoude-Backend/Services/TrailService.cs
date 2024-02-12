@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop.Infrastructure;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Arsoude_Backend.Services
 {
@@ -21,8 +22,6 @@ namespace Arsoude_Backend.Services
 
             _context = context;
             _userManager = userManager;
-
-
         }
 
         public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user) {
@@ -38,9 +37,6 @@ namespace Arsoude_Backend.Services
                 return usertrails;
             }
             else { throw new UnauthorizedAccessException(); }
-
-
-
         }
 
 
@@ -103,8 +99,6 @@ namespace Arsoude_Backend.Services
             {
                 throw new Exception("Get Trail: Entity set 'ApplicationDbContext.Trails'  is null.");
             }
-
-
 
             User? owner = _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
 
@@ -214,7 +208,6 @@ namespace Arsoude_Backend.Services
         public async Task SwitchVisiblityStatus(IdentityUser user, int trailId, bool status)
         {
             User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
-
             Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
 
             if (owner == null)

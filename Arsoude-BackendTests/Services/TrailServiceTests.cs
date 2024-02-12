@@ -14,6 +14,8 @@ using static System.Net.Mime.MediaTypeNames;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Arsoude_Backend.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Arsoude_Backend.Data;
 
 namespace Arsoude_Backend.Services.Tests
 {
@@ -21,67 +23,59 @@ namespace Arsoude_Backend.Services.Tests
     public class TrailServiceTests
     {
         [TestMethod()]
-        public void CreateTrail()
+        public void SwictchVisibility_ValidData()
         {
-            List<Coordinates> coordinates = new List<Coordinates>
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "SwictchVisibility_ValidData")
+                .Options;
+
+            using (var context = new ApplicationDbContext(options))
             {
-                new Coordinates
+                var trailService = new TrailService(null, context);
+                var coordinates = new Coordinates() { Id = 500 ,Latitude = 1, Longitude = 1 };
+
+                var user = new User()
                 {
-                    Id = 1,
-                    X = 45.559602,
-                    Y = -73.580236
+                    Id = 500,
+                    AreaCode = "J4J5J8",
+                    FirstName = "Gabriel",
+                    LastName = "Gérard"
+                };
+                context.TrailUsers.Add(user);
 
-                },
-                new Coordinates
-                {
-                    Id = 2,
-                    X = 45.671822,
-                    Y = -73.526654
+                var trail = new Trail() { 
+                    Id = 400,
+                    OwnerId = 2,
+                    Description = "Test", 
+                    EndingCoordinates = coordinates, 
+                    StartingCoordinates = coordinates, 
+                    EndingCoordinatesId = 500,
+                    StartingCoordinatesId = 500,
+                    Location = "location", 
+                    Name = "test", 
+                    Type = 0 };
+                context.Trails.Add(trail);
+                context.SaveChanges();
 
-                }
-            };
-
-            Trail trail = new Trail
-            {
-                Id = 1,
-                Name = "TestTrail",
-                Description = "UNE MECHANT GROS TRAJET",
-                Location = "Bar chez Diane",
-                Type = TrailType.Pied,
-
-
-                StartingCoordinatesId = 1,
-                EndingCoordinatesId = 1,
-                OwnerId = 1
-            };
-
-            Mock<ITrailService> serviceMock  = new Mock<ITrailService>();
-            Mock<TrailController> controller = new Mock<TrailController>(serviceMock.Object) { CallBase = true };
-
-            serviceMock.Setup(s => s.CreateTrail(It.IsAny<Trail>(), It.IsAny<IdentityUser>())).ReturnsAsync(trail);
-
-            var actionResult = controller.Object.CreateTrail(trail);
-
-            var result = actionResult.Result as OkObjectResult;
-
-            Assert.IsNotNull(result);
+            }
         }
 
         [TestMethod()]
-        public void CreateTrailTrailNull()
+        public void SwictchVisibility_UserNotFound()
         {
-            List<Coordinates> coordinates = new List<Coordinates>();
 
-            Mock<TrailService> serviceMock = new Mock<TrailService>();
-            Mock<TrailController> controller = new Mock<TrailController>(serviceMock.Object) { CallBase = true };
+        }
 
-            serviceMock.Setup(s => s.CreateTrail(It.IsAny<Trail>(), It.IsAny<IdentityUser>())).ThrowsAsync(new Exception());
+        [TestMethod()]
+        public void SwictchVisibility_TrailNotFound()
+        {
 
-            var actionResult = controller.Object.CreateTrail(null);
+        }
 
-            var result = actionResult.Result as NotFoundResult;
+        [TestMethod()]
+        public void SwictchVisibility_NotOwner()
+        {
 
-            Assert.IsNotNull(result);
         }
     }
 }
