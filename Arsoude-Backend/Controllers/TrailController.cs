@@ -225,9 +225,8 @@ namespace Arsoude_Backend.Controllers
 
             try
             {
-                await _trailService.controlTrailFavorite(user, trailId);
+                await _trailService.ControlTrailFavorite(user, trailId);
                 return Ok();
-
             }
             catch (UserNotFoundException userNotFound)
             {

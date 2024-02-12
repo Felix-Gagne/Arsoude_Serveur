@@ -31,7 +31,7 @@ namespace Arsoude_Backend.Services.Tests
 
             using (var context = new ApplicationDbContext(options))
             {
-                var trailService = new TrailService(null, context);
+                var trailService = new TrailService(context);
                 var coordinates = new Coordinates() { Id = 500 ,Latitude = 1, Longitude = 1 };
 
                 var user = new User()
