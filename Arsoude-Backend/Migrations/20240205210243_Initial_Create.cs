@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class trailseed : Migration
+    public partial class Initial_Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,20 +46,6 @@ namespace Arsoude_Backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Coordinates",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    X = table.Column<double>(type: "REAL", nullable: false),
-                    Y = table.Column<double>(type: "REAL", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Coordinates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,6 +183,21 @@ namespace Arsoude_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Coordinates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Latitude = table.Column<double>(type: "REAL", nullable: false),
+                    Longitude = table.Column<double>(type: "REAL", nullable: false),
+                    TrailId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Coordinates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Trails",
                 columns: table => new
                 {
@@ -231,27 +232,27 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "45c8e1d8-1003-41fb-8172-5a8442a1ee4c", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "10d08989-49c0-419c-9c62-53e812bb188b", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "b8a05d82-98ec-4374-91dd-c48e48d372bb", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEJucMeR7JUoimcZL+rBBma7ilKWXuHnIY3OqIrkFaP0Tu6vRIso0TegyEJwLRorR3Q==", null, false, "06ce25a9-4f9d-4f90-9c06-277a9155b315", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "7c71ec99-7db6-4a8f-b692-336463262b6d", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOzSd/ofuCl0XVqcBC2B/WW2Q1ZObYVRBqBBzJl/mppMOsC9dQcYAiK4Nztbf6ZRdw==", null, false, "ac4554b6-8d3f-4355-a287-eb8518b0dd1b", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "1bf18f98-64ea-4103-8558-b1ce6d2ed33c", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEARZIlH+rqj4Eosa451ip5ZciAMZKum579Lo3iU1cfOga9OGWwUIoznHO4JsEfUsPg==", null, false, "652ad5dd-eced-4ad1-8058-f61c00ba8b64", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "66b182c6-729c-4287-8cb1-1bfab187e51a", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEEN6qSqQaZKQMoFsw0nKLwQwMnbPgRiCpeM4u0wWBuMBxc1+hRAgryoiKQc9WF/0gg==", null, false, "b6edf8f5-5ba7-4932-892c-5cbb11af7143", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
-                columns: new[] { "Id", "X", "Y" },
-                values: new object[] { 1, 45.559601999999998, -73.580235999999999 });
+                columns: new[] { "Id", "Latitude", "Longitude", "TrailId" },
+                values: new object[] { 1, 45.559601999999998, -73.580235999999999, null });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
-                columns: new[] { "Id", "X", "Y" },
-                values: new object[] { 2, 45.671821999999999, -73.526653999999994 });
+                columns: new[] { "Id", "Latitude", "Longitude", "TrailId" },
+                values: new object[] { 2, 45.671821999999999, -73.526653999999994, null });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -271,7 +272,7 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type" },
-                values: new object[] { 1, "UNE MECHANT GROS TRAJET", 1, null, "Bar chez Diane", "TestTrail", 1, 1, 0 });
+                values: new object[] { 1, "UNE MECHANT GROS TRAJET", 2, null, "Bar chez Diane", "TestTrail", 1, 1, 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -311,6 +312,11 @@ namespace Arsoude_Backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Coordinates_TrailId",
+                table: "Coordinates",
+                column: "TrailId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Trails_EndingCoordinatesId",
                 table: "Trails",
                 column: "EndingCoordinatesId");
@@ -324,10 +330,21 @@ namespace Arsoude_Backend.Migrations
                 name: "IX_TrailUsers_IdentityUserId",
                 table: "TrailUsers",
                 column: "IdentityUserId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Coordinates_Trails_TrailId",
+                table: "Coordinates",
+                column: "TrailId",
+                principalTable: "Trails",
+                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Coordinates_Trails_TrailId",
+                table: "Coordinates");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -344,19 +361,19 @@ namespace Arsoude_Backend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Trails");
-
-            migrationBuilder.DropTable(
                 name: "TrailUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Coordinates");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Trails");
+
+            migrationBuilder.DropTable(
+                name: "Coordinates");
         }
     }
 }

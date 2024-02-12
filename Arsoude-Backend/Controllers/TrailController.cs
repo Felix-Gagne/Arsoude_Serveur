@@ -1,5 +1,6 @@
-﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Data;
 using Arsoude_Backend.Models;
+using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -70,10 +71,43 @@ namespace Arsoude_Backend.Controllers
         }
 
         // GET api/<TrailController>/5
-        [HttpGet()]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            return "balba";
+            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user != null)
+            {
+                try
+                {
+                    Trail trail = await _trailService.GetTrail(id, user);
+                    return Ok(trail);
+                }
+
+                catch(Exception e) {
+                    if (e.GetType() == typeof(UnauthorizedAccessException))
+                    {
+                        return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
+
+                    }
+                    else { 
+                    return BadRequest(e);
+                    }
+
+                }
+
+
+
+
+            }
+
+            else {
+
+                return Unauthorized(new { Message = "Get: Utilisateur non connecter" });
+            }
+
+
+            
         }
 
 
@@ -110,25 +144,15 @@ namespace Arsoude_Backend.Controllers
 
         // POST: api/Trails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult> CreateTrail(Trail trail)
+         [HttpPost]
+        public async Task<ActionResult<Trail>> CreateTrail(Trail trail)
         {
             IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             if (user != null)
             {
-                try
-                {
-                    trail = await _trailService.CreateTrail(trail, user);
-                    return Ok(trail);
-                }
-                catch(Exception e)
-                {
-                    return BadRequest(e);
-                }
-               
+                return await _trailService.CreateTrail(trail, user);
             }
-           
 
             else
             {
@@ -136,7 +160,36 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-        // DELETE: api/Trails/5
+        [HttpPost("{trailId}")]
+        public async Task<ActionResult<Trail>> AddCoordinates(List<Coordinates> coords, int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if(user != null)
+            {
+                return await _trailService.AddCoordinates(user, coords, trailId);
+            }
+            else
+            {
+                return NotFound("Add Coordinates: No user found");
+            }
+        }
+        
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult<List<Coordinates>>> GetTrailCoordinates(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user != null)
+            {
+                return await _trailService.GetTrailCoordinates(user, trailId);
+            }
+            else
+            {
+                return NotFound("Get Trail Coordinates: No user found");
+            }
+        }
+        
+         // DELETE: api/Trails/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTrail(int id)
         {
@@ -157,9 +210,16 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult<List<Trail>>> GetFilteredTrails(FilterDTO dto)
+        {
+            return await _trailService.GetFilteredTrails(dto);
+        }
+
         private bool TrailExists(int id)
         {
             return (_context.Trails?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
+    
 }
