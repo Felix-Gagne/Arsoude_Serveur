@@ -205,7 +205,7 @@ namespace Arsoude_Backend.Services
             }
         }
 
-        public async Task controlTrailFavorite(IdentityUser user, int trailId)
+        public async Task ControlTrailFavorite(IdentityUser user, int trailId)
         {
             User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
@@ -213,20 +213,28 @@ namespace Arsoude_Backend.Services
 
             if(currentUser != null)
             {
-                if (!currentUser.FavouriteTrails.Contains(selectedTrail))
+                if(selectedTrail != null)
                 {
-                    currentUser.FavouriteTrails.Add(selectedTrail);
-                    await _context.SaveChangesAsync();
+                    if (!currentUser.FavouriteTrails.Contains(selectedTrail))
+                    {
+                        currentUser.FavouriteTrails.Add(selectedTrail);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        currentUser.FavouriteTrails.Remove(selectedTrail);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 else
                 {
-                    currentUser.FavouriteTrails.Remove(selectedTrail);
-                    await _context.SaveChangesAsync();
+                    throw new TrailNotFoundException();
                 }
+                
             }
             else
             {
-                throw new Exception("Add To Favourites : No user found.");
+                throw new UserNotFoundException();
             }
         }
 
