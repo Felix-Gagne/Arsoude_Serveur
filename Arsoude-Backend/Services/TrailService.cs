@@ -1,4 +1,5 @@
 ﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Exceptions;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
 using Microsoft.AspNetCore.Identity;
@@ -210,29 +211,29 @@ namespace Arsoude_Backend.Services
             }
         }
 
-        public async Task SetTrailToPublic(IdentityUser user, int trailId)
+        public async Task SwitchVisiblityStatus(IdentityUser user, int trailId, bool status)
         {
             User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
-            Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+            Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
 
-            if (trail.Coordinates != null)
+            if (owner == null)
             {
-                List<Coordinates> coords = trail.Coordinates;
-                coords = coords.Where(c => c.Latitude != trail.StartingCoordinates.Latitude && c.Latitude != trail.EndingCoordinates.Latitude).ToList();
+                throw new UserNotFoundException();
+            }
+            else if (trail == null)
+            {
+                throw new TrailNotFoundException();
+            }
+            else if (trail.OwnerId != owner.Id)
+            {
+                throw new NotOwnerExcpetion();
+            }
 
-                
-            }
-            else
-            {
-                return new List<Coordinates>();
-            }
+            trail.isPublic = status;
+            _context.SaveChangesAsync();
         }
 
-        public async Task SetTrailToPrivate(int trailId)
-        {
-
-        }
 
         private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {

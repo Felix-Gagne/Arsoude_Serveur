@@ -1,9 +1,11 @@
 ﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Exceptions;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -206,14 +208,22 @@ namespace Arsoude_Backend.Controllers
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            if (user != null)
+            try
             {
-                await _trailService.SetTrailToPublic(user ,trailId);
+                await _trailService.SwitchVisiblityStatus(user, trailId, true);
                 return Ok();
             }
-            else
+            catch (UserNotFoundException)
             {
-                return NotFound("Get Trail Coordinates: No user found");
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "Trail not found" });
+            }
+            catch (NotOwnerExcpetion)
+            {
+                return Unauthorized(new { Message = "You are not the owner of this trail" });
             }
         }
 
@@ -222,13 +232,22 @@ namespace Arsoude_Backend.Controllers
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            if (user != null)
+            try
             {
+                await _trailService.SwitchVisiblityStatus(user, trailId, false);
                 return Ok();
             }
-            else
+            catch (UserNotFoundException)
             {
-                return NotFound("Get Trail Coordinates: No user found");
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "Trail not found" });
+            }
+            catch (NotOwnerExcpetion)
+            {
+                return Unauthorized(new { Message = "You are not the owner of this trail" });
             }
         }
     }
