@@ -130,7 +130,8 @@ namespace Arsoude_Backend.Controllers
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(token),
                         validTo = token.ValidTo,
-                        Message = "Connection Réussie :)"
+                        Message = "Connection Réussie :)",
+                        roles = roles
                     });
                 
 
