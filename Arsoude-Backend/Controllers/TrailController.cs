@@ -223,20 +223,22 @@ namespace Arsoude_Backend.Controllers
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
             try
             {
-                await _trailService.ControlTrailFavorite(user, trailId);
+                await _trailService.ControlTrailFavorite(currentUser, trailId);
                 return Ok();
             }
             catch (UserNotFoundException userNotFound)
             {
                 return NotFound(userNotFound.Message);
             }
-            catch(TrailNotFoundException trailNotFoundException) 
-            { 
+            catch (TrailNotFoundException trailNotFoundException)
+            {
                 return NotFound(trailNotFoundException.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return NotFound(ex.Message);
             }

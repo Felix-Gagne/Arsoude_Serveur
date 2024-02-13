@@ -201,24 +201,24 @@ namespace Arsoude_Backend.Services
                 return trails;
         }
 
-        public async Task ControlTrailFavorite(IdentityUser user, int trailId)
+        public async Task ControlTrailFavorite(User currentUser, int trailId)
         {
-            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
-
             Trail selectedTrail = await _context.Trails.Where(x => x.Id == trailId).FirstOrDefaultAsync();
-
+  
             if(currentUser != null)
             {
                 if(selectedTrail != null)
                 {
-                    if (!currentUser.FavouriteTrails.Contains(selectedTrail))
+                    UserFavoriteTrail userFavoriteTrail = await _context.UserFavoriteTrails.Where(x => x.UserId == currentUser.Id && x.TrailId == trailId).FirstOrDefaultAsync();
+                    if (userFavoriteTrail == null)
                     {
-                        currentUser.FavouriteTrails.Add(selectedTrail);
+                        userFavoriteTrail = new UserFavoriteTrail { TrailId = trailId, UserId = currentUser.Id };
+                        currentUser.FavouriteTrails.Add(userFavoriteTrail);
                         await _context.SaveChangesAsync();
                     }
                     else
                     {
-                        currentUser.FavouriteTrails.Remove(selectedTrail);
+                        currentUser.FavouriteTrails.Remove(userFavoriteTrail);
                         await _context.SaveChangesAsync();
                     }
                 }

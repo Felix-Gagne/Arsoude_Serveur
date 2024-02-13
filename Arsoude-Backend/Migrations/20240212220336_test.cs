@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class init : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -183,6 +183,26 @@ namespace Arsoude_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserFavoriteTrails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TrailId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFavoriteTrails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserFavoriteTrails_TrailUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "TrailUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Coordinates",
                 columns: table => new
                 {
@@ -211,8 +231,8 @@ namespace Arsoude_Backend.Migrations
                     StartingCoordinatesId = table.Column<int>(type: "INTEGER", nullable: false),
                     EndingCoordinatesId = table.Column<int>(type: "INTEGER", nullable: false),
                     OwnerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: true),
-                    Ispublic = table.Column<bool>(type: "INTEGER", nullable: false)
+                    isPublic = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -234,17 +254,17 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "92574493-31f3-4c79-9ec3-e80d1d101243", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "bc1916a0-862a-4db6-a4ed-6f06369fab0c", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "b18c2df2-84e9-472a-a036-0c458cfcbc38", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEEgNOxJAEWDbifwblLw6+/rtfyTlbjQGnOQMT+WDmDNrLHftBth3hGK9GXgAu7wqcg==", null, false, "5fa4c6ef-f909-4c8d-8aea-b539c0c57bdd", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "1bf75496-98f1-40b2-af3e-675bb096f7b0", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEIzk9eSHwkGt7Eltjw+MsR0bPlNxz6Cbl7Rtk4dJBY69VHUTacBccoXlUsk9y2xHBA==", null, false, "252c1832-d89b-42d9-8233-318f8b03987c", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "3b49d0c6-35e8-4c82-babb-8ba7571cdf90", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEEAZdDEABRxTFBlsoqMggx1dJ8R716taLVBejdDdfZQsl7a9q1ebgCWkBz1z2PoqUg==", null, false, "2b1c06e2-0a59-4e36-94d4-86a88c77045a", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "19cde296-a822-442c-b771-47d633ef55af", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEMt5ekfEbuJtAxhOFLQQHYTLUhmleHbCHpXggfMK4x1/Ekrgre2+f6FHkvAfFVvQaQ==", null, false, "b0c73f94-6540-4a0e-8600-3364aeb98d1d", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
@@ -273,8 +293,8 @@ namespace Arsoude_Backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Trails",
-                columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Ispublic", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type" },
-                values: new object[] { 1, "UNE MECHANT GROS TRAJET", 2, null, null, false, "Bar chez Diane", "TestTrail", 1, 1, 0 });
+                columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "isPublic" },
+                values: new object[] { 1, "UNE MECHANT GROS TRAJET", 2, null, null, "Bar chez Diane", "TestTrail", 1, 1, 0, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -333,6 +353,11 @@ namespace Arsoude_Backend.Migrations
                 table: "TrailUsers",
                 column: "IdentityUserId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFavoriteTrails_UserId",
+                table: "UserFavoriteTrails",
+                column: "UserId");
+
             migrationBuilder.AddForeignKey(
                 name: "FK_Coordinates_Trails_TrailId",
                 table: "Coordinates",
@@ -363,10 +388,13 @@ namespace Arsoude_Backend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "TrailUsers");
+                name: "UserFavoriteTrails");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "TrailUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
