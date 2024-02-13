@@ -59,6 +59,7 @@ namespace Arsoude_Backend.Services.Tests
                 Longitude = 1.0
             };
 
+<<<<<<< HEAD
             Trail trail1 = new Trail
             {
                 Id = 1,
@@ -74,6 +75,35 @@ namespace Arsoude_Backend.Services.Tests
             {
                 Type = TrailType.Vélo
             };
+=======
+            using (var context = new ApplicationDbContext(options))
+            {
+                var trailService = new TrailService(null, context);
+                var coordinates = new Coordinates() { Id = 500 ,Latitude = 1, Longitude = 1 };
+
+                var user = new User()
+                {    IdentityUserId = "11",
+                    Id = 500,
+                    AreaCode = "J4J5J8",
+                    FirstName = "Gabriel",
+                    LastName = "Gérard"
+                };
+                context.TrailUsers.Add(user);
+
+                var trail = new Trail() { 
+                    Id = 400,
+                    OwnerId = 2,
+                    Description = "Test", 
+                    EndingCoordinates = coordinates, 
+                    StartingCoordinates = coordinates, 
+                    EndingCoordinatesId = 500,
+                    StartingCoordinatesId = 500,
+                    Location = "location", 
+                    Name = "test", 
+                    Type = 0 };
+                context.Trails.Add(trail);
+                context.SaveChanges();
+>>>>>>> TEST_Admin
 
             try
             {

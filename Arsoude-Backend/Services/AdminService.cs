@@ -8,14 +8,14 @@ namespace Arsoude_Backend.Services
     public class AdminService
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        
 
 
-        public AdminService(UserManager<IdentityUser> userManager, ApplicationDbContext context)
+        public AdminService( ApplicationDbContext context)
         {
 
             _context = context;
-            _userManager = userManager;
+           
 
 
         }
@@ -57,7 +57,7 @@ namespace Arsoude_Backend.Services
          public async Task<List<Trail>> GetList()
         {
 
-           List<Trail> trails = await _context.Trails.Where(t => t.Ispublic == true && t.IsApproved == false).ToListAsync();
+           List<Trail> trails = await _context.Trails.Where(t => t.Ispublic == true && t.IsApproved == null).ToListAsync();
 
             return trails;
 
