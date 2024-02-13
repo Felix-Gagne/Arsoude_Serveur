@@ -45,7 +45,7 @@ namespace Arsoude_Backend.Services.Tests
         public void GetFilteredTrailsNull()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(null, db);
+            TrailService service = new TrailService(db);
 
             Coordinates starting = new Coordinates
             {
@@ -90,7 +90,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task GetFilteredTrailsKeywordOK()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(null, db);
+            TrailService service = new TrailService(db);
 
             Coordinates starting = new Coordinates
             {
@@ -156,7 +156,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task GetFilteredTrailsTypeOK()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(null, db);
+            TrailService service = new TrailService(db);
 
             Coordinates starting = new Coordinates
             {
@@ -222,7 +222,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task GetFilteredTrailsDistanceOK()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(null, db);
+            TrailService service = new TrailService(db);
 
             Coordinates starting = new Coordinates
             {
@@ -301,7 +301,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task GetFilteredTrailsOK()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(null, db);
+            TrailService service = new TrailService(db);
 
             Coordinates starting = new Coordinates
             {
