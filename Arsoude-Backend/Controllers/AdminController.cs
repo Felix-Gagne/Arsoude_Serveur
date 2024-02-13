@@ -33,37 +33,37 @@ namespace Arsoude_Backend.Controllers
 
         //Fonction pour approver une trail
         [HttpPut("{id}")]
-        public async Task<IActionResult> EvaluateTrail(bool isApproved, int id) {
-            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        public async Task<IActionResult> EvaluateTrail(bool isApproved, int id)
+        {
 
-            if (user != null)
+
+
+            try
             {
-                try
+                Trail trail = await _adminService.setStatus(isApproved, id);
+
+                return Ok(new { Message = "Status Modifier!", trail = trail });
+            }
+            catch (Exception e)
+            {
+                if (e.GetType() == typeof(NullReferenceException))
                 {
-                    Trail trail = await _adminService.setStatus(isApproved, id);
+                    // si la trail est null renvoyer une erreur
+                    return BadRequest(new { Message = "Admin : Trail was not found" });
 
-                    return Ok(new { Message = "Status Modifier!", trail = trail });
                 }
-                catch (Exception e) {
-                    if (e.GetType() == typeof(NullReferenceException)) {
-                        // si la trail est null renvoyer une erreur
-                        return BadRequest(new { Message = "Admin : Trail was not found" });
-                    
-                    }
-                    //Erreur inatendu, probablement un probleme de database (Update-database)
-                    return BadRequest(new {Message = "Admin : Une erreur c'est produite" });
-                    
-                    }
-            }
+                //Erreur inatendu, probablement un probleme de database (Update-database)
+                return BadRequest(new { Message = "Admin : Une erreur c'est produite" });
 
-            else { 
-            //si le user est null renvoyer une erreur
-            return Unauthorized(new { Message =" Admin :No user Found" });
             }
-
-            
-        
         }
+
+
+
+
+
+
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTrail(int id)
@@ -117,7 +117,7 @@ namespace Arsoude_Backend.Controllers
 
                 return Ok(result);
 
-                
+
             }
 
 
@@ -131,15 +131,15 @@ namespace Arsoude_Backend.Controllers
 
 
 
-            }
-
-
-
-
-
-
-
-
-
         }
+
+
+
+
+
+
+
+
+
+    }
 }

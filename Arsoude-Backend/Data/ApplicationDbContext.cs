@@ -33,6 +33,18 @@ namespace Arsoude_Backend.Data
                 NormalizedUserName = "ADMIN@ADMIN.COM",
                 EmailConfirmed = true
             };
+            User userAdmin = new User()
+            {
+                Id = 99,
+                LastName = "Admin",
+                FirstName = "Admin",
+                AreaCode = "A1A 1A1",
+                IdentityUserId = admin.Id,
+
+
+
+            };
+            builder.Entity<User>().HasData(userAdmin);
             // On encrypte le mot de passe
             admin.PasswordHash = hasher.HashPassword(admin, "Passw0rd!");
             builder.Entity<IdentityUser>().HasData(admin);
