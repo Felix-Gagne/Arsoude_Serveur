@@ -18,7 +18,7 @@ using Arsoude_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using NuGet.ContentModel;
 
-namespace Arsoude_Backend.Services.Tests
+namespace Arsoude_BackendTests
 {
     [TestClass()]
     public class TrailCreateTests
