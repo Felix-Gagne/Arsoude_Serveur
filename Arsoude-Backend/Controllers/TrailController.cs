@@ -223,9 +223,24 @@ namespace Arsoude_Backend.Controllers
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            await _trailService.controlTrailFavorite(user, trailId);
+            try
+            {
+                await _trailService.ControlTrailFavorite(user, trailId);
+                return Ok();
+            }
+            catch (UserNotFoundException userNotFound)
+            {
+                return NotFound(userNotFound.Message);
+            }
+            catch(TrailNotFoundException trailNotFoundException) 
+            { 
+                return NotFound(trailNotFoundException.Message);
+            }
+            catch(Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
 
-            return Ok();
         }
 
         private bool TrailExists(int id)
