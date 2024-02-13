@@ -35,7 +35,7 @@ namespace Arsoude_Backend.Services.Tests
                 var coordinates = new Coordinates() { Id = 500 ,Latitude = 1, Longitude = 1 };
 
                 var user = new User()
-                {
+                {    IdentityUserId = "11",
                     Id = 500,
                     AreaCode = "J4J5J8",
                     FirstName = "Gabriel",
