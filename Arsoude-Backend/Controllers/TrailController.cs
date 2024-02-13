@@ -242,7 +242,6 @@ namespace Arsoude_Backend.Controllers
             {
                 return NotFound(ex.Message);
             }
-
         }
 
         private bool TrailExists(int id)
@@ -251,14 +250,14 @@ namespace Arsoude_Backend.Controllers
         }
 
         [HttpGet("{trailId}")]
-        public async Task<ActionResult> SetTrailToPublic(int trailId)
+        public async Task<ActionResult> SetTrailStatus(int trailId, bool status)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)); 
             User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
             try 
             {
-                await _trailService.SwitchVisiblityStatus(owner, trailId, true);
+                await _trailService.SwitchVisiblityStatus(owner, trailId, status);
                 return Ok(); 
             }
 
@@ -268,37 +267,11 @@ namespace Arsoude_Backend.Controllers
             }
             catch (TrailNotFoundException)
             {
-                return NotFound(new { Message = "Trail not found" });
+                return NotFound(new { Message = "The selected trail does not exist" });
             }
             catch (NotOwnerExcpetion) 
             {
-                return Unauthorized(new { Message = "You are not the owner of this trail" }); 
-            }
-        }
-
-        [HttpGet("{trailId}")]
-        public async Task<ActionResult> SetTrailToPrivate(int trailId)
-        {
-            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
-
-            try
-            {
-                await _trailService.SwitchVisiblityStatus(owner, trailId, false);
-                return Ok();
-            }
-
-            catch (UserNotFoundException)
-            {
-                return NotFound(new { Message = "User not found" });
-            }
-            catch (TrailNotFoundException)
-            {
-                return NotFound(new { Message = "Trail not found" });
-            }
-            catch (NotOwnerExcpetion)
-            {
-                return Unauthorized(new { Message = "You are not the owner of this trail" });
+                return Unauthorized(new { Message = "You cannot change the visibility of a trail you don't own" }); 
             }
         }
     }
