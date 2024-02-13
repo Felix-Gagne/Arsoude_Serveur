@@ -118,7 +118,9 @@ namespace Arsoude_Backend.Data
                 Type = TrailType.Pied,
                 StartingCoordinatesId = 1,
                 EndingCoordinatesId = 2,
-                OwnerId = test.Id
+                OwnerId = test.Id,
+                isPublic = true,
+                
             };
 
             builder.Entity<Trail>().HasData(trail);

@@ -31,6 +31,7 @@ namespace Arsoude_Backend.Services.Tests
                            .Options;
                 _dbContext = new ApplicationDbContext(options);
 
+
             }
 
 
@@ -168,6 +169,7 @@ namespace Arsoude_Backend.Services.Tests
                 Assert.IsNotNull(deletedTrail);  //Vérification que le service renvoit bien la trail
                 Assert.AreEqual(trailId, deletedTrail.Id); //vérification que la bonne trail à été supprimé
             }
+
             [TestMethod()]
             [ExpectedException(typeof(NullReferenceException))]
             public async Task DeleteTrail_InvalidTrailId_ThrowsException()
@@ -182,6 +184,7 @@ namespace Arsoude_Backend.Services.Tests
                 // Assert
                 // Assert Exception expected
             }
+
             [TestMethod()]
             public async Task GetList_ReturnsgoodTrails()
             {
