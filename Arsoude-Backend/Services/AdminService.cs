@@ -1,4 +1,4 @@
-﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Data;
 using Arsoude_Backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,14 +8,14 @@ namespace Arsoude_Backend.Services
     public class AdminService
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        
 
 
-        public AdminService(UserManager<IdentityUser> userManager, ApplicationDbContext context)
+        public AdminService( ApplicationDbContext context)
         {
 
             _context = context;
-            _userManager = userManager;
+           
 
 
         }
