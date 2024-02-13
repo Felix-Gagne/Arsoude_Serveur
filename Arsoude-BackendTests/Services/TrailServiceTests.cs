@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Mvc;
 using Arsoude_Backend.Models.Interfaces;
 using Arsoude_Backend.Data;
 using Microsoft.EntityFrameworkCore;
+using Arsoude_Backend.Data;
+using Arsoude_Backend.Exceptions;
 using Arsoude_Backend.Models.DTOs;
 
 namespace Arsoude_Backend.Services.Tests
@@ -38,6 +40,9 @@ namespace Arsoude_Backend.Services.Tests
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
             db.Trails.RemoveRange(db.Trails);
+            db.Users.RemoveRange(db.Users);
+            db.Coordinates.RemoveRange(db.Coordinates);
+            db.TrailUsers.RemoveRange(db.TrailUsers);
             db.SaveChanges();
         }
 
@@ -45,11 +50,7 @@ namespace Arsoude_Backend.Services.Tests
         public void GetFilteredTrailsNull()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-<<<<<<< HEAD
-            TrailService service = new TrailService( db);
-=======
             TrailService service = new TrailService(db);
->>>>>>> DEV
 
             Coordinates starting = new Coordinates
             {
@@ -63,7 +64,6 @@ namespace Arsoude_Backend.Services.Tests
                 Longitude = 1.0
             };
 
-<<<<<<< HEAD
             Trail trail1 = new Trail
             {
                 Id = 1,
@@ -79,41 +79,12 @@ namespace Arsoude_Backend.Services.Tests
             {
                 Type = TrailType.Vélo
             };
-=======
-            using (var context = new ApplicationDbContext(options))
-            {
-                var trailService = new TrailService(null, context);
-                var coordinates = new Coordinates() { Id = 500 ,Latitude = 1, Longitude = 1 };
-
-                var user = new User()
-                {    IdentityUserId = "11",
-                    Id = 500,
-                    AreaCode = "J4J5J8",
-                    FirstName = "Gabriel",
-                    LastName = "Gérard"
-                };
-                context.TrailUsers.Add(user);
-
-                var trail = new Trail() { 
-                    Id = 400,
-                    OwnerId = 2,
-                    Description = "Test", 
-                    EndingCoordinates = coordinates, 
-                    StartingCoordinates = coordinates, 
-                    EndingCoordinatesId = 500,
-                    StartingCoordinatesId = 500,
-                    Location = "location", 
-                    Name = "test", 
-                    Type = 0 };
-                context.Trails.Add(trail);
-                context.SaveChanges();
->>>>>>> TEST_Admin
 
             try
             {
                 service.GetFilteredTrails(dto);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Assert.AreEqual(new Exception("Pas de randonnées trouvé pour les filtres fournis"), ex.Message);
             }
@@ -124,11 +95,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task GetFilteredTrailsKeywordOK()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-<<<<<<< HEAD
-            TrailService service = new TrailService( db);
-=======
             TrailService service = new TrailService(db);
->>>>>>> DEV
 
             Coordinates starting = new Coordinates
             {
@@ -398,5 +365,136 @@ namespace Arsoude_Backend.Services.Tests
 
         }
 
+        [TestMethod()]
+        public void SwictchVisibility_ValidData()
+        {
+            using ApplicationDbContext context = new ApplicationDbContext(options);
+            TrailService trailService = new TrailService(context);
+
+            var coordinates = new Coordinates() { Id = 501, Latitude = 1, Longitude = 1 };
+            var user = new User()
+            {
+                Id = 501,
+                AreaCode = "J4J5J8",
+                FirstName = "Gabriel",
+                LastName = "Gérard",
+                IdentityUserId = "1"
+            };
+            context.TrailUsers.Add(user);
+
+            var trail = new Trail()
+            {
+                Id = 401,
+                OwnerId = 501,
+                Description = "Test",
+                EndingCoordinates = coordinates,
+                StartingCoordinates = coordinates,
+                EndingCoordinatesId = 501,
+                StartingCoordinatesId = 501,
+                Location = "location",
+                Name = "test",
+                Type = 0,
+                isPublic = false
+            };
+            context.Trails.Add(trail);
+            context.SaveChanges();
+
+            var result = trailService.SwitchVisiblityStatus(user, trail.Id, true);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(context.Trails.FirstOrDefault(t => t.Id == trail.Id).isPublic, true);
+
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(UserNotFoundException))]
+        public async Task SwictchVisibility_UserNotFound()
+        {
+            using ApplicationDbContext context = new ApplicationDbContext(options);
+            TrailService trailService = new TrailService(context);
+            var coordinates = new Coordinates() { Id = 500, Latitude = 1, Longitude = 1 };
+
+            var trail = new Trail()
+            {
+                Id = 401,
+                OwnerId = 500,
+                Description = "Test",
+                EndingCoordinates = coordinates,
+                StartingCoordinates = coordinates,
+                EndingCoordinatesId = 500,
+                StartingCoordinatesId = 500,
+                Location = "location",
+                Name = "test",
+                Type = 0,
+                isPublic = false
+            };
+            context.Trails.Add(trail);
+            context.SaveChanges();
+
+            await trailService.SwitchVisiblityStatus(null, trail.Id, true);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(TrailNotFoundException))]
+        public async Task SwictchVisibility_TrailNotFound()
+        {
+            using ApplicationDbContext context = new ApplicationDbContext(options);
+            TrailService trailService = new TrailService(context);
+            var coordinates = new Coordinates() { Id = 500, Latitude = 1, Longitude = 1 };
+
+            var user = new User()
+            {
+                Id = 501,
+                AreaCode = "J4J5J8",
+                FirstName = "Gabriel",
+                LastName = "Gérard",
+                IdentityUserId = "1"
+            };
+            context.TrailUsers.Add(user);
+
+            context.SaveChanges();
+
+            await trailService.SwitchVisiblityStatus(user, 67364, true);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(NotOwnerExcpetion))]
+        public async Task SwictchVisibility_NotOwner()
+        {
+            using ApplicationDbContext context = new ApplicationDbContext(options);
+            TrailService trailService = new TrailService(context);
+            var coordinates = new Coordinates() { Id = 500, Latitude = 1, Longitude = 1 };
+
+            var trail = new Trail()
+            {
+                Id = 401,
+                OwnerId = 500,
+                Description = "Test",
+                EndingCoordinates = coordinates,
+                StartingCoordinates = coordinates,
+                EndingCoordinatesId = 500,
+                StartingCoordinatesId = 500,
+                Location = "location",
+                Name = "test",
+                Type = 0,
+                isPublic = false
+            };
+            context.Trails.Add(trail);
+
+            var user = new User()
+            {
+                Id = 502,
+                AreaCode = "J4J5J8",
+                FirstName = "Gabriel",
+                LastName = "Gérard",
+                IdentityUserId = "1"
+            };
+            context.TrailUsers.Add(user);
+
+            context.SaveChanges();
+
+            await trailService.SwitchVisiblityStatus(user, trail.Id, true);
+        }
     }
+
 }

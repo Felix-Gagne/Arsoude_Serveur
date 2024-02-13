@@ -253,14 +253,16 @@ namespace Arsoude_Backend.Controllers
         [HttpGet("{trailId}")]
         public async Task<ActionResult> SetTrailToPublic(int trailId)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)); 
+            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
-            try
+            try 
             {
-                await _trailService.SwitchVisiblityStatus(user, trailId, true);
-                return Ok();
+                await _trailService.SwitchVisiblityStatus(owner, trailId, true);
+                return Ok(); 
             }
-            catch (UserNotFoundException)
+
+            catch (UserNotFoundException) 
             {
                 return NotFound(new { Message = "User not found" });
             }
@@ -268,9 +270,9 @@ namespace Arsoude_Backend.Controllers
             {
                 return NotFound(new { Message = "Trail not found" });
             }
-            catch (NotOwnerExcpetion)
+            catch (NotOwnerExcpetion) 
             {
-                return Unauthorized(new { Message = "You are not the owner of this trail" });
+                return Unauthorized(new { Message = "You are not the owner of this trail" }); 
             }
         }
 
@@ -278,12 +280,14 @@ namespace Arsoude_Backend.Controllers
         public async Task<ActionResult> SetTrailToPrivate(int trailId)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
             try
             {
-                await _trailService.SwitchVisiblityStatus(user, trailId, false);
+                await _trailService.SwitchVisiblityStatus(owner, trailId, false);
                 return Ok();
             }
+
             catch (UserNotFoundException)
             {
                 return NotFound(new { Message = "User not found" });

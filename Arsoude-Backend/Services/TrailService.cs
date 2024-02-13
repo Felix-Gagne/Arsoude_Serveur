@@ -2,13 +2,9 @@ using Arsoude_Backend.Data;
 using Arsoude_Backend.Exceptions;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
-using Arsoude_Backend.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.JSInterop.Infrastructure;
-using System.Diagnostics;
-using System.Security.Claims;
 
 namespace Arsoude_Backend.Services
 {
@@ -17,12 +13,14 @@ namespace Arsoude_Backend.Services
         private readonly ApplicationDbContext _context;
 
 
-        public TrailService(ApplicationDbContext context) {
+        public TrailService(ApplicationDbContext context)
+        {
 
             _context = context;
         }
 
-        public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user) {
+        public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user)
+        {
 
 
             User? owner = _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
@@ -108,7 +106,8 @@ namespace Arsoude_Backend.Services
                 throw new Exception("Get Trail: the trail is null");
             }
 
-            if (trail.OwnerId != owner.Id) {
+            if (trail.OwnerId != owner.Id)
+            {
                 throw new UnauthorizedAccessException();
             }
             return trail;
@@ -157,7 +156,7 @@ namespace Arsoude_Backend.Services
             {
                 List<Coordinates> coords = trail.Coordinates;
                 coords = coords.Where(c => c.Latitude != trail.StartingCoordinates.Latitude && c.Latitude != trail.EndingCoordinates.Latitude).ToList();
-                
+
                 return coords;
             }
             else
@@ -169,45 +168,45 @@ namespace Arsoude_Backend.Services
 
         public async Task<List<Trail>> GetFilteredTrails(FilterDTO dto)
         {
-                IQueryable<Trail> query = _context.Trails;
+            IQueryable<Trail> query = _context.Trails;
 
-                if (!string.IsNullOrEmpty(dto.Keyword))
-                {
-                    query = query.Where(x => x.Name.ToLower().Contains(dto.Keyword.ToLower()) || x.Description.ToLower().Contains(dto.Keyword.ToLower()) || 
-                    x.Location.ToLower().Contains(dto.Keyword.ToLower()));
-                }
+            if (!string.IsNullOrEmpty(dto.Keyword))
+            {
+                query = query.Where(x => x.Name.ToLower().Contains(dto.Keyword.ToLower()) || x.Description.ToLower().Contains(dto.Keyword.ToLower()) ||
+                x.Location.ToLower().Contains(dto.Keyword.ToLower()));
+            }
 
-                if(dto.Type != null)
-                {
-                    query = query.Where(x => x.Type == dto.Type);
-                }
+            if (dto.Type != null)
+            {
+                query = query.Where(x => x.Type == dto.Type);
+            }
 
-                List<Trail> trails = await query.ToListAsync();
+            List<Trail> trails = await query.ToListAsync();
 
-                if (dto.Coordinates != null && dto.Distance.HasValue)
-                {
-                    double userLatitude = dto.Coordinates.Latitude;
-                    double userLongitude = dto.Coordinates.Longitude;
+            if (dto.Coordinates != null && dto.Distance.HasValue)
+            {
+                double userLatitude = dto.Coordinates.Latitude;
+                double userLongitude = dto.Coordinates.Longitude;
 
-                    trails = trails.Where(x => CalculateDistance(userLatitude, userLongitude,
-                        x.StartingCoordinates.Latitude, x.StartingCoordinates.Longitude) <= dto.Distance.Value).ToList();
-                }
+                trails = trails.Where(x => CalculateDistance(userLatitude, userLongitude,
+                    x.StartingCoordinates.Latitude, x.StartingCoordinates.Longitude) <= dto.Distance.Value).ToList();
+            }
 
-                if(trails.Count == 0)
-                {
-                    throw new Exception("Pas de randonnées trouvé pour les filtres fournis");
-                }
+            if (trails.Count == 0)
+            {
+                throw new Exception("Pas de randonnées trouvé pour les filtres fournis");
+            }
 
-                return trails;
+            return trails;
         }
 
         public async Task ControlTrailFavorite(User currentUser, int trailId)
         {
             Trail selectedTrail = await _context.Trails.Where(x => x.Id == trailId).FirstOrDefaultAsync();
-  
-            if(currentUser != null)
+
+            if (currentUser != null)
             {
-                if(selectedTrail != null)
+                if (selectedTrail != null)
                 {
                     UserFavoriteTrail userFavoriteTrail = await _context.UserFavoriteTrails.Where(x => x.UserId == currentUser.Id && x.TrailId == trailId).FirstOrDefaultAsync();
                     if (userFavoriteTrail == null)
@@ -226,7 +225,7 @@ namespace Arsoude_Backend.Services
                 {
                     throw new TrailNotFoundException();
                 }
-                
+
             }
             else
             {
@@ -234,28 +233,23 @@ namespace Arsoude_Backend.Services
             }
         }
 
-        public async Task SwitchVisiblityStatus(IdentityUser user, int trailId, bool status)
+        public async Task SwitchVisiblityStatus(User owner, int trailId, bool status)
         {
-            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
             Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
 
-            if (owner == null)
-            {
+            if (owner == null) 
+            { 
                 throw new UserNotFoundException();
-            }
-            else if (trail == null)
-            {
+            } else if (trail == null) 
+            { 
                 throw new TrailNotFoundException();
-            }
-            else if (trail.OwnerId != owner.Id)
-            {
-                throw new NotOwnerExcpetion();
+            } else if (trail.OwnerId != owner.Id) 
+            { 
+                throw new NotOwnerExcpetion(); 
             }
 
-            trail.isPublic = status;
-            _context.SaveChangesAsync();
+            trail.isPublic = status; _context.SaveChangesAsync();
         }
-
 
         private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {

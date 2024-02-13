@@ -55,7 +55,7 @@ namespace Arsoude_Backend.Services.Tests
                 var trail1 = new Trail()
                 {
                     Id = 1,
-                    Ispublic = true,
+                    isPublic = true,
                     EndingCoordinates = coordinates,
                     StartingCoordinates = coordinates,
                      Description = "Test",
@@ -66,7 +66,7 @@ namespace Arsoude_Backend.Services.Tests
                 var trail2 = new Trail()
                 {
                     Id = 2,
-                    Ispublic = true,
+                    isPublic = true,
                     EndingCoordinates = coordinates,
                     StartingCoordinates = coordinates,
                      Description = "Test",
@@ -77,7 +77,7 @@ namespace Arsoude_Backend.Services.Tests
                 var trail3 = new Trail()
                 {
                     Id = 3,
-                    Ispublic = false,
+                    isPublic = false,
                     IsApproved = true,
                     EndingCoordinates = coordinates,
                     StartingCoordinates = coordinates,
@@ -194,7 +194,7 @@ namespace Arsoude_Backend.Services.Tests
                 // Assert
                 Assert.IsNotNull(trails); // la liste n'est pas null
                 Assert.AreEqual(2, trails.Count); // Il y a bien 2 trail dans la liste
-                Assert.IsTrue(trails.All(t => t.IsApproved == null && t.Ispublic)); // tout les trails sont public et non approuvé ou refusé
+                Assert.IsTrue(trails.All(t => t.IsApproved == null && t.isPublic)); // tout les trails sont public et non approuvé ou refusé
             }
         }
     }
