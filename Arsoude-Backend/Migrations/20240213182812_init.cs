@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class test : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -254,17 +254,17 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "bc1916a0-862a-4db6-a4ed-6f06369fab0c", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "cd2a708b-a861-4003-a080-aae7b9da7f62", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "1bf75496-98f1-40b2-af3e-675bb096f7b0", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEIzk9eSHwkGt7Eltjw+MsR0bPlNxz6Cbl7Rtk4dJBY69VHUTacBccoXlUsk9y2xHBA==", null, false, "252c1832-d89b-42d9-8233-318f8b03987c", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "19279a0a-aa87-4830-af6a-61c3f811fdd1", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAECetJs8meYjHcw6woB/3yw7OLYSc8BRwKMFBdkzXZ23V0OyAxChIn3oK/vnCh3ujjA==", null, false, "694ccf83-94e6-43ac-9008-f2ed79f16d59", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "19cde296-a822-442c-b771-47d633ef55af", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEMt5ekfEbuJtAxhOFLQQHYTLUhmleHbCHpXggfMK4x1/Ekrgre2+f6FHkvAfFVvQaQ==", null, false, "b0c73f94-6540-4a0e-8600-3364aeb98d1d", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "43ad9235-f777-4401-9247-aaf6a2f5c4b2", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAELkNA8rwPDiJ2T3YBQEM1q1pR8QsYd9f/BysbWZJSFibp3ZlRevnneu/cltQKiykVQ==", null, false, "b2ca66d3-76bb-4dad-a640-6eb2508f92de", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
@@ -292,9 +292,14 @@ namespace Arsoude_Backend.Migrations
                 values: new object[] { 1, "111 111", null, "Test", null, "11111111-1111-1111-1111-111111111112", "Test", null, null, null, null });
 
             migrationBuilder.InsertData(
+                table: "TrailUsers",
+                columns: new[] { "Id", "AreaCode", "City", "FirstName", "HouseNo", "IdentityUserId", "LastName", "MonthOfBirth", "State", "Street", "YearOfBirth" },
+                values: new object[] { 99, "A1A 1A1", null, "Admin", null, "11111111-1111-1111-1111-111111111111", "Admin", null, null, null, null });
+
+            migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "isPublic" },
-                values: new object[] { 1, "UNE MECHANT GROS TRAJET", 2, null, null, "Bar chez Diane", "TestTrail", 1, 1, 0, false });
+                values: new object[] { 1, "UNE MECHANT GROS TRAJET", 2, null, null, "Bar chez Diane", "TestTrail", 1, 1, 0, true });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -16,14 +16,13 @@ namespace Arsoude_Backend.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        readonly UserManager<IdentityUser> UserManager;
         private ApplicationDbContext _context;
         private readonly IConfiguration _config;
         private readonly AdminService _adminService;
 
-        public AdminController(UserManager<IdentityUser> userManager, ApplicationDbContext context, IConfiguration config, AdminService adminService)
+        public AdminController( ApplicationDbContext context, IConfiguration config, AdminService adminService)
         {
-            UserManager = userManager;
+           
             _context = context;
             _config = config;
             _adminService = adminService;
@@ -33,45 +32,44 @@ namespace Arsoude_Backend.Controllers
 
         //Fonction pour approver une trail
         [HttpPut("{id}")]
-        public async Task<IActionResult> EvaluateTrail(bool isApproved, int id) {
-            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        public async Task<IActionResult> EvaluateTrail(bool isApproved, int id)
+        {
 
-            if (user != null)
+
+
+            try
             {
-                try
+                Trail trail = await _adminService.SetStatus(isApproved, id);
+
+                return Ok(new { Message = "Status Modifier!", trail = trail });
+            }
+            catch (Exception e)
+            {
+                if (e.GetType() == typeof(NullReferenceException))
                 {
-                    Trail trail = await _adminService.setStatus(isApproved, id);
+                    // si la trail est null renvoyer une erreur
+                    return BadRequest(new { Message = "Admin : Trail was not found" });
 
-                    return Ok(new { Message = "Status Modifier!", trail = trail });
                 }
-                catch (Exception e) {
-                    if (e.GetType() == typeof(NullReferenceException)) {
-                        // si la trail est null renvoyer une erreur
-                        return BadRequest(new { Message = "Admin : Trail was not found" });
-                    
-                    }
-                    //Erreur inatendu, probablement un probleme de database (Update-database)
-                    return BadRequest(new {Message = "Admin : Une erreur c'est produite" });
-                    
-                    }
-            }
+                //Erreur inatendu, probablement un probleme de database (Update-database)
+                return BadRequest(new { Message = "Admin : Une erreur c'est produite" });
 
-            else { 
-            //si le user est null renvoyer une erreur
-            return Unauthorized(new { Message =" Admin :No user Found" });
             }
-
-            
-        
         }
+
+
+
+
+
+
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTrail(int id)
         {
-            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            
 
-            if (user != null)
-            {
+          
                 try
                 {
                     Trail trail = await _adminService.DeleteTrail(id);
@@ -92,15 +90,11 @@ namespace Arsoude_Backend.Controllers
                 }
             }
 
-            else
-            {
-                //si le user est null renvoyer une erreur
-                return Unauthorized(new { Message = " Admin :No user Found" });
-            }
+           
 
 
 
-        }
+        
 
 
 
@@ -108,38 +102,26 @@ namespace Arsoude_Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetToBeApproved()
         {
-            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            if (user != null)
+            try
             {
-
-
                 List<Trail> result = await _adminService.GetList();
 
                 return Ok(result);
-
-                
             }
-
-
-
-            else
-            {
-                //si le user est null renvoyer une erreur
-                return Unauthorized(new { Message = " Admin :No user Found" });
+            catch(Exception e) { 
+            
+            return BadRequest(new { Message = "Admin: Une erreur c'est produite" });
             }
-
-
-
-
-            }
-
-
-
-
-
-
-
-
 
         }
+
+
+
+
+
+
+
+
+
+    }
 }
