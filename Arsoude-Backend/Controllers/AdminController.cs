@@ -39,7 +39,7 @@ namespace Arsoude_Backend.Controllers
 
             try
             {
-                Trail trail = await _adminService.setStatus(isApproved, id);
+                Trail trail = await _adminService.SetStatus(isApproved, id);
 
                 return Ok(new { Message = "Status Modifier!", trail = trail });
             }

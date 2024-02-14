@@ -21,7 +21,7 @@ namespace Arsoude_Backend.Services
         }
 
 
-        public async Task<Trail> setStatus(bool status, int Trailid) {
+        public async Task<Trail> SetStatus(bool status, int Trailid) {
             Trail? trail = await _context.Trails.FindAsync(Trailid);
 
             if (trail == null)

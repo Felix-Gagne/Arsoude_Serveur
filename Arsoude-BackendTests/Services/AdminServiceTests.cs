@@ -128,7 +128,7 @@ namespace Arsoude_Backend.Services.Tests
                 int trailId = 400;
 
                 // Act
-                Trail updatedTrail = await service.setStatus(newStatus, trailId);
+                Trail updatedTrail = await service.SetStatus(newStatus, trailId);
 
                 // Assert
                 Assert.AreEqual(newStatus, updatedTrail.IsApproved);
@@ -147,7 +147,7 @@ namespace Arsoude_Backend.Services.Tests
                 int trailId = 999; // Invalid TrailId
 
                 // Act
-                Trail updatedTrail = await service.setStatus(newStatus, trailId);
+                Trail updatedTrail = await service.SetStatus(newStatus, trailId);
 
                 // Assert Exception expected
                
