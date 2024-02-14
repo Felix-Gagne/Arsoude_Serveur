@@ -348,19 +348,19 @@ namespace Arsoude_Backend.Data
             };
             builder.Entity<Trail>().HasData(trail43);
 
-            Trail trail44 = new Trail()
-            {
-                Id = 44,
-                Name = "Randonnée des Gorges Profondes",
-                Description = "Une randonnée à travers des gorges profondes, où les parois rocheuses s'élèvent majestueusement de chaque côté. Ce sentier offre une expérience immersive dans les profondeurs de la terre, avec des formations rocheuses impressionnantes et des vues spectaculaires.",
-                Location = "Gorges Profondes",
-                Type = TrailType.Vélo,
-                StartingCoordinatesId = 1,
-                EndingCoordinatesId = 2,
-                OwnerId = test.Id,
-                ImageUrl = "https://i.ibb.co/C6Xw0Dp/kawaivlad.png"
-            };
-            builder.Entity<Trail>().HasData(trail44);
+            //Trail trail44 = new Trail()
+            //{
+            //    Id = 44,
+            //    Name = "Randonnée des Gorges Profondes",
+            //    Description = "Une randonnée à travers des gorges profondes, où les parois rocheuses s'élèvent majestueusement de chaque côté. Ce sentier offre une expérience immersive dans les profondeurs de la terre, avec des formations rocheuses impressionnantes et des vues spectaculaires.",
+            //    Location = "Gorges Profondes",
+            //    Type = TrailType.Vélo,
+            //    StartingCoordinatesId = 1,
+            //    EndingCoordinatesId = 2,
+            //    OwnerId = test.Id,
+            //    ImageUrl = "https://i.ibb.co/C6Xw0Dp/kawaivlad.png"
+            //};
+            //builder.Entity<Trail>().HasData(trail44);
 
             Trail trail45 = new Trail()
             {
