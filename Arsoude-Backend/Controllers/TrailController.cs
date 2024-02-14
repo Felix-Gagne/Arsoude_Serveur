@@ -82,40 +82,25 @@ namespace Arsoude_Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            if (user != null)
+            try
             {
-                try
+                Trail trail = await _trailService.GetTrail(id);
+                return Ok(trail);
+            }
+
+            catch (Exception e)
+            {
+                if (e.GetType() == typeof(UnauthorizedAccessException))
                 {
-                    Trail trail = await _trailService.GetTrail(id, user);
-                    return Ok(trail);
+                    return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
+
                 }
-
-                catch(Exception e) {
-                    if (e.GetType() == typeof(UnauthorizedAccessException))
-                    {
-                        return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
-
-                    }
-                    else { 
+                else
+                {
                     return BadRequest(e);
-                    }
-
                 }
 
-
-
-
             }
-
-            else {
-
-                return Unauthorized(new { Message = "Get: Utilisateur non connecter" });
-            }
-
-
-            
         }
 
 
@@ -224,8 +209,8 @@ namespace Arsoude_Backend.Controllers
             return await _trailService.GetFilteredTrails(dto);
         }
 
-        [HttpPost("{trailId}")]
-        public async Task<ActionResult> ManageTrailFavorite(int trailId, bool buttonState)
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult> ManageTrailFavorite(int trailId)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
@@ -233,13 +218,17 @@ namespace Arsoude_Backend.Controllers
 
             try
             {
-                if (buttonState == false)
+                UserFavoriteTrail? trail = currentUser.FavouriteTrails.Where(t => t.TrailId == trailId).FirstOrDefault();
+                if (trail == null)
                 {
                     await _trailService.AddTrailToFavorite(currentUser, trailId);
                     return Ok();
                 }
-                await _trailService.RemoveTrailFromFavorite(currentUser, trailId);
-                return Ok();
+                else
+                {
+                    await _trailService.RemoveTrailFromFavorite(currentUser, trailId);
+                    return Ok();
+                }
             }
             catch (UserNotFoundException userNotFound)
             {

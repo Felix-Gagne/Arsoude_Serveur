@@ -84,7 +84,7 @@ namespace Arsoude_Backend.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Trail> GetTrail(int id, IdentityUser user)
+        public async Task<Trail> GetTrail(int id)
         {
             if (id == null)
             {
@@ -96,7 +96,6 @@ namespace Arsoude_Backend.Services
                 throw new Exception("Get Trail: Entity set 'ApplicationDbContext.Trails'  is null.");
             }
 
-            User? owner = _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefault();
 
             var trail = await _context.Trails.FindAsync(id);
 
@@ -105,11 +104,7 @@ namespace Arsoude_Backend.Services
             {
                 throw new Exception("Get Trail: the trail is null");
             }
-
-            if (trail.OwnerId != owner.Id)
-            {
-                throw new UnauthorizedAccessException();
-            }
+           
             return trail;
         }
 
