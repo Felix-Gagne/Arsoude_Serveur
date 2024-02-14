@@ -3,6 +3,7 @@ using System;
 using Arsoude_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240214143913_test436")]
+    partial class test436
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
@@ -48,6 +50,30 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = 2,
+                            Latitude = 45.671821999999999,
+                            Longitude = -73.526653999999994
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Latitude = 45.559601999999998,
+                            Longitude = -73.580235999999999
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Latitude = 45.671821999999999,
+                            Longitude = -73.526653999999994
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Latitude = 45.559601999999998,
+                            Longitude = -73.580235999999999
+                        },
+                        new
+                        {
+                            Id = 6,
                             Latitude = 45.671821999999999,
                             Longitude = -73.526653999999994
                         });
@@ -90,9 +116,6 @@ namespace Arsoude_Backend.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("isPublic")
                         .HasColumnType("INTEGER");
 
@@ -101,8 +124,6 @@ namespace Arsoude_Backend.Migrations
                     b.HasIndex("EndingCoordinatesId");
 
                     b.HasIndex("StartingCoordinatesId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Trails");
 
@@ -123,12 +144,12 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = 2,
                             Description = "Une randonnée pittoresque à travers une forêt luxuriante où les oiseaux chantent et les rivières murmurent.",
-                            EndingCoordinatesId = 2,
+                            EndingCoordinatesId = 4,
                             ImageUrl = "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba",
                             Location = "Parc National de la Forêt Verte",
                             Name = "Sentier de la Forêt Enchantée",
                             OwnerId = 1,
-                            StartingCoordinatesId = 1,
+                            StartingCoordinatesId = 3,
                             Type = 0,
                             isPublic = false
                         },
@@ -136,12 +157,12 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = 3,
                             Description = "Une aventure difficile menant au sommet d'une montagne majestueuse offrant une vue imprenable sur la vallée ci-dessous.",
-                            EndingCoordinatesId = 2,
+                            EndingCoordinatesId = 6,
                             ImageUrl = "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg",
                             Location = "Parc National des Montagnes Escarpées",
                             Name = "Escapade au Sommet",
                             OwnerId = 1,
-                            StartingCoordinatesId = 1,
+                            StartingCoordinatesId = 5,
                             Type = 1,
                             isPublic = false
                         });
@@ -252,7 +273,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "c9a715fd-6ba0-4622-aefb-efdc26743124",
+                            ConcurrencyStamp = "9ee51442-5b15-4cb1-8449-2bda40d4ccc6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -349,15 +370,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5a48e270-0c0b-4cff-a682-b8307bdb34a8",
+                            ConcurrencyStamp = "2db2693d-0ead-4943-8e07-1fc67cba7e1f",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAeYZXqsG2J/AbNTaIk5rpv+2IBpYoBrBxZNe+d7em9CEBTLsg1X5OYrIt6Z6kLKDA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP2k4SXezmnC5x/h+EijePTm8bQ/DvdtqOH+ALb6pnGd58m5iyGK07L8UCM1Eq9lxQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a4a31557-567d-4ff0-944b-0aef1d84fd95",
+                            SecurityStamp = "ec798c4e-539d-4526-a5b6-62c0e66f8963",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -365,15 +386,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ef9634d3-5633-4c48-ab9d-f15fe3de90b5",
+                            ConcurrencyStamp = "20173418-81a2-4082-b2a1-96546729545e",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMsEIpvSqVygPmDPHtovKOj9/XOdyg3x1YzGp9mbHjZNtUvnNK6aAoKmp2jZXDwjLA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHT4ifFN2eEm3Yo6M1JSCdY/EeTjdrPKtwT7LeBMNF39n9AOhWlLjLEbLr4HlHFzgg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "08689a7a-5bea-4dfb-82b0-4abefbc3f874",
+                            SecurityStamp = "114b0d3a-9131-4704-8669-e8c0b2c4afeb",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -495,10 +516,6 @@ namespace Arsoude_Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Arsoude_Backend.Models.User", null)
-                        .WithMany("Trails")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("EndingCoordinates");
 
                     b.Navigation("StartingCoordinates");
@@ -583,8 +600,6 @@ namespace Arsoude_Backend.Migrations
             modelBuilder.Entity("Arsoude_Backend.Models.User", b =>
                 {
                     b.Navigation("FavouriteTrails");
-
-                    b.Navigation("Trails");
                 });
 #pragma warning restore 612, 618
         }

@@ -67,11 +67,7 @@ namespace Arsoude_Backend.Data
                 FirstName = "Test",
                 AreaCode = "111 111",
                 IdentityUserId = user.Id,
-            
-            
             };
-
-            
 
             // On encrypte le mot de passe
             user.PasswordHash = hasher2.HashPassword(user, "Passw0rd!");
@@ -98,7 +94,40 @@ namespace Arsoude_Backend.Data
             };
             builder.Entity<Coordinates>().HasData(c1, c2);
 
-            Trail trail = new Trail { 
+            //Coordinates c3 = new Coordinates()
+            //{
+            //    Id = 3,
+            //    Latitude = 45.559602,
+            //    Longitude = -73.580236
+
+            //};
+            //Coordinates c4 = new Coordinates()
+            //{
+            //    Id = 4,
+            //    Latitude = 45.671822,
+            //    Longitude = -73.526654
+
+            //};
+            //builder.Entity<Coordinates>().HasData(c3, c4);
+
+            //Coordinates c5 = new Coordinates()
+            //{
+            //    Id = 5,
+            //    Latitude = 45.559602,
+            //    Longitude = -73.580236
+
+            //};
+            //Coordinates c6 = new Coordinates()
+            //{
+            //    Id = 6,
+            //    Latitude = 45.671822,
+            //    Longitude = -73.526654
+
+            //};
+            //builder.Entity<Coordinates>().HasData(c5, c6);
+
+            Trail trail = new Trail
+            {
                 Id = 1,
                 Name = "TestTrail",
                 Description = "UNE MECHANT GROS TRAJET",
@@ -110,6 +139,34 @@ namespace Arsoude_Backend.Data
             };
 
             builder.Entity<Trail>().HasData(trail);
+
+            Trail trail2 = new Trail()
+            {
+                Id = 2,
+                Name = "Sentier de la Forêt Enchantée",
+                Description = "Une randonnée pittoresque à travers une forêt luxuriante où les oiseaux chantent et les rivières murmurent.",
+                Location = "Parc National de la Forêt Verte",
+                Type = TrailType.Pied,
+                StartingCoordinatesId = 1,
+                EndingCoordinatesId = 2,
+                OwnerId = test.Id,
+                ImageUrl = "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba"
+            };
+            builder.Entity<Trail>().HasData(trail2);
+
+            Trail trail3 = new Trail()
+            {
+                Id = 3,
+                Name = "Escapade au Sommet",
+                Description = "Une aventure difficile menant au sommet d'une montagne majestueuse offrant une vue imprenable sur la vallée ci-dessous.",
+                Location = "Parc National des Montagnes Escarpées",
+                Type = TrailType.Vélo,
+                StartingCoordinatesId = 1,
+                EndingCoordinatesId = 2,
+                OwnerId = test.Id,
+                ImageUrl = "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg"
+            };
+            builder.Entity<Trail>().HasData(trail3);
 
         }
 
