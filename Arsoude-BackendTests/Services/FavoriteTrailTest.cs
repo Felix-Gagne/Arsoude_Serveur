@@ -119,7 +119,7 @@ namespace Arsoude_BackendTests.Services
             //Nombre de trail dans les favoris avant l'ajout d'une nouvelle
             Assert.AreEqual(currentUser.FavouriteTrails.Count(), 1);
 
-            await trailService.ControlTrailFavorite(currentUser, trail.Id);
+            await trailService.AddTrailToFavorite(currentUser, trail.Id);
 
             User currentUserAfterAdd = await db.TrailUsers.Where(x => x.IdentityUserId == user.IdentityUserId).FirstOrDefaultAsync();
 
@@ -140,7 +140,7 @@ namespace Arsoude_BackendTests.Services
             //Nombre de trail dans les favoris avant que l'on remove une trail au favoris
             Assert.AreEqual(currentUser.FavouriteTrails.Count(), 1);
 
-            await trailService.ControlTrailFavorite(currentUser, trail.Id);
+            await trailService.RemoveTrailFromFavorite(currentUser, trail.Id);
 
             User currentUserAfterAdd = await db.TrailUsers.Where(x => x.IdentityUserId == user.IdentityUserId).FirstOrDefaultAsync();
 
@@ -156,10 +156,9 @@ namespace Arsoude_BackendTests.Services
 
             TrailService trailService = new TrailService(db);
 
-            User currentUser = await db.TrailUsers.Where(x => x.IdentityUserId == user.IdentityUserId).FirstOrDefaultAsync();
-            Trail trail = await db.Trails.Where(x => x.Id == trailInTheFavorite.Id).FirstOrDefaultAsync();
+            
 
-            await trailService.ControlTrailFavorite(null, trail.Id);
+            await trailService.AddTrailToFavorite(null, trailtIWantInTheFavorite.Id);
         }
 
         [ExpectedException(typeof(TrailNotFoundException))]
@@ -170,10 +169,9 @@ namespace Arsoude_BackendTests.Services
 
             TrailService trailService = new TrailService(db);
 
-            User currentUser = await db.TrailUsers.Where(x => x.IdentityUserId == user.IdentityUserId).FirstOrDefaultAsync();
-            Trail trail = await db.Trails.Where(x => x.Id == trailInTheFavorite.Id).FirstOrDefaultAsync();
+            
 
-            await trailService.ControlTrailFavorite(currentUser, 40);
+            await trailService.AddTrailToFavorite(user, 40);
         }
 
     }

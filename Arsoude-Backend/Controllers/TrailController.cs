@@ -219,7 +219,7 @@ namespace Arsoude_Backend.Controllers
         }
 
         [HttpPost("{trailId}")]
-        public async Task<ActionResult> ManageTrailFavorite(int trailId)
+        public async Task<ActionResult> ManageTrailFavorite(int trailId, bool buttonState)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
@@ -227,7 +227,12 @@ namespace Arsoude_Backend.Controllers
 
             try
             {
-                await _trailService.ControlTrailFavorite(currentUser, trailId);
+                if (buttonState == false)
+                {
+                    await _trailService.AddTrailToFavorite(currentUser, trailId);
+                    return Ok();
+                }
+                await _trailService.RemoveTrailFromFavorite(currentUser, trailId);
                 return Ok();
             }
             catch (UserNotFoundException userNotFound)
@@ -242,6 +247,7 @@ namespace Arsoude_Backend.Controllers
             {
                 return NotFound(ex.Message);
             }
+
         }
 
         private bool TrailExists(int id)

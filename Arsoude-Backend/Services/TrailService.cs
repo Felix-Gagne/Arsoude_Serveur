@@ -200,7 +200,7 @@ namespace Arsoude_Backend.Services
             return trails;
         }
 
-        public async Task ControlTrailFavorite(User currentUser, int trailId)
+        public async Task<bool> VerifyThatUserHaveTrailInFavorite(User currentUser, int trailId)
         {
             Trail selectedTrail = await _context.Trails.Where(x => x.Id == trailId).FirstOrDefaultAsync();
 
@@ -211,15 +211,9 @@ namespace Arsoude_Backend.Services
                     UserFavoriteTrail userFavoriteTrail = await _context.UserFavoriteTrails.Where(x => x.UserId == currentUser.Id && x.TrailId == trailId).FirstOrDefaultAsync();
                     if (userFavoriteTrail == null)
                     {
-                        userFavoriteTrail = new UserFavoriteTrail { TrailId = trailId, UserId = currentUser.Id };
-                        currentUser.FavouriteTrails.Add(userFavoriteTrail);
-                        await _context.SaveChangesAsync();
+                        return false;
                     }
-                    else
-                    {
-                        currentUser.FavouriteTrails.Remove(userFavoriteTrail);
-                        await _context.SaveChangesAsync();
-                    }
+                    return true;
                 }
                 else
                 {
@@ -230,6 +224,29 @@ namespace Arsoude_Backend.Services
             else
             {
                 throw new UserNotFoundException();
+            }
+        }
+
+        public async Task AddTrailToFavorite(User currentUser, int trailId)
+        {
+            bool trailInFavorite = await VerifyThatUserHaveTrailInFavorite(currentUser, trailId);
+            if (trailInFavorite == false)
+            {
+                UserFavoriteTrail userFavoriteTrail = new UserFavoriteTrail { TrailId = trailId, UserId = currentUser.Id };
+                currentUser.FavouriteTrails.Add(userFavoriteTrail);
+                await _context.SaveChangesAsync();
+            }
+
+        }
+
+        public async Task RemoveTrailFromFavorite(User currentUser, int trailId)
+        {
+            bool trailInFavorite = await VerifyThatUserHaveTrailInFavorite(currentUser, trailId);
+            if (trailInFavorite)
+            {
+                UserFavoriteTrail userFavoriteTrail = await _context.UserFavoriteTrails.Where(x => x.UserId == currentUser.Id && x.TrailId == trailId).FirstOrDefaultAsync();
+                currentUser.FavouriteTrails.Remove(userFavoriteTrail);
+                await _context.SaveChangesAsync();
             }
         }
 
