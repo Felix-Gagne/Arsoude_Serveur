@@ -293,7 +293,7 @@ namespace Arsoude_Backend.Services.Tests
             FilterDTO dto = new FilterDTO
             {
                 Coordinates = starting,
-                Type = TrailType.Pied
+                Distance = 1
             };
 
             List<Trail> trails = await service.GetFilteredTrails(dto);
