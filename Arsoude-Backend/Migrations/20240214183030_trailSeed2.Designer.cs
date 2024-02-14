@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240214143733_test435")]
-    partial class test435
+    [Migration("20240214183030_trailSeed2")]
+    partial class trailSeed2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,6 +92,9 @@ namespace Arsoude_Backend.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("isPublic")
                         .HasColumnType("INTEGER");
 
@@ -101,21 +104,11 @@ namespace Arsoude_Backend.Migrations
 
                     b.HasIndex("StartingCoordinatesId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Trails");
 
                     b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "UNE MECHANT GROS TRAJET",
-                            EndingCoordinatesId = 2,
-                            Location = "Bar chez Diane",
-                            Name = "TestTrail",
-                            OwnerId = 1,
-                            StartingCoordinatesId = 1,
-                            Type = 0,
-                            isPublic = false
-                        },
                         new
                         {
                             Id = 2,
@@ -137,6 +130,266 @@ namespace Arsoude_Backend.Migrations
                             ImageUrl = "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg",
                             Location = "Parc National des Montagnes Escarpées",
                             Name = "Escapade au Sommet",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Description = "Une randonnée enchanteresse le long de plusieurs cascades étincelantes, où l'eau scintille au soleil et crée un spectacle magique. Ce sentier offre une expérience sensorielle unique avec le bruit apaisant de l'eau qui coule, les reflets chatoyants et la fraîcheur de l'air pur. Vous serez transporté dans un monde de beauté naturelle et de tranquillité.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://californiathroughmylens.com/wp-content/uploads/2019/05/crystal-cove-el-moro-12-640x427.jpg",
+                            Location = "Parc National des Cascades Étincelantes",
+                            Name = "Sentier des Cascades Étincelantes",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Description = "Une promenade pittoresque à travers de vastes champs de fleurs colorées, où vous pourrez vous imprégner des parfums enivrants et des couleurs éclatantes de la nature. Ce sentier offre une expérience visuelle et olfactive unique, avec des vues panoramiques sur les champs à perte de vue et une ambiance paisible qui invite à la détente et à la contemplation.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://blog.ab.bluecross.ca/wp-content/uploads/2020/08/fav-hikes-part-three.jpg",
+                            Location = "Champs de Fleurs en Fleur",
+                            Name = "Promenade des Champs de Fleurs",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Description = "Une randonnée jusqu'à un pittoresque lac de montagne, niché au creux des sommets enneigés et entouré d'une nature sauvage et préservée. Ce sentier offre des vues panoramiques spectaculaires sur les montagnes environnantes et une atmosphère paisible et relaxante près de l'eau cristalline du lac.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://www.tourismpei.com/sites/default/files/styles/hero_mobile/public/media/images/51271316495_139f7c6199_o_0.jpg?h=3cbfe8df&itok=dRMEGC9G",
+                            Location = "Lac de Montagne Tranquille",
+                            Name = "Escapade au Lac de Montagne",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 0,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Description = "Une aventure à travers les ruines anciennes d'une civilisation disparue, où vous pourrez découvrir l'histoire fascinante de ce site archéologique. Ce sentier offre une expérience immersive dans le passé, avec des vestiges bien préservés et des paysages à couper le souffle qui témoignent de la grandeur passée de cette civilisation.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://i.cbc.ca/1.4170049.1530218327!/fileImage/httpImage/hiking-trails.jpg",
+                            Location = "Site Archéologique des Ruines Anciennes",
+                            Name = "Sentier des Ruines Anciennes",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 0,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Description = "Une randonnée le long de falaises côtières majestueuses, offrant des vues spectaculaires sur l'océan et les côtes rocheuses. Ce sentier offre une expérience unique en bord de mer, avec des panoramas à couper le souffle et une ambiance maritime rafraîchissante.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://www.mississauga.ca/wp-content/uploads/2022/10/14143203/20221010_115918-scaled.jpg",
+                            Location = "Falaises Côtières",
+                            Name = "Randonnée des Falaises Côtières",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 0,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Description = "Une balade à travers une vallée paisible et endormie, où le temps semble s'être arrêté. Ce sentier offre une expérience tranquille en pleine nature, avec des paysages pittoresques et une ambiance relaxante qui invite à la contemplation.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://www.lutsen.com/sites/default/files/styles/scale_1440/public/2021-10/Biking%20-%20Molly%20at%20Britton%20Peak%20-%20VCC%20UL%20-%20by%20Al%20%26%20Lyndsey%20Johnson%20%20%2842%29.jpg?itok=N7pFjnwx",
+                            Location = "Vallée Endormie",
+                            Name = "Sentier de la Vallée Endormie",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 0,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Description = "Une randonnée jusqu'au sommet d'un pic vertigineux, offrant des vues à couper le souffle sur les vallées et les montagnes environnantes. Ce sentier offre une expérience exaltante pour les amateurs de sensations fortes, avec des panoramas spectaculaires et une montée stimulante.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://www.surrey.ca/sites/default/files/styles/metatag_facebook/public/2020-08/InvergarryNatureTrail.JPG?h=d262251e&itok=oXPbDLYW",
+                            Location = "Pic Vertigineux",
+                            Name = "Randonnée du Pic Vertigineux",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Description = "Une balade le long de plusieurs chutes mystiques, cachées au cœur d'une forêt luxuriante. Ce sentier offre une expérience enchantée, avec des cascades paisibles et des paysages magiques qui émerveilleront les sens.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://i.pinimg.com/originals/7f/e4/e2/7fe4e24eb9024d61139ac44a607e478a.jpg",
+                            Location = "Forêt des Chutes Mystiques",
+                            Name = "Chemin des Chutes Mystiques",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Description = "Une randonnée jusqu'à un magnifique lac de cristal, dont les eaux claires reflètent les montagnes environnantes. Ce sentier offre une expérience rafraîchissante en plein air, avec la possibilité de se baigner dans les eaux cristallines du lac.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://www.nps.gov/hosp/planyourvisit/images/_DSC7261.jpg?maxwidth=650&autorotate=false",
+                            Location = "Lac de Cristal",
+                            Name = "Randonnée du Lac de Cristal",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Description = "Une randonnée à travers un canyon étincelant, où la lumière du soleil se reflète sur les parois rocheuses pour créer un spectacle scintillant. Ce sentier offre une expérience visuelle saisissante, avec des jeux de lumière magiques et des formations rocheuses uniques.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAO_hEyiI2Tkfl5TI78QWQpncjBZ_7VWxtU4rceThJXeSRAKCutUx62Hfw5sdbX_QBEa4&usqp=CAU",
+                            Location = "Canyon Étincelant",
+                            Name = "Sentier du Canyon Étincelant",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Description = "Une balade à travers des jardins enchanteurs, où vous pourrez admirer une grande variété de plantes exotiques et de fleurs colorées. Ce sentier offre une expérience botanique unique, avec des jardins bien entretenus et une ambiance paisible qui invite à la contemplation.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://i.natgeofe.com/n/71741e7e-db92-41fc-9c54-f781c3df87df/2C57A8C_16x9.jpg",
+                            Location = "Jardins Enchantés",
+                            Name = "Promenade des Jardins Enchantés",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 0,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Description = "Une randonnée épique jusqu'au sommet d'une montagne enneigée, offrant des vues à couper le souffle sur les paysages alpins. Ce sentier offre une expérience alpine authentique, avec des vues panoramiques sur les montagnes enneigées et une ambiance hivernale magique.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUGLsH09jYtknRspMu0BDdOsADZrSLhzBUtA&usqp=CAU",
+                            Location = "Sommet Enneigé",
+                            Name = "Randonnée du Sommet Enneigé",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 0,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Description = "Une promenade à travers des marais brumeux, où l'air est chargé d'humidité et la lumière filtre à travers le brouillard. Ce sentier offre une expérience mystérieuse et immersive dans les marais, avec des paysages enveloppés de brume et une ambiance envoûtante.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3zUevnG8V-eS4-NSaNMg5oF0-ZT5LdAtxZK6cz5LhF5NarXdZpdC8DY2yOQ&usqp=CAU",
+                            Location = "Marais Brumeux",
+                            Name = "Sentier des Marais Brumeux",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 0,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Description = "Une randonnée à travers des gorges profondes, où les parois rocheuses s'élèvent majestueusement de chaque côté. Ce sentier offre une expérience immersive dans les profondeurs de la terre, avec des formations rocheuses impressionnantes et des vues spectaculaires.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnknvCIwKZ5N0zRrj3I5bSl1BvnhfOfRb5-A&usqp=CAU",
+                            Location = "Gorges Profondes",
+                            Name = "Randonnée des Gorges Profondes",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Description = "Une randonnée jusqu'à une cascade éternelle, dont les eaux coulent continuellement et offrent un spectacle apaisant. Ce sentier offre une expérience rafraîchissante en plein air, avec la possibilité de se détendre près de la cascade et d'admirer sa beauté intemporelle.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCA6kAIZL-AxJ6y9BcA2Aehzv7-0O2vk9T1PlTj9CqBhzBYA3VfMzYXj3N0JU9bUc1FFU&usqp=CAU",
+                            Location = "Cascade Éternelle",
+                            Name = "Sentier de la Cascade Éternelle",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Description = "Une balade paisible autour d'un lac serein, où vous pourrez profiter de la tranquillité de l'eau et observer la faune locale. Ce sentier offre une expérience relaxante en plein air, avec des vues pittoresques sur le lac et une ambiance calme qui invite à la méditation.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTugCf0JnmYgEVLZ2B9K2a4a0ZZJEFNfW_8PqFX-zZkYO01FSnlMnJkIb8f1g&usqp=CAU",
+                            Location = "Lac Serein",
+                            Name = "Promenade du Lac Serein",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Description = "Une randonnée à travers les montagnes miroir, où les sommets reflètent parfaitement le ciel et les nuages. Ce sentier offre une expérience visuelle spectaculaire, avec des panoramas époustouflants et des paysages qui semblent sortis d'un rêve.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2GqsI73mCOlVVt52fPp6bY8NZGgZsdhPtKQ&usqp=CAU",
+                            Location = "Montagnes Miroir",
+                            Name = "Randonnée des Montagnes Miroir",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Description = "Une balade en fin de journée pour admirer le coucher de soleil sur l'horizon, offrant des couleurs chaudes et des reflets dorés sur l'eau. Ce sentier offre une expérience magique en plein air, avec des vues panoramiques sur le ciel coloré et une ambiance paisible qui invite à la contemplation.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiPZh4dSE41IKi1McQIaLsJYZFy5mQsy5Jpw&usqp=CAU",
+                            Location = "Coucher de Soleil",
+                            Name = "Sentier du Coucher de Soleil",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 0,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Description = "Une randonnée épique à travers un canyon profond, où les parois rocheuses s'élèvent à des hauteurs vertigineuses de chaque côté. Ce sentier offre une expérience immersive dans la nature sauvage, avec des vues spectaculaires sur les falaises et les gorges.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQATsNzO2VzN3e7xhUF3KU8wCIZshYsW3F5Ug&usqp=CAU",
+                            Location = "Canyon Profond",
+                            Name = "Randonnée du Canyon Profond",
+                            OwnerId = 1,
+                            StartingCoordinatesId = 1,
+                            Type = 1,
+                            isPublic = false
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Description = "Une balade à travers une vallée mystique, où les brumes matinales créent une atmosphère envoûtante. Ce sentier offre une expérience magique en plein air, avec des paysages enveloppés de brume et une ambiance tranquille qui invite à la contemplation.",
+                            EndingCoordinatesId = 2,
+                            ImageUrl = "https://www.mississauga.ca/wp-content/uploads/2022/10/14143203/20221010_115918-scaled.jpg",
+                            Location = "Vallée des Brumes",
+                            Name = "Sentier de la Vallée des Brumes",
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 1,
@@ -249,7 +502,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "5f919890-843d-4127-ade3-7eab5253e673",
+                            ConcurrencyStamp = "612e1345-4912-4349-ac74-62beb6fef393",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -346,15 +599,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "78ab3cd1-93ea-45cd-8d97-d831ec396a87",
+                            ConcurrencyStamp = "a109cb57-524f-408b-ad60-85e00e31cc82",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKLehiwIsmTPgnp4c1BmLL6VasdHiCPNbWwCkmL7VCFFjXw3QgO+f8/AMME6F5zwUA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENokstif0+TUWHP2NYPndjQz1OwSqQrqKlkkboLw7bO8TPLvDzIU3urMVGnT3AN2/w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7bc2641-87b6-48c4-9b50-28d24d12b25d",
+                            SecurityStamp = "7cbb2aba-3325-4482-b7f6-17a13b2369ea",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -362,15 +615,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5eeed27a-8bbe-4fe7-9d9d-9f6779d18d21",
+                            ConcurrencyStamp = "da5d80cc-7694-4dc8-b11a-3e18eaf92037",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHwkKZIo6fCbAJSOFscqTYJjRrvmfFUyLkmpf0DOtb5chJXiYuqUsnLzTZVmikbfMw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKUugeR+YOGNGcLy5laHeJD5C/XkfBcPxgR67f5DRFmWaRSLS+2450gZjV+GhbHZew==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aa24a204-efe3-4185-99e2-9709cefccad0",
+                            SecurityStamp = "5ac07a5d-e3c1-4dd4-8159-89622a958251",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -492,6 +745,10 @@ namespace Arsoude_Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Arsoude_Backend.Models.User", null)
+                        .WithMany("Trails")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("EndingCoordinates");
 
                     b.Navigation("StartingCoordinates");
@@ -576,6 +833,8 @@ namespace Arsoude_Backend.Migrations
             modelBuilder.Entity("Arsoude_Backend.Models.User", b =>
                 {
                     b.Navigation("FavouriteTrails");
+
+                    b.Navigation("Trails");
                 });
 #pragma warning restore 612, 618
         }

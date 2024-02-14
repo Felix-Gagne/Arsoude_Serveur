@@ -76,40 +76,27 @@ namespace Arsoude_Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            if (user != null)
+            try
             {
-                try
+                Trail trail = await _trailService.GetTrail(id);
+                return Ok(trail);
+            }
+
+            catch (Exception e)
+            {
+                if (e.GetType() == typeof(UnauthorizedAccessException))
                 {
-                    Trail trail = await _trailService.GetTrail(id, user);
-                    return Ok(trail);
+                    return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
+
                 }
-
-                catch(Exception e) {
-                    if (e.GetType() == typeof(UnauthorizedAccessException))
-                    {
-                        return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
-
-                    }
-                    else { 
+                else
+                {
                     return BadRequest(e);
-                    }
-
                 }
 
-
-
-
             }
 
-            else {
-
-                return Unauthorized(new { Message = "Get: Utilisateur non connecter" });
-            }
-
-
-            
         }
 
 
