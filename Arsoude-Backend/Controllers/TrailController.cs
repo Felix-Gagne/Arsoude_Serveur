@@ -72,6 +72,12 @@ namespace Arsoude_Backend.Controllers
           
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<Trail>>> GetAllTrails()
+        {
+            return await _context.Trails.ToListAsync();
+        }
+
         // GET api/<TrailController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
