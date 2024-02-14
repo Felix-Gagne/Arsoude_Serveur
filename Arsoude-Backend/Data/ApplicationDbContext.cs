@@ -332,7 +332,7 @@ namespace Arsoude_Backend.Data
                 StartingCoordinatesId = 1,
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
-                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3zUevnG8V-eS4-NSaNMg5oF0-ZT5LdAtxZK6cz5LhF5NarXdZpdC8DY2yOQ&usqp=CAU"
+                ImageUrl = "https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/gatlinburgtn/Forney_Ridge_trail_Smokies_3_796a5a89-db2b-49b4-9c62-b5fd805e1885.jpg"
             };
             builder.Entity<Trail>().HasData(trail43);
 
@@ -346,7 +346,7 @@ namespace Arsoude_Backend.Data
                 StartingCoordinatesId = 1,
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
-                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnknvCIwKZ5N0zRrj3I5bSl1BvnhfOfRb5-A&usqp=CAU"
+                ImageUrl = "https://i.ibb.co/C6Xw0Dp/kawaivlad.png"
             };
             builder.Entity<Trail>().HasData(trail44);
 
@@ -360,7 +360,7 @@ namespace Arsoude_Backend.Data
                 StartingCoordinatesId = 1,
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
-                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCA6kAIZL-AxJ6y9BcA2Aehzv7-0O2vk9T1PlTj9CqBhzBYA3VfMzYXj3N0JU9bUc1FFU&usqp=CAU"
+                ImageUrl = "https://travel.home.sndimg.com/content/dam/images/travel/fullset/2012/08/24/a0/us-hiking-trails_ss_001.rend.hgtvcom.616.462.suffix/1491580965291.jpeg"
             };
             builder.Entity<Trail>().HasData(trail45);
 
@@ -374,7 +374,7 @@ namespace Arsoude_Backend.Data
                 StartingCoordinatesId = 1,
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
-                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTugCf0JnmYgEVLZ2B9K2a4a0ZZJEFNfW_8PqFX-zZkYO01FSnlMnJkIb8f1g&usqp=CAU"
+                ImageUrl = "https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/gatlinburgtn/Forney_Ridge_trail_Smokies_3_796a5a89-db2b-49b4-9c62-b5fd805e1885.jpg"
             };
             builder.Entity<Trail>().HasData(trail46);
 
@@ -388,7 +388,7 @@ namespace Arsoude_Backend.Data
                 StartingCoordinatesId = 1,
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
-                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2GqsI73mCOlVVt52fPp6bY8NZGgZsdhPtKQ&usqp=CAU"
+                ImageUrl = "https://1.bp.blogspot.com/-PzBA1W501qQ/VBhtDjlsI7I/AAAAAAAAaRM/L4PGqyTlPtg/s1600/Aspen%2B009.JPG"
             };
             builder.Entity<Trail>().HasData(trail47);
 
@@ -402,7 +402,7 @@ namespace Arsoude_Backend.Data
                 StartingCoordinatesId = 1,
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
-                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiPZh4dSE41IKi1McQIaLsJYZFy5mQsy5Jpw&usqp=CAU"
+                ImageUrl = "https://media.cnn.com/api/v1/images/stellar/prod/230821123314-01-body-family-of-7-hiking-americas-longest-trails.jpg?c=original"
             };
             builder.Entity<Trail>().HasData(trail48);
 
@@ -416,7 +416,7 @@ namespace Arsoude_Backend.Data
                 StartingCoordinatesId = 1,
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
-                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQATsNzO2VzN3e7xhUF3KU8wCIZshYsW3F5Ug&usqp=CAU"
+                ImageUrl = "https://www.vmcdn.ca/f/files/glaciermedia/import/lmp-all/899734-image-copy.jpg"
             };
             builder.Entity<Trail>().HasData(trail49);
 
@@ -430,7 +430,7 @@ namespace Arsoude_Backend.Data
                 StartingCoordinatesId = 1,
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
-                ImageUrl = "https://www.mississauga.ca/wp-content/uploads/2022/10/14143203/20221010_115918-scaled.jpg"
+                ImageUrl = "https://gowanderwild.com/wp-content/uploads/2022/12/The-Garden-Wall-Shelly-Pabis.jpg"
             };
             builder.Entity<Trail>().HasData(trail50);
 

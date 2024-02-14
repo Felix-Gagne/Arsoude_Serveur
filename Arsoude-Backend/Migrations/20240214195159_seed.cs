@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class trailSeed : Migration
+    public partial class seed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -260,17 +260,17 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "07eeb09c-a833-47a0-8152-183bf1b2679e", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "deceb3cd-377f-4338-8e71-da25e1d678eb", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "9c93b054-afce-4066-b592-834d7b250edb", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEO3ZUHUOKASm+aFoNA/Kpqa938fK8mGYym+mxFWoxZtvBssi861eYF1pJc6X2/PNaA==", null, false, "01b28cc9-99e0-4cb7-ae05-5b68011df932", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "cfd1f0b5-d20b-46c6-b22f-3a511219afa6", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEAD6i8YxkVlg/lqUNKQqCh92qJhGrYG6EBB17R5R6qulpGdP1icSKD2lOmgFok/W6g==", null, false, "31e0e962-3a2f-425e-9e7f-9a949411b5e0", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "8f0cf4f9-6b92-4ef4-b618-8a34687fde71", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEPzdmo2BpXK5SrAkVN2P3ltF8CysxLJI0IptUcGn5++YRHTkebxNy++0bm6AW08fFg==", null, false, "2a59e2e6-64f4-4c94-ba3b-d1cf5defe45d", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "b500bd8f-e44b-4d84-b29a-fa1cf1aa20ae", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEPJWl4uV9I1MkDPCbAtp+SDtfSY6RMbb7hNHlUIJFXFvwybr7Gibr1yvUrCovwYY7Q==", null, false, "b2d5f250-27db-45b3-a4f5-65c96d4b1fb4", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
@@ -296,11 +296,6 @@ namespace Arsoude_Backend.Migrations
                 table: "TrailUsers",
                 columns: new[] { "Id", "AreaCode", "City", "FirstName", "HouseNo", "IdentityUserId", "LastName", "MonthOfBirth", "State", "Street", "YearOfBirth" },
                 values: new object[] { 1, "111 111", null, "Test", null, "11111111-1111-1111-1111-111111111112", "Test", null, null, null, null });
-
-            migrationBuilder.InsertData(
-                table: "Trails",
-                columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 1, "UNE MECHANT GROS TRAJET", 2, null, null, "Bar chez Diane", "TestTrail", 1, 1, 0, null, false });
 
             migrationBuilder.InsertData(
                 table: "Trails",
@@ -375,42 +370,42 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 43, "Une promenade à travers des marais brumeux, où l'air est chargé d'humidité et la lumière filtre à travers le brouillard. Ce sentier offre une expérience mystérieuse et immersive dans les marais, avec des paysages enveloppés de brume et une ambiance envoûtante.", 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3zUevnG8V-eS4-NSaNMg5oF0-ZT5LdAtxZK6cz5LhF5NarXdZpdC8DY2yOQ&usqp=CAU", null, "Marais Brumeux", "Sentier des Marais Brumeux", 1, 1, 0, null, false });
+                values: new object[] { 43, "Une promenade à travers des marais brumeux, où l'air est chargé d'humidité et la lumière filtre à travers le brouillard. Ce sentier offre une expérience mystérieuse et immersive dans les marais, avec des paysages enveloppés de brume et une ambiance envoûtante.", 2, "https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/gatlinburgtn/Forney_Ridge_trail_Smokies_3_796a5a89-db2b-49b4-9c62-b5fd805e1885.jpg", null, "Marais Brumeux", "Sentier des Marais Brumeux", 1, 1, 0, null, false });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 44, "Une randonnée à travers des gorges profondes, où les parois rocheuses s'élèvent majestueusement de chaque côté. Ce sentier offre une expérience immersive dans les profondeurs de la terre, avec des formations rocheuses impressionnantes et des vues spectaculaires.", 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnknvCIwKZ5N0zRrj3I5bSl1BvnhfOfRb5-A&usqp=CAU", null, "Gorges Profondes", "Randonnée des Gorges Profondes", 1, 1, 1, null, false });
+                values: new object[] { 44, "Une randonnée à travers des gorges profondes, où les parois rocheuses s'élèvent majestueusement de chaque côté. Ce sentier offre une expérience immersive dans les profondeurs de la terre, avec des formations rocheuses impressionnantes et des vues spectaculaires.", 2, "https://i.ibb.co/C6Xw0Dp/kawaivlad.png", null, "Gorges Profondes", "Randonnée des Gorges Profondes", 1, 1, 1, null, false });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 45, "Une randonnée jusqu'à une cascade éternelle, dont les eaux coulent continuellement et offrent un spectacle apaisant. Ce sentier offre une expérience rafraîchissante en plein air, avec la possibilité de se détendre près de la cascade et d'admirer sa beauté intemporelle.", 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCA6kAIZL-AxJ6y9BcA2Aehzv7-0O2vk9T1PlTj9CqBhzBYA3VfMzYXj3N0JU9bUc1FFU&usqp=CAU", null, "Cascade Éternelle", "Sentier de la Cascade Éternelle", 1, 1, 1, null, false });
+                values: new object[] { 45, "Une randonnée jusqu'à une cascade éternelle, dont les eaux coulent continuellement et offrent un spectacle apaisant. Ce sentier offre une expérience rafraîchissante en plein air, avec la possibilité de se détendre près de la cascade et d'admirer sa beauté intemporelle.", 2, "https://travel.home.sndimg.com/content/dam/images/travel/fullset/2012/08/24/a0/us-hiking-trails_ss_001.rend.hgtvcom.616.462.suffix/1491580965291.jpeg", null, "Cascade Éternelle", "Sentier de la Cascade Éternelle", 1, 1, 1, null, false });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 46, "Une balade paisible autour d'un lac serein, où vous pourrez profiter de la tranquillité de l'eau et observer la faune locale. Ce sentier offre une expérience relaxante en plein air, avec des vues pittoresques sur le lac et une ambiance calme qui invite à la méditation.", 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTugCf0JnmYgEVLZ2B9K2a4a0ZZJEFNfW_8PqFX-zZkYO01FSnlMnJkIb8f1g&usqp=CAU", null, "Lac Serein", "Promenade du Lac Serein", 1, 1, 1, null, false });
+                values: new object[] { 46, "Une balade paisible autour d'un lac serein, où vous pourrez profiter de la tranquillité de l'eau et observer la faune locale. Ce sentier offre une expérience relaxante en plein air, avec des vues pittoresques sur le lac et une ambiance calme qui invite à la méditation.", 2, "https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/gatlinburgtn/Forney_Ridge_trail_Smokies_3_796a5a89-db2b-49b4-9c62-b5fd805e1885.jpg", null, "Lac Serein", "Promenade du Lac Serein", 1, 1, 1, null, false });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 47, "Une randonnée à travers les montagnes miroir, où les sommets reflètent parfaitement le ciel et les nuages. Ce sentier offre une expérience visuelle spectaculaire, avec des panoramas époustouflants et des paysages qui semblent sortis d'un rêve.", 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2GqsI73mCOlVVt52fPp6bY8NZGgZsdhPtKQ&usqp=CAU", null, "Montagnes Miroir", "Randonnée des Montagnes Miroir", 1, 1, 1, null, false });
+                values: new object[] { 47, "Une randonnée à travers les montagnes miroir, où les sommets reflètent parfaitement le ciel et les nuages. Ce sentier offre une expérience visuelle spectaculaire, avec des panoramas époustouflants et des paysages qui semblent sortis d'un rêve.", 2, "https://1.bp.blogspot.com/-PzBA1W501qQ/VBhtDjlsI7I/AAAAAAAAaRM/L4PGqyTlPtg/s1600/Aspen%2B009.JPG", null, "Montagnes Miroir", "Randonnée des Montagnes Miroir", 1, 1, 1, null, false });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 48, "Une balade en fin de journée pour admirer le coucher de soleil sur l'horizon, offrant des couleurs chaudes et des reflets dorés sur l'eau. Ce sentier offre une expérience magique en plein air, avec des vues panoramiques sur le ciel coloré et une ambiance paisible qui invite à la contemplation.", 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiPZh4dSE41IKi1McQIaLsJYZFy5mQsy5Jpw&usqp=CAU", null, "Coucher de Soleil", "Sentier du Coucher de Soleil", 1, 1, 0, null, false });
+                values: new object[] { 48, "Une balade en fin de journée pour admirer le coucher de soleil sur l'horizon, offrant des couleurs chaudes et des reflets dorés sur l'eau. Ce sentier offre une expérience magique en plein air, avec des vues panoramiques sur le ciel coloré et une ambiance paisible qui invite à la contemplation.", 2, "https://media.cnn.com/api/v1/images/stellar/prod/230821123314-01-body-family-of-7-hiking-americas-longest-trails.jpg?c=original", null, "Coucher de Soleil", "Sentier du Coucher de Soleil", 1, 1, 0, null, false });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 49, "Une randonnée épique à travers un canyon profond, où les parois rocheuses s'élèvent à des hauteurs vertigineuses de chaque côté. Ce sentier offre une expérience immersive dans la nature sauvage, avec des vues spectaculaires sur les falaises et les gorges.", 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQATsNzO2VzN3e7xhUF3KU8wCIZshYsW3F5Ug&usqp=CAU", null, "Canyon Profond", "Randonnée du Canyon Profond", 1, 1, 1, null, false });
+                values: new object[] { 49, "Une randonnée épique à travers un canyon profond, où les parois rocheuses s'élèvent à des hauteurs vertigineuses de chaque côté. Ce sentier offre une expérience immersive dans la nature sauvage, avec des vues spectaculaires sur les falaises et les gorges.", 2, "https://www.vmcdn.ca/f/files/glaciermedia/import/lmp-all/899734-image-copy.jpg", null, "Canyon Profond", "Randonnée du Canyon Profond", 1, 1, 1, null, false });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 50, "Une balade à travers une vallée mystique, où les brumes matinales créent une atmosphère envoûtante. Ce sentier offre une expérience magique en plein air, avec des paysages enveloppés de brume et une ambiance tranquille qui invite à la contemplation.", 2, "https://www.mississauga.ca/wp-content/uploads/2022/10/14143203/20221010_115918-scaled.jpg", null, "Vallée des Brumes", "Sentier de la Vallée des Brumes", 1, 1, 1, null, false });
+                values: new object[] { 50, "Une balade à travers une vallée mystique, où les brumes matinales créent une atmosphère envoûtante. Ce sentier offre une expérience magique en plein air, avec des paysages enveloppés de brume et une ambiance tranquille qui invite à la contemplation.", 2, "https://gowanderwild.com/wp-content/uploads/2022/12/The-Garden-Wall-Shelly-Pabis.jpg", null, "Vallée des Brumes", "Sentier de la Vallée des Brumes", 1, 1, 1, null, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
