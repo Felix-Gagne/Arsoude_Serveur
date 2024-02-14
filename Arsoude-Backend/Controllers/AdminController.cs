@@ -31,7 +31,7 @@ namespace Arsoude_Backend.Controllers
 
 
         //Fonction pour approver une trail
-        [HttpPut("{id}")]
+        [HttpGet("{id}/{isApproved}")]
         public async Task<IActionResult> EvaluateTrail(bool isApproved, int id)
         {
 
