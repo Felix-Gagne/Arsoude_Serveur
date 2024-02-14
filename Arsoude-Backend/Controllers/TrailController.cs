@@ -75,7 +75,8 @@ namespace Arsoude_Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Trail>>> GetAllTrails()
         {
-            return await _context.Trails.ToListAsync();
+            var response = await _context.Trails.ToListAsync();
+            return response;
         }
 
         // GET api/<TrailController>/5
@@ -238,8 +239,11 @@ namespace Arsoude_Backend.Controllers
                     await _trailService.AddTrailToFavorite(currentUser, trailId);
                     return Ok();
                 }
-                await _trailService.RemoveTrailFromFavorite(currentUser, trailId);
-                return Ok();
+                else
+                {
+                    await _trailService.RemoveTrailFromFavorite(currentUser, trailId);
+                    return Ok();
+                }
             }
             catch (UserNotFoundException userNotFound)
             {
