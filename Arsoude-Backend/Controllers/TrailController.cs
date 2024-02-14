@@ -101,7 +101,6 @@ namespace Arsoude_Backend.Controllers
                 }
 
             }
-
         }
 
         // PUT: api/Trails/5
@@ -213,8 +212,8 @@ namespace Arsoude_Backend.Controllers
             return await _trailService.GetFilteredTrails(dto);
         }
 
-        [HttpPost("{trailId}")]
-        public async Task<ActionResult> ManageTrailFavorite(int trailId, bool buttonState)
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult> ManageTrailFavorite(int trailId)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
@@ -222,13 +221,17 @@ namespace Arsoude_Backend.Controllers
 
             try
             {
-                if (buttonState == false)
+                UserFavoriteTrail? trail = currentUser.FavouriteTrails.Where(t => t.TrailId == trailId).FirstOrDefault();
+                if (trail == null)
                 {
                     await _trailService.AddTrailToFavorite(currentUser, trailId);
                     return Ok();
                 }
-                await _trailService.RemoveTrailFromFavorite(currentUser, trailId);
-                return Ok();
+                else
+                {
+                    await _trailService.RemoveTrailFromFavorite(currentUser, trailId);
+                    return Ok();
+                }
             }
             catch (UserNotFoundException userNotFound)
             {
@@ -243,6 +246,17 @@ namespace Arsoude_Backend.Controllers
                 return NotFound(ex.Message);
             }
 
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Trail>>> GetFavoriteTrails()
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+            
+            var listOfTrails = await _trailService.GetUserFavoriteTrails(currentUser);
+            return listOfTrails;
         }
 
         private bool TrailExists(int id)
