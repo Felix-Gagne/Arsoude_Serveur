@@ -139,6 +139,9 @@ namespace Arsoude_Backend.Services
                     trail.Coordinates.Add(coord);
                 }
 
+                trail.StartingCoordinates = coords.First();
+                trail.EndingCoordinates = coords.Last();
+
                 await _context.SaveChangesAsync();
             }
 
