@@ -244,7 +244,7 @@ namespace Arsoude_Backend.Controllers
             return (_context.Trails?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        [HttpGet("{trailId}")]
+        [HttpGet("{trailId}/{status}")]
         public async Task<ActionResult> SetTrailStatus(int trailId, bool status)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)); 
