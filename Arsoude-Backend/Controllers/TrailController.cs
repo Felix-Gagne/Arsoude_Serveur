@@ -75,7 +75,7 @@ namespace Arsoude_Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Trail>>> GetAllTrails()
         {
-            return await _context.Trails.ToListAsync();
+            return await _context.Trails.Where(x => x.IsApproved == true && x.isPublic == true).ToListAsync();
         }
 
         // GET api/<TrailController>/5

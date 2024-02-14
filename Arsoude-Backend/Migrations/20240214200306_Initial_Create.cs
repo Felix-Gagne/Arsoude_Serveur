@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class init : Migration
+    public partial class Initial_Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -232,7 +232,9 @@ namespace Arsoude_Backend.Migrations
                     EndingCoordinatesId = table.Column<int>(type: "INTEGER", nullable: false),
                     OwnerId = table.Column<int>(type: "INTEGER", nullable: false),
                     isPublic = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: true)
+                    Distance = table.Column<double>(type: "REAL", nullable: true),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -249,22 +251,27 @@ namespace Arsoude_Backend.Migrations
                         principalTable: "Coordinates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Trails_TrailUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "TrailUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "cd2a708b-a861-4003-a080-aae7b9da7f62", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "1f739b04-01fe-4286-b2d5-ba285cab06f7", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "19279a0a-aa87-4830-af6a-61c3f811fdd1", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAECetJs8meYjHcw6woB/3yw7OLYSc8BRwKMFBdkzXZ23V0OyAxChIn3oK/vnCh3ujjA==", null, false, "694ccf83-94e6-43ac-9008-f2ed79f16d59", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "2bebc2dc-70a4-49b0-a4c2-ca4eab87a392", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEGBr8DBKsR3ie+yBgEAth3Zi8MnKNktZTMBMFTfSTMHNZH7T7H1y2m8o4oLn5qQ8Tw==", null, false, "77d10c69-91c7-4ff5-a1f3-f1577a77c07f", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "43ad9235-f777-4401-9247-aaf6a2f5c4b2", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAELkNA8rwPDiJ2T3YBQEM1q1pR8QsYd9f/BysbWZJSFibp3ZlRevnneu/cltQKiykVQ==", null, false, "b2ca66d3-76bb-4dad-a640-6eb2508f92de", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "c757c606-4c86-4377-b9c8-784a9d237772", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEAlQQbEjfRnHQXu88s30u6i/yc8YGynpE5WeZVXaD+mGhlffSmrvi4Mw7glVsH1dUg==", null, false, "e73d0859-4bcb-4e82-a67c-a222f381b82b", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
@@ -298,8 +305,18 @@ namespace Arsoude_Backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Trails",
-                columns: new[] { "Id", "Description", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "isPublic" },
-                values: new object[] { 1, "UNE MECHANT GROS TRAJET", 2, null, null, "Bar chez Diane", "TestTrail", 1, 1, 0, true });
+                columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
+                values: new object[] { 1, "UNE MECHANT GROS TRAJET", null, 2, null, null, "Bar chez Diane", "TestTrail", 1, 1, 0, null, true });
+
+            migrationBuilder.InsertData(
+                table: "Trails",
+                columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
+                values: new object[] { 2, "Une randonnée pittoresque à travers une forêt luxuriante où les oiseaux chantent et les rivières murmurent.", null, 2, "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba", null, "Parc National de la Forêt Verte", "Sentier de la Forêt Enchantée", 1, 1, 0, null, false });
+
+            migrationBuilder.InsertData(
+                table: "Trails",
+                columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
+                values: new object[] { 3, "Une aventure difficile menant au sommet d'une montagne majestueuse offrant une vue imprenable sur la vallée ci-dessous.", null, 2, "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg", null, "Parc National des Montagnes Escarpées", "Escapade au Sommet", 1, 1, 1, null, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -354,6 +371,11 @@ namespace Arsoude_Backend.Migrations
                 column: "StartingCoordinatesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Trails_UserId",
+                table: "Trails",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TrailUsers_IdentityUserId",
                 table: "TrailUsers",
                 column: "IdentityUserId");
@@ -373,6 +395,10 @@ namespace Arsoude_Backend.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_TrailUsers_AspNetUsers_IdentityUserId",
+                table: "TrailUsers");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Coordinates_Trails_TrailId",
                 table: "Coordinates");
@@ -399,9 +425,6 @@ namespace Arsoude_Backend.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "TrailUsers");
-
-            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
@@ -409,6 +432,9 @@ namespace Arsoude_Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Coordinates");
+
+            migrationBuilder.DropTable(
+                name: "TrailUsers");
         }
     }
 }

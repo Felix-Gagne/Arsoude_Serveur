@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240214143733_test435")]
-    partial class test435
+    [Migration("20240214200306_Initial_Create")]
+    partial class Initial_Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,6 +66,9 @@ namespace Arsoude_Backend.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
+                    b.Property<double?>("Distance")
+                        .HasColumnType("REAL");
+
                     b.Property<int>("EndingCoordinatesId")
                         .HasColumnType("INTEGER");
 
@@ -92,6 +95,9 @@ namespace Arsoude_Backend.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("isPublic")
                         .HasColumnType("INTEGER");
 
@@ -100,6 +106,8 @@ namespace Arsoude_Backend.Migrations
                     b.HasIndex("EndingCoordinatesId");
 
                     b.HasIndex("StartingCoordinatesId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Trails");
 
@@ -114,7 +122,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 0,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -193,6 +201,14 @@ namespace Arsoude_Backend.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 99,
+                            AreaCode = "A1A 1A1",
+                            FirstName = "Admin",
+                            IdentityUserId = "11111111-1111-1111-1111-111111111111",
+                            LastName = "Admin"
+                        },
+                        new
+                        {
                             Id = 1,
                             AreaCode = "111 111",
                             FirstName = "Test",
@@ -249,7 +265,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "5f919890-843d-4127-ade3-7eab5253e673",
+                            ConcurrencyStamp = "1f739b04-01fe-4286-b2d5-ba285cab06f7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -346,15 +362,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "78ab3cd1-93ea-45cd-8d97-d831ec396a87",
+                            ConcurrencyStamp = "2bebc2dc-70a4-49b0-a4c2-ca4eab87a392",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKLehiwIsmTPgnp4c1BmLL6VasdHiCPNbWwCkmL7VCFFjXw3QgO+f8/AMME6F5zwUA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGBr8DBKsR3ie+yBgEAth3Zi8MnKNktZTMBMFTfSTMHNZH7T7H1y2m8o4oLn5qQ8Tw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7bc2641-87b6-48c4-9b50-28d24d12b25d",
+                            SecurityStamp = "77d10c69-91c7-4ff5-a1f3-f1577a77c07f",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -362,15 +378,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5eeed27a-8bbe-4fe7-9d9d-9f6779d18d21",
+                            ConcurrencyStamp = "c757c606-4c86-4377-b9c8-784a9d237772",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHwkKZIo6fCbAJSOFscqTYJjRrvmfFUyLkmpf0DOtb5chJXiYuqUsnLzTZVmikbfMw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAlQQbEjfRnHQXu88s30u6i/yc8YGynpE5WeZVXaD+mGhlffSmrvi4Mw7glVsH1dUg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aa24a204-efe3-4185-99e2-9709cefccad0",
+                            SecurityStamp = "e73d0859-4bcb-4e82-a67c-a222f381b82b",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -492,6 +508,10 @@ namespace Arsoude_Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Arsoude_Backend.Models.User", null)
+                        .WithMany("Trails")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("EndingCoordinates");
 
                     b.Navigation("StartingCoordinates");
@@ -576,6 +596,8 @@ namespace Arsoude_Backend.Migrations
             modelBuilder.Entity("Arsoude_Backend.Models.User", b =>
                 {
                     b.Navigation("FavouriteTrails");
+
+                    b.Navigation("Trails");
                 });
 #pragma warning restore 612, 618
         }

@@ -131,6 +131,7 @@ namespace Arsoude_Backend.Services
 
                 trail.StartingCoordinates = coords.First();
                 trail.EndingCoordinates = coords.Last();
+                trail.Distance = coords.Count() * 10 / 1000;
 
                 await _context.SaveChangesAsync();
             }
