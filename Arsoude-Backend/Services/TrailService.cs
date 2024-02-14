@@ -92,6 +92,7 @@ namespace Arsoude_Backend.Services
                 throw new Exception("Get Trail: Entity set 'ApplicationDbContext.Trails'  is null.");
             }
 
+
             var trail = await _context.Trails.FindAsync(id);
 
 
@@ -187,7 +188,7 @@ namespace Arsoude_Backend.Services
 
             if (trails.Count == 0)
             {
-                throw new Exception("Pas de randonnées trouvé pour les filtres fournis");
+                throw new Exception("Pas de randonnï¿½es trouvï¿½ pour les filtres fournis");
             }
 
             return trails;
