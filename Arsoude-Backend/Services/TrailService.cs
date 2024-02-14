@@ -250,15 +250,18 @@ namespace Arsoude_Backend.Services
             if (owner == null) 
             { 
                 throw new UserNotFoundException();
-            } else if (trail == null) 
+            } 
+            else if (trail == null) 
             { 
                 throw new TrailNotFoundException();
-            } else if (trail.OwnerId != owner.Id) 
+            } 
+            else if (trail.OwnerId != owner.Id) 
             { 
                 throw new NotOwnerExcpetion(); 
             }
 
-            trail.isPublic = status; _context.SaveChangesAsync();
+            trail.isPublic = status; 
+            _context.SaveChangesAsync();
         }
 
         private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
