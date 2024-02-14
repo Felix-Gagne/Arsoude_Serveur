@@ -256,6 +256,17 @@ namespace Arsoude_Backend.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<Trail>>> GetFavoriteTrails()
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+            
+            var listOfTrails = await _trailService.GetUserFavoriteTrails(currentUser);
+            return listOfTrails;
+        }
+
         private bool TrailExists(int id)
         {
             return (_context.Trails?.Any(e => e.Id == id)).GetValueOrDefault();

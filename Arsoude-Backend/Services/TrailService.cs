@@ -232,11 +232,24 @@ namespace Arsoude_Backend.Services
             bool trailInFavorite = await VerifyThatUserHaveTrailInFavorite(currentUser, trailId);
             if (trailInFavorite == false)
             {
-                UserFavoriteTrail userFavoriteTrail = new UserFavoriteTrail { TrailId = trailId, UserId = currentUser.Id };
+                UserFavoriteTrail userFavoriteTrail = new UserFavoriteTrail { TrailId = trailId, UserId = currentUser.Id};
                 currentUser.FavouriteTrails.Add(userFavoriteTrail);
                 await _context.SaveChangesAsync();
             }
 
+        }
+
+        public async Task<List<Trail>> GetUserFavoriteTrails(User user)
+        {
+            List<Trail> result = new List<Trail>();
+
+            foreach (var favoriteTrail in user.FavouriteTrails)
+            {
+                Trail trail = await _context.Trails.Where(x => x.Id == favoriteTrail.TrailId).FirstOrDefaultAsync();
+                result.Add(trail);
+            }
+
+            return result;
         }
 
         public async Task RemoveTrailFromFavorite(User currentUser, int trailId)
