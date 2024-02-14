@@ -76,42 +76,27 @@ namespace Arsoude_Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            if (user != null)
+            try
             {
-                try
+                Trail trail = await _trailService.GetTrail(id);
+                return Ok(trail);
+            }
+
+            catch (Exception e)
+            {
+                if (e.GetType() == typeof(UnauthorizedAccessException))
                 {
-                    Trail trail = await _trailService.GetTrail(id, user);
-                    return Ok(trail);
+                    return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
+
                 }
-
-                catch(Exception e) {
-                    if (e.GetType() == typeof(UnauthorizedAccessException))
-                    {
-                        return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
-
-                    }
-                    else { 
+                else
+                {
                     return BadRequest(e);
-                    }
-
                 }
 
-
-
-
             }
 
-            else {
-
-                return Unauthorized(new { Message = "Get: Utilisateur non connecter" });
-            }
-
-
-            
         }
-
 
         // PUT: api/Trails/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -151,14 +136,18 @@ namespace Arsoude_Backend.Controllers
         {
             IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            if (user != null)
+            try
             {
-                return await _trailService.CreateTrail(trail, user);
+                await _trailService.CreateTrail(trail, user);
+                return Ok();
             }
-
-            else
+            catch (UserNotFoundException)
             {
-                return NotFound("Create Trail: No user found");
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "Trail not found" });
             }
         }
 

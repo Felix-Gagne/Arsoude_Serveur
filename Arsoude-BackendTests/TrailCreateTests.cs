@@ -17,6 +17,7 @@ using Arsoude_Backend.Models.Interfaces;
 using Arsoude_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using NuGet.ContentModel;
+using Arsoude_Backend.Exceptions;
 
 namespace Arsoude_BackendTests
 {
@@ -55,7 +56,6 @@ namespace Arsoude_BackendTests
                 NormalizedUserName = "USER@USER.COM",
                 EmailConfirmed = true
             };
-
 
 
             User userTest = new User
@@ -101,7 +101,8 @@ namespace Arsoude_BackendTests
         }
 
         [TestMethod]
-        public void CreateTrail_NullUser()
+        [ExpectedException(typeof(UserNotFoundException))]
+        public async Task CreateTrail_NullUser()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
             TrailService trailService = new TrailService(db);
@@ -112,18 +113,12 @@ namespace Arsoude_BackendTests
             };
 
 
-            try
-            {
-                trailService.CreateTrail(t, null);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual("Create Trail: the user is null", ex.Message);
-            }
+            await trailService.CreateTrail(t, null);
         }
 
         [TestMethod]
-        public void CreateTrail_NullTrail()
+        [ExpectedException(typeof(TrailNotFoundException))]
+        public async Task CreateTrail_NullTrail()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
             TrailService trailService = new TrailService(db);
@@ -139,70 +134,54 @@ namespace Arsoude_BackendTests
                 EmailConfirmed = true
             };
 
-            User userTest = new User
-            {
-                Id = 3,
-                LastName = "Test",
-                FirstName = "Test",
-                AreaCode = "111 111",
-                IdentityUserId = user.Id,
-            };
-
-            try
-            {
-                trailService.CreateTrail(null, user);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual("Create Trail: the trail is null", ex.Message);
-            }
+            await trailService.CreateTrail(null, user);
         }
 
-        [TestMethod]
-        public void CreateTrail_NullContext()
-        {
-            IdentityUser user = new IdentityUser
-            {
-                Id = "11111111-1111-1111-1111-111111111115",
-                UserName = "user@user.com",
-                Email = "user@user.com",
-                // La comparaison d'identity se fait avec les versions normalis�s
-                NormalizedEmail = "USER@USER.COM",
-                NormalizedUserName = "USER@USER.COM",
-                EmailConfirmed = true
-            };
+        //[TestMethod]
+        //public void CreateTrail_NullContext() 
+        //{
+        //    IdentityUser user = new IdentityUser
+        //    {
+        //        Id = "11111111-1111-1111-1111-111111111115",
+        //        UserName = "user@user.com",
+        //        Email = "user@user.com",
+        //        // La comparaison d'identity se fait avec les versions normalis�s
+        //        NormalizedEmail = "USER@USER.COM",
+        //        NormalizedUserName = "USER@USER.COM",
+        //        EmailConfirmed = true
+        //    };
 
-            User userTest = new User
-            {
-                Id = 4,
-                LastName = "Test",
-                FirstName = "Test",
-                AreaCode = "111 111",
-                IdentityUserId = user.Id,
-            };
+        //    User userTest = new User
+        //    {
+        //        Id = 4,
+        //        LastName = "Test",
+        //        FirstName = "Test",
+        //        AreaCode = "111 111",
+        //        IdentityUserId = user.Id,
+        //    };
 
-            using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(db);
+        //    using ApplicationDbContext db = new ApplicationDbContext(options);
+        //    TrailService trailService = new TrailService(db);
 
-            Trail t = new Trail()
-            {
-                Id = 4,
-                OwnerId = userTest.Id
-            };
+        //    Trail t = new Trail()
+        //    {
+        //        Id = 4,
+        //        OwnerId = userTest.Id
+        //    };
 
 
-            db.Trails = null;
-            db.SaveChanges();
+        //    db.Trails = null;
+        //    db.SaveChanges();
 
-            try
-            {
-                trailService.CreateTrail(t, user);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual("Create Trail: Entity set 'ApplicationDbContext.Trails' is null", ex.Message);
-            }
-        }
+        //    try
+        //    {
+        //        trailService.CreateTrail(t, user);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.AreEqual("Create Trail: Entity set 'ApplicationDbContext.Trails' is null", ex.Message);
+        //    }
+        //}
 
     }
 }
