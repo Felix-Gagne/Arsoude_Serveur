@@ -25,7 +25,9 @@ builder.Services.AddControllersWithViews();
 
 //Ajouter les Scoped de service ici
 builder.Services.AddScoped<UserService>();
+// TODO: Utiliser l'interface
 builder.Services.AddScoped<TrailService>();
+builder.Services.AddScoped<AdminService>();
 
 //Authentification JWT (token)
 builder.Services.AddAuthentication(options =>

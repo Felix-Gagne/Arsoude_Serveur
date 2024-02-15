@@ -130,7 +130,8 @@ namespace Arsoude_Backend.Controllers
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(token),
                         validTo = token.ValidTo,
-                        Message = "Connection Réussie :)"
+                        Message = "Connection Réussie :)",
+                        roles = roles
                     });
                 
 
@@ -177,27 +178,6 @@ namespace Arsoude_Backend.Controllers
             await SignInManager.SignOutAsync();
             return Ok(new { Message = "Utilisateur déconnecté" });
         }
-
-        ////Génère le token JWT pour l'authentification
-        //private string GenerateToken(User user)
-        //{
-        //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        //    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-        //    var claims = new[]
-        //    {
-        //        new Claim(ClaimTypes.NameIdentifier,user.IdentityUser.UserName),
-        //        new Claim(ClaimTypes.Role, user.Role)
-        //    };
-        //    var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-        //        _config["Jwt:Audience"],
-        //        claims,
-        //        expires: DateTime.Now.AddMinutes(15),
-        //        signingCredentials: credentials);
-
-
-        //    return new JwtSecurityTokenHandler().WriteToken(token);
-
-        //}
 
         private async Task<string> GenerateToken(IdentityUser user)
         {

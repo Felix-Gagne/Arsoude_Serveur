@@ -41,6 +41,12 @@ namespace Arsoude_Backend.Models
         public int EndingCoordinatesId { get; set; }
 
         public int OwnerId { get; set; }
+        public Boolean isPublic { get; set; } = false;
+
+        public double? Distance { get; set; }
+
+
+        public bool? IsApproved { get; set; }
 
         [JsonIgnore]
         public virtual List<Coordinates>? Coordinates { get; set; }

@@ -1,9 +1,11 @@
-﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Data;
+using Arsoude_Backend.Exceptions;
 using Arsoude_Backend.Models;
 using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -70,93 +72,56 @@ namespace Arsoude_Backend.Controllers
           
         }
 
-        // GET api/<TrailController>/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet]
+        public async Task<ActionResult<List<Trail>>> GetAllTrails()
         {
-            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            if (user != null)
-            {
-                try
-                {
-                    Trail trail = await _trailService.GetTrail(id, user);
-                    return Ok(trail);
-                }
-
-                catch(Exception e) {
-                    if (e.GetType() == typeof(UnauthorizedAccessException))
-                    {
-                        return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
-
-                    }
-                    else { 
-                    return BadRequest(e);
-                    }
-
-                }
-
-
-
-
-            }
-
-            else {
-
-                return Unauthorized(new { Message = "Get: Utilisateur non connecter" });
-            }
-
-
-            
+            return await _context.Trails.Where(x => x.IsApproved == true && x.isPublic == true).ToListAsync();
         }
 
-
-        // PUT: api/Trails/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrail(int id, Trail trail)
+        // GET api/<TrailController>/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTrail(int id)
         {
-            if (id != trail.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(trail).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                Trail trail = await _trailService.GetTrail(id);
+                return Ok(trail);
             }
-            catch (DbUpdateConcurrencyException)
+
+            catch (Exception e)
             {
-                if (!TrailExists(id))
+                if (e.GetType() == typeof(UnauthorizedAccessException))
                 {
-                    return NotFound();
+                    return BadRequest(new { Message = "Get: Cette Randonnée ne vous appartient pas" });
+
                 }
                 else
                 {
-                    throw;
+                    return BadRequest(e);
                 }
-            }
 
-            return NoContent();
+            }
         }
 
         // POST: api/Trails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+         [HttpPost]
         public async Task<ActionResult<Trail>> CreateTrail(Trail trail)
         {
             IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            if (user != null)
+            try
             {
-                return await _trailService.CreateTrail(trail, user);
+                await _trailService.CreateTrail(trail, user);
+                return Ok();
             }
-
-            else
+            catch (UserNotFoundException)
             {
-                return NotFound("Create Trail: No user found");
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "Trail not found" });
             }
         }
 
@@ -164,7 +129,6 @@ namespace Arsoude_Backend.Controllers
         public async Task<ActionResult<Trail>> AddCoordinates(List<Coordinates> coords, int trailId)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
             if(user != null)
             {
                 return await _trailService.AddCoordinates(user, coords, trailId);
@@ -174,7 +138,7 @@ namespace Arsoude_Backend.Controllers
                 return NotFound("Add Coordinates: No user found");
             }
         }
-
+        
         [HttpGet("{trailId}")]
         public async Task<ActionResult<List<Coordinates>>> GetTrailCoordinates(int trailId)
         {
@@ -189,6 +153,27 @@ namespace Arsoude_Backend.Controllers
                 return NotFound("Get Trail Coordinates: No user found");
             }
         }
+        
+         // DELETE: api/Trails/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTrail(int id)
+        {
+            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user != null)
+            {
+
+                if (TrailExists(id))
+                {
+                    await _trailService.DeleteTrail(id);
+                }
+                return Ok("Deleted");
+            }
+            else
+            {
+                return Unauthorized("Delete Trail: No user found");
+            }
+        }
 
         [HttpPost]
         public async Task<ActionResult<List<Trail>>> GetFilteredTrails(FilterDTO dto)
@@ -196,9 +181,101 @@ namespace Arsoude_Backend.Controllers
             return await _trailService.GetFilteredTrails(dto);
         }
 
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult> ManageTrailFavorite(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            try
+            {
+                UserFavoriteTrail? trail = currentUser.FavouriteTrails.Where(t => t.TrailId == trailId).FirstOrDefault();
+                if (trail == null)
+                {
+                    await _trailService.AddTrailToFavorite(currentUser, trailId);
+                    return Ok();
+                }
+                else
+                {
+                    await _trailService.RemoveTrailFromFavorite(currentUser, trailId);
+                    return Ok();
+                }
+            }
+            catch (UserNotFoundException userNotFound)
+            {
+                return NotFound(userNotFound.Message);
+            }
+            catch (TrailNotFoundException trailNotFoundException)
+            {
+                return NotFound(trailNotFoundException.Message);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Trail>>> GetFavoriteTrails()
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+            
+            var listOfTrails = await _trailService.GetUserFavoriteTrails(currentUser);
+            return listOfTrails;
+        }
+
         private bool TrailExists(int id)
         {
             return (_context.Trails?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        [HttpGet("{trailId}/{status}")]
+        public async Task<ActionResult> SetTrailStatus(int trailId, bool status)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)); 
+            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            try 
+            {
+                await _trailService.SwitchVisiblityStatus(owner, trailId, status);
+                return Ok(); 
+            }
+
+            catch (UserNotFoundException) 
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "The selected trail does not exist" });
+            }
+            catch (NotOwnerExcpetion) 
+            {
+                return Unauthorized(new { Message = "You cannot change the visibility of a trail you don't own" }); 
+            }
+        }
+
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult<bool>> CheckOwnerByTrailId(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+            var userTrailList = await _context.Trails.Where(x => x.OwnerId == currentUser.Id && x.Id == trailId).FirstOrDefaultAsync();
+
+            if (userTrailList != null)
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
+
+        }
     }
+    
 }
