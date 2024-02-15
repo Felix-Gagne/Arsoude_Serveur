@@ -112,21 +112,6 @@ namespace Arsoude_Backend.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-=======
-                            Id = 1,
-                            Description = "UNE MECHANT GROS TRAJET",
-                            EndingCoordinatesId = 2,
-                            Location = "Bar chez Diane",
-                            Name = "TestTrail",
-                            OwnerId = 1,
-                            StartingCoordinatesId = 1,
-                            Type = 0,
-                            isPublic = true
-                        },
-                        new
-                        {
->>>>>>> FCT_CalculateDistance
                             Id = 2,
                             Description = "Une randonnée pittoresque à travers une forêt luxuriante où les oiseaux chantent et les rivières murmurent.",
                             EndingCoordinatesId = 2,
@@ -136,7 +121,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 0,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -149,7 +134,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 1,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -162,7 +147,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 1,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -175,7 +160,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 1,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -188,7 +173,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 0,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -201,7 +186,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 0,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -214,7 +199,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 0,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -227,7 +212,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 0,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -240,7 +225,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 1,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -253,7 +238,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 1,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -266,7 +251,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 1,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -279,7 +264,7 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 1,
-                            isPublic = false
+                            isPublic = true
                         },
                         new
                         {
@@ -318,19 +303,6 @@ namespace Arsoude_Backend.Migrations
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
                             Type = 0,
-                            isPublic = false
-                        },
-                        new
-                        {
-                            Id = 44,
-                            Description = "Une randonnée à travers des gorges profondes, où les parois rocheuses s'élèvent majestueusement de chaque côté. Ce sentier offre une expérience immersive dans les profondeurs de la terre, avec des formations rocheuses impressionnantes et des vues spectaculaires.",
-                            EndingCoordinatesId = 2,
-                            ImageUrl = "https://i.ibb.co/C6Xw0Dp/kawaivlad.png",
-                            Location = "Gorges Profondes",
-                            Name = "Randonnée des Gorges Profondes",
-                            OwnerId = 1,
-                            StartingCoordinatesId = 1,
-                            Type = 1,
                             isPublic = false
                         },
                         new
@@ -526,11 +498,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-<<<<<<< HEAD
-                            ConcurrencyStamp = "ebdc5259-bda5-4c3c-8db6-9f0b3e041218",
-=======
-                            ConcurrencyStamp = "9abae03f-8473-472a-887d-4a955d60b931",
->>>>>>> FCT_CalculateDistance
+                            ConcurrencyStamp = "30e35353-4e82-437d-9f1f-e37fb6521ed8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -627,25 +595,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "dcb4e7c1-ba82-416a-99b5-d6eaaa662c0b",
-=======
-                            ConcurrencyStamp = "d6881ffd-24d4-45ef-b1c0-7e6a2b26e66b",
->>>>>>> FCT_CalculateDistance
+                            ConcurrencyStamp = "698a5a56-de02-42e9-a682-8973c789abb2",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEFA4m7Fdc6eOPV6CF1E6eBkn6TYb7+sUaDrbYOWs15RkwW0PfznrpZjLOzaR57IGxQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJuLeFgWOVBi9ZzGq+rXTSeiKJ2oXx39xfqrI27yGkxFBHR5b1hDF4bu4MhpUlJSiA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dc182832-f7e5-4195-b9c6-415ce4b2ac90",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAENV7f5zr6RdYCg+x/2f6XqoQrhV1UtEEzg9TObwK+837toKwpTVvWt4dv70mETuheQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "49399839-cffd-4549-bf22-57133938251e",
->>>>>>> FCT_CalculateDistance
+                            SecurityStamp = "2d560a25-0fde-485b-88e1-416a9cdd27ee",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -653,25 +611,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "8ccdb014-d6f9-47ae-a10f-5046107d9405",
-=======
-                            ConcurrencyStamp = "c7b2b86a-38fb-4d90-9bba-7fbb0678fbb8",
->>>>>>> FCT_CalculateDistance
+                            ConcurrencyStamp = "50605a9a-5b7e-4aa3-95c5-711fd19aa4c7",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEOKBOuZkSKtW+2LevCDjYb3VEzJXRs80QnBNQdTcDSjcFbpX5vyfhpaTlj9QJnmUnQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEACTeiwZGoUnBmuSwLl++E5BHF1QBs1QjQp2I4OaUFQ2lcnTYuhxb0sKd5WtX7o04g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1404f552-df45-4eba-b864-b662557cc647",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAENNIVnq427gEHvmPm4Pe1wN8+HoYhSE8iPSLukd2oGe0OeORnhzCvdWODSPe0WhqhA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4f628795-e550-42cd-ab81-a4895a082bb8",
->>>>>>> FCT_CalculateDistance
+                            SecurityStamp = "59024c39-6210-424f-b61e-3d1da364d6d7",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
