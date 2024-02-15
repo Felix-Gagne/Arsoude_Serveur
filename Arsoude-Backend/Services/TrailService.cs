@@ -167,12 +167,12 @@ namespace Arsoude_Backend.Services
             if (!string.IsNullOrEmpty(dto.Keyword))
             {
                 query = query.Where(x => x.Name.ToLower().Contains(dto.Keyword.ToLower()) || x.Description.ToLower().Contains(dto.Keyword.ToLower()) ||
-                x.Location.ToLower().Contains(dto.Keyword.ToLower()));
+                x.Location.ToLower().Contains(dto.Keyword.ToLower()) && x.isPublic == true && x.IsApproved == true);
             }
 
             if (dto.Type != null)
             {
-                query = query.Where(x => x.Type == dto.Type);
+                query = query.Where(x => x.Type == dto.Type && x.isPublic == true && x.IsApproved == true);
             }
 
             List<Trail> trails = await query.ToListAsync();
@@ -183,7 +183,7 @@ namespace Arsoude_Backend.Services
                 double userLongitude = dto.Coordinates.Longitude;
 
                 trails = trails.Where(x => CalculateDistance(userLatitude, userLongitude,
-                    x.StartingCoordinates.Latitude, x.StartingCoordinates.Longitude) <= dto.Distance.Value).ToList();
+                    x.StartingCoordinates.Latitude, x.StartingCoordinates.Longitude) <= dto.Distance.Value && x.isPublic == true && x.IsApproved == true).ToList();
             }
 
             if (trails.Count == 0)
