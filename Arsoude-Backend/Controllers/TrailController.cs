@@ -289,6 +289,24 @@ namespace Arsoude_Backend.Controllers
                 return Unauthorized(new { Message = "You cannot change the visibility of a trail you don't own" }); 
             }
         }
+
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult<bool>> CheckOwnerByTrailId(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+            var userTrailList = await _context.Trails.Where(x => x.OwnerId == currentUser.Id && x.Id == trailId).FirstOrDefaultAsync();
+
+            if (userTrailList != null)
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
+
+        }
     }
     
 }
