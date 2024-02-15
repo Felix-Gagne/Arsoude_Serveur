@@ -75,12 +75,12 @@ namespace Arsoude_Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Trail>>> GetAllTrails()
         {
-            return await _context.Trails.ToListAsync();
+            return await _context.Trails.Where(x => x.IsApproved == true && x.isPublic == true).ToListAsync();
         }
 
         // GET api/<TrailController>/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetTrail(int id)
         {
             try
             {
@@ -101,37 +101,6 @@ namespace Arsoude_Backend.Controllers
                 }
 
             }
-        }
-
-        // PUT: api/Trails/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrail(int id, Trail trail)
-        {
-            if (id != trail.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(trail).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TrailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Trails
