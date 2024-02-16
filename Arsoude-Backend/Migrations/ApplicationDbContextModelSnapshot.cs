@@ -30,10 +30,15 @@ namespace Arsoude_Backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("TrailId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TrailId");
 
                     b.HasIndex("UserId");
 
@@ -521,7 +526,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "f682ac83-03e0-4d00-8df2-4878e51f941b",
+                            ConcurrencyStamp = "70182242-6858-4e23-aec7-148cfaa9a05f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -618,15 +623,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ae355931-6c12-4de1-9ebf-be4739412328",
+                            ConcurrencyStamp = "a8f292e4-d6c6-4315-93d7-bec57d45e1c0",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELFp8FEIzyqXBg/QMWMB00xx5MnAjX2ob3pYYlNfOb1ksMuwwy05RN1QNO6XZrvILg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDm1Fj4ooT6Yw+410Eny8C6qO0NKo0rL/qQBtBqJle9IlGl6bMqCB1B5aJAjqEmqBA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "35b8b21a-c428-4ede-9dc5-57c9a9f83a1a",
+                            SecurityStamp = "2ff103f8-5e5d-41b2-b81a-0e3366db1e0e",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -634,15 +639,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "40763dc4-0328-40a8-8398-b789112e07e0",
+                            ConcurrencyStamp = "7e2b10f9-3fee-4053-94a0-1f439c42581c",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHMgtyzfoh7ohv5XHGRPNQUv8CPK3zwBQbIS/XlRm51D3dOxE0zUTRFdT2PjX0FFcQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHT7vNx7wIJb5WahF9nTuFyx2YR2sR4rOI3oUiv15sLRCqMKQfqPNFSTQZdmZ1SfBA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "45076fd3-2df1-46ab-a3c9-f021a471abc1",
+                            SecurityStamp = "995e07bd-e597-4782-a2b1-3e0cd049bd15",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -745,11 +750,19 @@ namespace Arsoude_Backend.Migrations
 
             modelBuilder.Entity("Arsoude_Backend.Models.Comments", b =>
                 {
+                    b.HasOne("Arsoude_Backend.Models.Trail", "Trail")
+                        .WithMany("Comments")
+                        .HasForeignKey("TrailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Arsoude_Backend.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Trail");
 
                     b.Navigation("User");
                 });
@@ -857,6 +870,8 @@ namespace Arsoude_Backend.Migrations
 
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Coordinates");
                 });
 

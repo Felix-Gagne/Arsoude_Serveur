@@ -6,7 +6,7 @@
         public string Text { get; set; }
         public DateTime Date { get; set; }
         public virtual User User { get; set; }
-
+        public virtual Trail Trail { get; set; }
 
     }
 }
