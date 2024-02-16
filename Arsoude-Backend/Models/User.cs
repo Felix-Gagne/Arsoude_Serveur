@@ -45,5 +45,8 @@ namespace Arsoude_Backend.Models
 
         [JsonIgnore]
         public virtual IdentityUser? IdentityUser { get; set; }
+
+        [JsonIgnore]
+        public virtual List<Comments> Comments { get; set; }
     }
 }
