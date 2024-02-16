@@ -470,5 +470,8 @@ namespace Arsoude_Backend.Data
 
         public DbSet<Coordinates> Coordinates { get; set; } = default!;   
 
+
+        public DbSet<Arsoude_Backend.Models.Comments>? Comments { get; set; }
+
     }
 }

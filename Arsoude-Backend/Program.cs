@@ -28,6 +28,7 @@ builder.Services.AddScoped<UserService>();
 // TODO: Utiliser l'interface
 builder.Services.AddScoped<TrailService>();
 builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<TrailService>();
 
 //Authentification JWT (token)
 builder.Services.AddAuthentication(options =>
