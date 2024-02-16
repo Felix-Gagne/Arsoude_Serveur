@@ -17,6 +17,29 @@ namespace Arsoude_Backend.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
 
+            modelBuilder.Entity("Arsoude_Backend.Models.Comments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Arsoude_Backend.Models.Coordinates", b =>
                 {
                     b.Property<int>("Id")
@@ -498,7 +521,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "30e35353-4e82-437d-9f1f-e37fb6521ed8",
+                            ConcurrencyStamp = "f682ac83-03e0-4d00-8df2-4878e51f941b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -595,15 +618,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "698a5a56-de02-42e9-a682-8973c789abb2",
+                            ConcurrencyStamp = "ae355931-6c12-4de1-9ebf-be4739412328",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJuLeFgWOVBi9ZzGq+rXTSeiKJ2oXx39xfqrI27yGkxFBHR5b1hDF4bu4MhpUlJSiA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELFp8FEIzyqXBg/QMWMB00xx5MnAjX2ob3pYYlNfOb1ksMuwwy05RN1QNO6XZrvILg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2d560a25-0fde-485b-88e1-416a9cdd27ee",
+                            SecurityStamp = "35b8b21a-c428-4ede-9dc5-57c9a9f83a1a",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -611,15 +634,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "50605a9a-5b7e-4aa3-95c5-711fd19aa4c7",
+                            ConcurrencyStamp = "40763dc4-0328-40a8-8398-b789112e07e0",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEACTeiwZGoUnBmuSwLl++E5BHF1QBs1QjQp2I4OaUFQ2lcnTYuhxb0sKd5WtX7o04g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHMgtyzfoh7ohv5XHGRPNQUv8CPK3zwBQbIS/XlRm51D3dOxE0zUTRFdT2PjX0FFcQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "59024c39-6210-424f-b61e-3d1da364d6d7",
+                            SecurityStamp = "45076fd3-2df1-46ab-a3c9-f021a471abc1",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -718,6 +741,17 @@ namespace Arsoude_Backend.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Arsoude_Backend.Models.Comments", b =>
+                {
+                    b.HasOne("Arsoude_Backend.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Arsoude_Backend.Models.Coordinates", b =>
@@ -828,6 +862,8 @@ namespace Arsoude_Backend.Migrations
 
             modelBuilder.Entity("Arsoude_Backend.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("FavouriteTrails");
 
                     b.Navigation("Trails");
