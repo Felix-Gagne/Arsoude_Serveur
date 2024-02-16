@@ -146,11 +146,23 @@ namespace Arsoude_Backend.Controllers
 
             if (user != null)
             {
-                return await _trailService.GetTrailCoordinates(user, trailId);
+                try
+                {
+                    return await _trailService.GetTrailCoordinates(user, trailId);
+                }
+                catch(Exception e) {
+
+                    if (e.GetType() == typeof(NullReferenceException))
+                    {
+
+                        return NotFound("Trail : trail not found");
+                    }
+                    else return BadRequest(e);
+                }
             }
             else
             {
-                return NotFound("Get Trail Coordinates: No user found");
+                return Unauthorized("Get Trail Coordinates: No user found");
             }
         }
         

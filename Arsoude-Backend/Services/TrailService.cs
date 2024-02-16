@@ -145,7 +145,12 @@ namespace Arsoude_Backend.Services
         {
             User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
-            Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+            Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+
+            if (trail == null)
+            {
+                throw new NullReferenceException();
+            }
 
             if (trail.Coordinates != null)
             {
