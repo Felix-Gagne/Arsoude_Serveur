@@ -45,7 +45,7 @@ options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         ValidateIssuer = true,
         ValidateAudience = false,
         ValidIssuer = "https://localhost:7127",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Cette Phrase est tellement longue quelle va empecher les hackers de passer"))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Cette Phrase est tellement longue quelle va empecher les hackers de passer")),
     };
 });
 

@@ -70,7 +70,7 @@ namespace Arsoude_Backend.Controllers
                     JwtSecurityToken token = new JwtSecurityToken(
                         issuer: "https://localhost:7127",
                         claims: authClaim,
-                        expires: DateTime.Now.AddMinutes(30),
+                        expires: DateTime.Now.AddMinutes(60),
                         signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature));
 
 
@@ -119,7 +119,7 @@ namespace Arsoude_Backend.Controllers
                 JwtSecurityToken token = new JwtSecurityToken(
                     issuer: "https://localhost:7127",
                     claims: authClaim,
-                    expires: DateTime.Now.AddMinutes(30),
+                    expires: DateTime.Now.AddMinutes(60),
                     signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature));
 
 
