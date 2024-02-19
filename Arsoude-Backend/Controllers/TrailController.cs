@@ -22,9 +22,9 @@ namespace Arsoude_Backend.Controllers
         private ApplicationDbContext _context;
         private readonly UserService _userService;
         private readonly TrailService _trailService;
-        
+
         private readonly IConfiguration _config;
-        public TrailController(UserManager<IdentityUser> userManager,  ApplicationDbContext context, UserService userService, IConfiguration config, TrailService trailService)
+        public TrailController(UserManager<IdentityUser> userManager, ApplicationDbContext context, UserService userService, IConfiguration config, TrailService trailService)
         {
             UserManager = userManager;
             _context = context;
@@ -51,25 +51,26 @@ namespace Arsoude_Backend.Controllers
                     return Ok(result);
                 }
 
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     if (ex.GetType() == typeof(UnauthorizedAccessException))
                     {
                         return BadRequest(new { Message = "Identity exist but no user is attached to it" });
-                    
+
                     }
                     return BadRequest(ex);
 
 
                 }
-                
+
             }
             else
             {
 
 
-                return Unauthorized( new {Message = "Veuillez vous connectez" });
+                return Unauthorized(new { Message = "Veuillez vous connectez" });
             }
-          
+
         }
 
         [HttpGet]
@@ -105,7 +106,7 @@ namespace Arsoude_Backend.Controllers
 
         // POST: api/Trails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-         [HttpPost]
+        [HttpPost]
         public async Task<ActionResult<Trail>> CreateTrail(Trail trail)
         {
             IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -129,7 +130,7 @@ namespace Arsoude_Backend.Controllers
         public async Task<ActionResult<Trail>> AddCoordinates(List<Coordinates> coords, int trailId)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            if(user != null)
+            if (user != null)
             {
                 return await _trailService.AddCoordinates(user, coords, trailId);
             }
@@ -138,7 +139,7 @@ namespace Arsoude_Backend.Controllers
                 return NotFound("Add Coordinates: No user found");
             }
         }
-        
+
         [HttpGet("{trailId}")]
         public async Task<ActionResult<List<Coordinates>>> GetTrailCoordinates(int trailId)
         {
@@ -150,7 +151,8 @@ namespace Arsoude_Backend.Controllers
                 {
                     return await _trailService.GetTrailCoordinates(user, trailId);
                 }
-                catch(Exception e) {
+                catch (Exception e)
+                {
 
                     if (e.GetType() == typeof(NullReferenceException))
                     {
@@ -165,8 +167,8 @@ namespace Arsoude_Backend.Controllers
                 return Unauthorized("Get Trail Coordinates: No user found");
             }
         }
-        
-         // DELETE: api/Trails/5
+
+        // DELETE: api/Trails/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTrail(int id)
         {
@@ -190,7 +192,14 @@ namespace Arsoude_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<List<Trail>>> GetFilteredTrails(FilterDTO dto)
         {
-            return await _trailService.GetFilteredTrails(dto);
+            try
+            {
+                return await _trailService.GetFilteredTrails(dto);
+            }
+            catch (TrailService.NoHikesFoundException)
+            {
+                return BadRequest("NoHikesFound");
+            }
         }
 
         [HttpGet("{trailId}")]
@@ -235,7 +244,7 @@ namespace Arsoude_Backend.Controllers
             IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
-            
+
             var listOfTrails = await _trailService.GetUserFavoriteTrails(currentUser);
             return listOfTrails;
         }
@@ -248,16 +257,16 @@ namespace Arsoude_Backend.Controllers
         [HttpGet("{trailId}/{status}")]
         public async Task<ActionResult> SetTrailStatus(int trailId, bool status)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)); 
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
             User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
-            try 
+            try
             {
                 await _trailService.SwitchVisiblityStatus(owner, trailId, status);
-                return Ok(); 
+                return Ok();
             }
 
-            catch (UserNotFoundException) 
+            catch (UserNotFoundException)
             {
                 return NotFound(new { Message = "User not found" });
             }
@@ -265,9 +274,9 @@ namespace Arsoude_Backend.Controllers
             {
                 return NotFound(new { Message = "The selected trail does not exist" });
             }
-            catch (NotOwnerExcpetion) 
+            catch (NotOwnerExcpetion)
             {
-                return Unauthorized(new { Message = "You cannot change the visibility of a trail you don't own" }); 
+                return Unauthorized(new { Message = "You cannot change the visibility of a trail you don't own" });
             }
         }
 
@@ -281,7 +290,7 @@ namespace Arsoude_Backend.Controllers
             if (userTrailList != null)
             {
                 return true;
-            } 
+            }
             else
             {
                 return false;
@@ -289,5 +298,5 @@ namespace Arsoude_Backend.Controllers
 
         }
     }
-    
+
 }

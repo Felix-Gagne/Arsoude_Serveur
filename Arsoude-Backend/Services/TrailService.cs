@@ -200,11 +200,13 @@ namespace Arsoude_Backend.Services
 
             if (trails.Count == 0)
             {
-                throw new Exception("Pas de randonn�es trouv� pour les filtres fournis");
+                throw new NoHikesFoundException();
             }
 
             return trails;
         }
+
+        public class NoHikesFoundException : Exception { }
 
         public async Task<bool> VerifyThatUserHaveTrailInFavorite(User currentUser, int trailId)
         {
