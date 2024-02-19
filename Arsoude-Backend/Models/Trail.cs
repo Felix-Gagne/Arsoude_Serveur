@@ -52,6 +52,6 @@ namespace Arsoude_Backend.Models
         public virtual List<Coordinates>? Coordinates { get; set; }
 
         [JsonIgnore]
-        public virtual List<Comments> Comments { get; set; }
+        public virtual List<Comments>? Comments { get; set; }
     }
 }
