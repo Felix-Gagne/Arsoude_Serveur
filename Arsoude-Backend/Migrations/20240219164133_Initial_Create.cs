@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class cmnt : Migration
+    public partial class Initial_Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -210,6 +210,7 @@ namespace Arsoude_Backend.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Text = table.Column<string>(type: "TEXT", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    userHasCompleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     TrailId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -283,17 +284,17 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "70182242-6858-4e23-aec7-148cfaa9a05f", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "0a793279-86ec-46cc-862f-fbda893e596c", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "a8f292e4-d6c6-4315-93d7-bec57d45e1c0", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDm1Fj4ooT6Yw+410Eny8C6qO0NKo0rL/qQBtBqJle9IlGl6bMqCB1B5aJAjqEmqBA==", null, false, "2ff103f8-5e5d-41b2-b81a-0e3366db1e0e", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "e4873950-dc71-4a09-af31-3c5066dfcdee", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEMSnzIVY6tPaqz728wVOR8d6mHPwbR6UUu0XI/k3hgnnUlLmYJHc+NDOtgCmhjYO0g==", null, false, "190d31e8-9a8a-49b2-8108-e39563c8305f", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "7e2b10f9-3fee-4053-94a0-1f439c42581c", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEHT7vNx7wIJb5WahF9nTuFyx2YR2sR4rOI3oUiv15sLRCqMKQfqPNFSTQZdmZ1SfBA==", null, false, "995e07bd-e597-4782-a2b1-3e0cd049bd15", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "7052937a-855b-4c86-80c1-5745d949cade", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEO1v/gibrElHxtZR5cuawaZace3xP8DNCQkjD6Z1g7Fg7JrI9UJa70ijGGuxzrk/Cw==", null, false, "29cfeba5-ec54-459b-8de3-e8b56793f81c", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
@@ -328,62 +329,62 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 2, "Une randonnée pittoresque à travers une forêt luxuriante où les oiseaux chantent et les rivières murmurent.", null, 2, "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba", null, "Parc National de la Forêt Verte", "Sentier de la Forêt Enchantée", 1, 1, 0, null, true });
+                values: new object[] { 2, "Une randonnée pittoresque à travers une forêt luxuriante où les oiseaux chantent et les rivières murmurent.", null, 2, "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba", true, "Parc National de la Forêt Verte", "Sentier de la Forêt Enchantée", 1, 1, 0, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 3, "Une aventure difficile menant au sommet d'une montagne majestueuse offrant une vue imprenable sur la vallée ci-dessous.", null, 2, "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg", null, "Parc National des Montagnes Escarpées", "Escapade au Sommet", 1, 1, 1, null, true });
+                values: new object[] { 3, "Une aventure difficile menant au sommet d'une montagne majestueuse offrant une vue imprenable sur la vallée ci-dessous.", null, 2, "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg", true, "Parc National des Montagnes Escarpées", "Escapade au Sommet", 1, 1, 1, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 31, "Une randonnée enchanteresse le long de plusieurs cascades étincelantes, où l'eau scintille au soleil et crée un spectacle magique. Ce sentier offre une expérience sensorielle unique avec le bruit apaisant de l'eau qui coule, les reflets chatoyants et la fraîcheur de l'air pur. Vous serez transporté dans un monde de beauté naturelle et de tranquillité.", null, 2, "https://californiathroughmylens.com/wp-content/uploads/2019/05/crystal-cove-el-moro-12-640x427.jpg", null, "Parc National des Cascades Étincelantes", "Sentier des Cascades Étincelantes", 1, 1, 1, null, true });
+                values: new object[] { 31, "Une randonnée enchanteresse le long de plusieurs cascades étincelantes, où l'eau scintille au soleil et crée un spectacle magique. Ce sentier offre une expérience sensorielle unique avec le bruit apaisant de l'eau qui coule, les reflets chatoyants et la fraîcheur de l'air pur. Vous serez transporté dans un monde de beauté naturelle et de tranquillité.", null, 2, "https://californiathroughmylens.com/wp-content/uploads/2019/05/crystal-cove-el-moro-12-640x427.jpg", true, "Parc National des Cascades Étincelantes", "Sentier des Cascades Étincelantes", 1, 1, 1, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 32, "Une promenade pittoresque à travers de vastes champs de fleurs colorées, où vous pourrez vous imprégner des parfums enivrants et des couleurs éclatantes de la nature. Ce sentier offre une expérience visuelle et olfactive unique, avec des vues panoramiques sur les champs à perte de vue et une ambiance paisible qui invite à la détente et à la contemplation.", null, 2, "https://blog.ab.bluecross.ca/wp-content/uploads/2020/08/fav-hikes-part-three.jpg", null, "Champs de Fleurs en Fleur", "Promenade des Champs de Fleurs", 1, 1, 1, null, true });
+                values: new object[] { 32, "Une promenade pittoresque à travers de vastes champs de fleurs colorées, où vous pourrez vous imprégner des parfums enivrants et des couleurs éclatantes de la nature. Ce sentier offre une expérience visuelle et olfactive unique, avec des vues panoramiques sur les champs à perte de vue et une ambiance paisible qui invite à la détente et à la contemplation.", null, 2, "https://blog.ab.bluecross.ca/wp-content/uploads/2020/08/fav-hikes-part-three.jpg", true, "Champs de Fleurs en Fleur", "Promenade des Champs de Fleurs", 1, 1, 1, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 33, "Une randonnée jusqu'à un pittoresque lac de montagne, niché au creux des sommets enneigés et entouré d'une nature sauvage et préservée. Ce sentier offre des vues panoramiques spectaculaires sur les montagnes environnantes et une atmosphère paisible et relaxante près de l'eau cristalline du lac.", null, 2, "https://www.tourismpei.com/sites/default/files/styles/hero_mobile/public/media/images/51271316495_139f7c6199_o_0.jpg?h=3cbfe8df&itok=dRMEGC9G", null, "Lac de Montagne Tranquille", "Escapade au Lac de Montagne", 1, 1, 0, null, true });
+                values: new object[] { 33, "Une randonnée jusqu'à un pittoresque lac de montagne, niché au creux des sommets enneigés et entouré d'une nature sauvage et préservée. Ce sentier offre des vues panoramiques spectaculaires sur les montagnes environnantes et une atmosphère paisible et relaxante près de l'eau cristalline du lac.", null, 2, "https://www.tourismpei.com/sites/default/files/styles/hero_mobile/public/media/images/51271316495_139f7c6199_o_0.jpg?h=3cbfe8df&itok=dRMEGC9G", true, "Lac de Montagne Tranquille", "Escapade au Lac de Montagne", 1, 1, 0, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 34, "Une aventure à travers les ruines anciennes d'une civilisation disparue, où vous pourrez découvrir l'histoire fascinante de ce site archéologique. Ce sentier offre une expérience immersive dans le passé, avec des vestiges bien préservés et des paysages à couper le souffle qui témoignent de la grandeur passée de cette civilisation.", null, 2, "https://i.cbc.ca/1.4170049.1530218327!/fileImage/httpImage/hiking-trails.jpg", null, "Site Archéologique des Ruines Anciennes", "Sentier des Ruines Anciennes", 1, 1, 0, null, true });
+                values: new object[] { 34, "Une aventure à travers les ruines anciennes d'une civilisation disparue, où vous pourrez découvrir l'histoire fascinante de ce site archéologique. Ce sentier offre une expérience immersive dans le passé, avec des vestiges bien préservés et des paysages à couper le souffle qui témoignent de la grandeur passée de cette civilisation.", null, 2, "https://i.cbc.ca/1.4170049.1530218327!/fileImage/httpImage/hiking-trails.jpg", true, "Site Archéologique des Ruines Anciennes", "Sentier des Ruines Anciennes", 1, 1, 0, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 35, "Une randonnée le long de falaises côtières majestueuses, offrant des vues spectaculaires sur l'océan et les côtes rocheuses. Ce sentier offre une expérience unique en bord de mer, avec des panoramas à couper le souffle et une ambiance maritime rafraîchissante.", null, 2, "https://www.mississauga.ca/wp-content/uploads/2022/10/14143203/20221010_115918-scaled.jpg", null, "Falaises Côtières", "Randonnée des Falaises Côtières", 1, 1, 0, null, true });
+                values: new object[] { 35, "Une randonnée le long de falaises côtières majestueuses, offrant des vues spectaculaires sur l'océan et les côtes rocheuses. Ce sentier offre une expérience unique en bord de mer, avec des panoramas à couper le souffle et une ambiance maritime rafraîchissante.", null, 2, "https://www.mississauga.ca/wp-content/uploads/2022/10/14143203/20221010_115918-scaled.jpg", true, "Falaises Côtières", "Randonnée des Falaises Côtières", 1, 1, 0, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 36, "Une balade à travers une vallée paisible et endormie, où le temps semble s'être arrêté. Ce sentier offre une expérience tranquille en pleine nature, avec des paysages pittoresques et une ambiance relaxante qui invite à la contemplation.", null, 2, "https://www.lutsen.com/sites/default/files/styles/scale_1440/public/2021-10/Biking%20-%20Molly%20at%20Britton%20Peak%20-%20VCC%20UL%20-%20by%20Al%20%26%20Lyndsey%20Johnson%20%20%2842%29.jpg?itok=N7pFjnwx", null, "Vallée Endormie", "Sentier de la Vallée Endormie", 1, 1, 0, null, true });
+                values: new object[] { 36, "Une balade à travers une vallée paisible et endormie, où le temps semble s'être arrêté. Ce sentier offre une expérience tranquille en pleine nature, avec des paysages pittoresques et une ambiance relaxante qui invite à la contemplation.", null, 2, "https://www.lutsen.com/sites/default/files/styles/scale_1440/public/2021-10/Biking%20-%20Molly%20at%20Britton%20Peak%20-%20VCC%20UL%20-%20by%20Al%20%26%20Lyndsey%20Johnson%20%20%2842%29.jpg?itok=N7pFjnwx", true, "Vallée Endormie", "Sentier de la Vallée Endormie", 1, 1, 0, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 37, "Une randonnée jusqu'au sommet d'un pic vertigineux, offrant des vues à couper le souffle sur les vallées et les montagnes environnantes. Ce sentier offre une expérience exaltante pour les amateurs de sensations fortes, avec des panoramas spectaculaires et une montée stimulante.", null, 2, "https://www.surrey.ca/sites/default/files/styles/metatag_facebook/public/2020-08/InvergarryNatureTrail.JPG?h=d262251e&itok=oXPbDLYW", null, "Pic Vertigineux", "Randonnée du Pic Vertigineux", 1, 1, 1, null, true });
+                values: new object[] { 37, "Une randonnée jusqu'au sommet d'un pic vertigineux, offrant des vues à couper le souffle sur les vallées et les montagnes environnantes. Ce sentier offre une expérience exaltante pour les amateurs de sensations fortes, avec des panoramas spectaculaires et une montée stimulante.", null, 2, "https://www.surrey.ca/sites/default/files/styles/metatag_facebook/public/2020-08/InvergarryNatureTrail.JPG?h=d262251e&itok=oXPbDLYW", true, "Pic Vertigineux", "Randonnée du Pic Vertigineux", 1, 1, 1, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 38, "Une balade le long de plusieurs chutes mystiques, cachées au cœur d'une forêt luxuriante. Ce sentier offre une expérience enchantée, avec des cascades paisibles et des paysages magiques qui émerveilleront les sens.", null, 2, "https://i.pinimg.com/originals/7f/e4/e2/7fe4e24eb9024d61139ac44a607e478a.jpg", null, "Forêt des Chutes Mystiques", "Chemin des Chutes Mystiques", 1, 1, 1, null, true });
+                values: new object[] { 38, "Une balade le long de plusieurs chutes mystiques, cachées au cœur d'une forêt luxuriante. Ce sentier offre une expérience enchantée, avec des cascades paisibles et des paysages magiques qui émerveilleront les sens.", null, 2, "https://i.pinimg.com/originals/7f/e4/e2/7fe4e24eb9024d61139ac44a607e478a.jpg", true, "Forêt des Chutes Mystiques", "Chemin des Chutes Mystiques", 1, 1, 1, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 39, "Une randonnée jusqu'à un magnifique lac de cristal, dont les eaux claires reflètent les montagnes environnantes. Ce sentier offre une expérience rafraîchissante en plein air, avec la possibilité de se baigner dans les eaux cristallines du lac.", null, 2, "https://www.nps.gov/hosp/planyourvisit/images/_DSC7261.jpg?maxwidth=650&autorotate=false", null, "Lac de Cristal", "Randonnée du Lac de Cristal", 1, 1, 1, null, true });
+                values: new object[] { 39, "Une randonnée jusqu'à un magnifique lac de cristal, dont les eaux claires reflètent les montagnes environnantes. Ce sentier offre une expérience rafraîchissante en plein air, avec la possibilité de se baigner dans les eaux cristallines du lac.", null, 2, "https://www.nps.gov/hosp/planyourvisit/images/_DSC7261.jpg?maxwidth=650&autorotate=false", true, "Lac de Cristal", "Randonnée du Lac de Cristal", 1, 1, 1, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",
                 columns: new[] { "Id", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
-                values: new object[] { 40, "Une randonnée à travers un canyon étincelant, où la lumière du soleil se reflète sur les parois rocheuses pour créer un spectacle scintillant. Ce sentier offre une expérience visuelle saisissante, avec des jeux de lumière magiques et des formations rocheuses uniques.", null, 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAO_hEyiI2Tkfl5TI78QWQpncjBZ_7VWxtU4rceThJXeSRAKCutUx62Hfw5sdbX_QBEa4&usqp=CAU", null, "Canyon Étincelant", "Sentier du Canyon Étincelant", 1, 1, 1, null, true });
+                values: new object[] { 40, "Une randonnée à travers un canyon étincelant, où la lumière du soleil se reflète sur les parois rocheuses pour créer un spectacle scintillant. Ce sentier offre une expérience visuelle saisissante, avec des jeux de lumière magiques et des formations rocheuses uniques.", null, 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAO_hEyiI2Tkfl5TI78QWQpncjBZ_7VWxtU4rceThJXeSRAKCutUx62Hfw5sdbX_QBEa4&usqp=CAU", true, "Canyon Étincelant", "Sentier du Canyon Étincelant", 1, 1, 1, null, true });
 
             migrationBuilder.InsertData(
                 table: "Trails",

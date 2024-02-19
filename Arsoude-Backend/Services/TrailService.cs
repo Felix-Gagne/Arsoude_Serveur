@@ -193,6 +193,11 @@ namespace Arsoude_Backend.Services
                     x.StartingCoordinates.Latitude, x.StartingCoordinates.Longitude) <= dto.Distance.Value && x.isPublic == true && x.IsApproved == true).ToList();
             }
 
+            if(string.IsNullOrEmpty(dto.Keyword) && dto.Type == null && !dto.Distance.HasValue)
+            {
+                trails = await _context.Trails.Where(x => x.isPublic == true && x.IsApproved == true).ToListAsync();
+            }
+
             if (trails.Count == 0)
             {
                 throw new Exception("Pas de randonn�es trouv� pour les filtres fournis");
