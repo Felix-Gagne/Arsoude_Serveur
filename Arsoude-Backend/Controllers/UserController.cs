@@ -25,7 +25,7 @@ namespace Arsoude_Backend.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        readonly UserManager<IdentityUser> UserManager; 
+        readonly UserManager<IdentityUser> UserManager;
         readonly SignInManager<IdentityUser> SignInManager;
         private ApplicationDbContext _context;
         private readonly UserService _userService;
@@ -87,9 +87,9 @@ namespace Arsoude_Backend.Controllers
 
 
             }
-            
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "La création de l'utilisateur a échoué." });
-            
+
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "La création de l'utilisateur a échoué." });
+
         }
 
         [HttpPost]
@@ -127,15 +127,15 @@ namespace Arsoude_Backend.Controllers
 
 
                 return Ok(new
-                    {
-                        token = new JwtSecurityTokenHandler().WriteToken(token),
-                        validTo = token.ValidTo,
-                        Message = "Connection Réussie :)",
-                        roles = roles
-                    });
-                
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    validTo = token.ValidTo,
+                    Message = "Connection Réussie :)",
+                    roles = roles
+                });
 
-                
+
+
             }
             return BadRequest(new { Message = "Le mot de passe ou le nom d'utilisateur ne correspond pas." });
         }
@@ -165,7 +165,30 @@ namespace Arsoude_Backend.Controllers
                     return NotFound(new { Message = "User not found" });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occured: {ex.Message}");
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<User>> ChangeUserInfo(ModifUserDTO dto)
+        {
+            try
+            {
+                IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+                if (user != null)
+                {
+                    User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+                    return await _userService.ChangeUserInfo(dto, currentUser);
+                }
+                else
+                {
+                    return NotFound(new { Message = "User not found" });
+                }
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, $"An error occured: {ex.Message}");
             }

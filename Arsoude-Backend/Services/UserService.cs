@@ -57,6 +57,36 @@ namespace Arsoude_Backend.Services
             return user;
         }
 
+        public async Task<User> ChangeUserInfo(ModifUserDTO dto, User user)
+        {
+            if(user != null)
+            {
+                if(dto.LastName != null)
+                    user.LastName = dto.LastName;
+                if(dto.FirstName != null)
+                    user.FirstName = dto.FirstName;
+                if(dto.AreaCode != null)
+                    user.AreaCode = dto.AreaCode;
+                if(dto.HouseNo != null)
+                    user.HouseNo = dto.HouseNo;
+                if(dto.Street != null)
+                    user.Street = dto.Street;
+                if(dto.City != null)
+                    user.City = dto.City;
+                if(dto.State != null)
+                    user.State = dto.State;
+                if(dto.YearOfBirth != null)
+                    user.YearOfBirth = dto.YearOfBirth;
+                if(dto.MonthOfBirth != null)
+                    user.MonthOfBirth = dto.MonthOfBirth;
+                if(dto.AvatarUrl != null)
+                    user.AvatarUrl = dto.AvatarUrl;
+
+                await _context.SaveChangesAsync();
+            }
+
+            return user;
+        }
 
         public async Task SignOutUserAsync()
         {
