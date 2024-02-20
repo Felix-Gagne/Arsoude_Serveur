@@ -17,6 +17,7 @@ namespace Arsoude_Backend.Models
 
         public int TrailId { get; set; }
 
+        public bool IsCompleted { get; set; }
 
         [JsonIgnore]
         public virtual Trail? Trail { get; set; }

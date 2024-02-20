@@ -20,5 +20,10 @@
         public UserNotFoundException() : base("No user was found.") { }
     }
 
+    public class CoordinateNotFoundException : Exception
+    {
+        public CoordinateNotFoundException() : base("No coordinate was found.") { }
+    }
+
 
 }

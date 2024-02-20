@@ -128,13 +128,13 @@ namespace Arsoude_Backend.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Hike>> CreateHike(Hike hike)
+        public async Task<ActionResult<Hike>> CreateHike(Hike hike, Coordinates coord)
         {
             IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             try
             {
-                await _trailService.CreateHike(hike, user);
+                await _trailService.CreateHike(hike, user, coord);
                 return Ok();
             }
             catch (UserNotFoundException)
@@ -144,6 +144,10 @@ namespace Arsoude_Backend.Controllers
             catch (HikeNotFoundException)
             {
                 return NotFound(new { Message = "Hike not found" });
+            }
+            catch (CoordinateNotFoundException)
+            {
+                return NotFound(new { Message = "Coordinates not found" });
             }
         }
 
