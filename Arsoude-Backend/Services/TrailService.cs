@@ -59,6 +59,28 @@ namespace Arsoude_Backend.Services
             return trail;
         }
 
+        public async Task<Hike> CreateHike(Hike hike, IdentityUser user)
+        {
+
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+            if (hike == null)
+            {
+                throw new HikeNotFoundException();
+            }
+
+            User userOfficial = _context.TrailUsers.Where(_u => _u.IdentityUserId == user.Id).FirstOrDefault();
+
+            hike.UserId = userOfficial.Id;
+
+            _context.Hikes.Add(hike);
+            await _context.SaveChangesAsync();
+
+            return hike;
+        }
+
         public async Task DeleteTrail(int id)
         {
             if (_context.Trails == null)

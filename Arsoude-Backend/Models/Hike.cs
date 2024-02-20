@@ -13,6 +13,8 @@ namespace Arsoude_Backend.Models
 
         public int Distance { get; set; }
 
+        public int UserId { get; set; }
+
         [JsonIgnore]
         public virtual Trail Trail { get; set; }
 
