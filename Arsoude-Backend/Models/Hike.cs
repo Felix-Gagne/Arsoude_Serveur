@@ -9,7 +9,7 @@ namespace Arsoude_Backend.Models
 
         public DateTime Date { get; set; }
 
-        public string Time { get; set; }
+        public int Time { get; set; }
 
         public int Distance { get; set; }
 
