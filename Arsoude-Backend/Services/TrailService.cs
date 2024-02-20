@@ -190,6 +190,7 @@ namespace Arsoude_Backend.Services
 
         public async Task<List<Trail>> GetFilteredTrails(FilterDTO dto)
         {
+
             IQueryable<Trail> query = _context.Trails;
 
             if (!string.IsNullOrEmpty(dto.Keyword))
