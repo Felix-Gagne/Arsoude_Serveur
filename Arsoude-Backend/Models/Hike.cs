@@ -15,11 +15,14 @@ namespace Arsoude_Backend.Models
 
         public int UserId { get; set; }
 
-        [JsonIgnore]
-        public virtual Trail Trail { get; set; }
+        public int TrailId { get; set; }
+
 
         [JsonIgnore]
-        public virtual User User { get; set; }
+        public virtual Trail Trail? { get; set; }
+
+        [JsonIgnore]
+        public virtual User User? { get; set; }
 
     }
 }
