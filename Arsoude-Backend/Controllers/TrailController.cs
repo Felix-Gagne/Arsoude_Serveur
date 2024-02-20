@@ -126,6 +126,28 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
+
+        [HttpPost]
+        public async Task<ActionResult<Hike>> CreateHike(Hike hike)
+        {
+            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            try
+            {
+                await _trailService.CreateHike(hike, user);
+                return Ok();
+            }
+            catch (UserNotFoundException)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (HikeNotFoundException)
+            {
+                return NotFound(new { Message = "Hike not found" });
+            }
+        }
+
+
         [HttpPost("{trailId}")]
         public async Task<ActionResult<Trail>> AddCoordinates(List<Coordinates> coords, int trailId)
         {
@@ -279,6 +301,8 @@ namespace Arsoude_Backend.Controllers
                 return Unauthorized(new { Message = "You cannot change the visibility of a trail you don't own" });
             }
         }
+
+
 
         [HttpGet("{trailId}")]
         public async Task<ActionResult<bool>> CheckOwnerByTrailId(int trailId)

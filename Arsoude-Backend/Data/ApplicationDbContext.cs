@@ -477,6 +477,9 @@ namespace Arsoude_Backend.Data
 
         public DbSet<Trail> Trails { get; set; } = default!;
 
+        public DbSet<Hike> Hikes { get; set; } = default!;
+
+
         public DbSet<UserFavoriteTrail> UserFavoriteTrails { get; set; } = default!;
 
 
