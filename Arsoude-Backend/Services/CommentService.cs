@@ -42,13 +42,12 @@ namespace Arsoude_Backend.Services
                 throw new NullReferenceException();
             }
             Comments newCom = new Comments {
-            Id= 0,
-            userHasCompleted = true,
-            Date = DateTime.Now,
-            User = commentowner,
-            Text = comment.Message,
-            Trail = trail
-            
+                Id= 0,
+                userHasCompleted = true,
+                Date = DateTime.Now.ToString("MM-dd-yyyy"),
+                User = commentowner,
+                Text = comment.Text,
+                Trail = trail
             };
             await _context.AddAsync(newCom);
             await _context.SaveChangesAsync();

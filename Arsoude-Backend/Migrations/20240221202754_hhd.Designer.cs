@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240219164133_Initial_Create")]
-    partial class Initial_Create
+    [Migration("20240221202754_hhd")]
+    partial class hhd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,39 @@ namespace Arsoude_Backend.Migrations
                             Latitude = 45.671821999999999,
                             Longitude = -73.526653999999994
                         });
+                });
+
+            modelBuilder.Entity("Arsoude_Backend.Models.Hike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Distance")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Time")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TrailId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrailId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Hikes");
                 });
 
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
@@ -440,6 +473,9 @@ namespace Arsoude_Backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
@@ -543,7 +579,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "0a793279-86ec-46cc-862f-fbda893e596c",
+                            ConcurrencyStamp = "c519f58b-d056-4ab1-9005-bec8d1c615c3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -640,15 +676,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e4873950-dc71-4a09-af31-3c5066dfcdee",
+                            ConcurrencyStamp = "2ef00445-8031-4189-bd62-793f4cf350e7",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMSnzIVY6tPaqz728wVOR8d6mHPwbR6UUu0XI/k3hgnnUlLmYJHc+NDOtgCmhjYO0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEQLWvSav0drz8Cf4qNGlyozSvu1agD6OgNuAA8NMUP7dx4TXL+V1jRF06d3jhtMGQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "190d31e8-9a8a-49b2-8108-e39563c8305f",
+                            SecurityStamp = "5ea2cf3c-4b22-42bb-9216-fe83761c1c43",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -656,15 +692,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7052937a-855b-4c86-80c1-5745d949cade",
+                            ConcurrencyStamp = "38e4b5a2-4587-499f-b87d-93f1146d2289",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO1v/gibrElHxtZR5cuawaZace3xP8DNCQkjD6Z1g7Fg7JrI9UJa70ijGGuxzrk/Cw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDEDCOm0oedAj6EIkxjy9oDFWQvccnBNS9HDOYni40YfAskfHurwVGRlivhDviQSzA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "29cfeba5-ec54-459b-8de3-e8b56793f81c",
+                            SecurityStamp = "be73d46d-3e53-4a32-8c82-03c3c52729e2",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -789,6 +825,25 @@ namespace Arsoude_Backend.Migrations
                     b.HasOne("Arsoude_Backend.Models.Trail", null)
                         .WithMany("Coordinates")
                         .HasForeignKey("TrailId");
+                });
+
+            modelBuilder.Entity("Arsoude_Backend.Models.Hike", b =>
+                {
+                    b.HasOne("Arsoude_Backend.Models.Trail", "Trail")
+                        .WithMany()
+                        .HasForeignKey("TrailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Arsoude_Backend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Trail");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
