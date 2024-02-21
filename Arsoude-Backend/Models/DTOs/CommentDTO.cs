@@ -5,8 +5,6 @@
         public string Message {get; set;}
 
         public int Trailid { get; set; }
-
-
     }
 }
 

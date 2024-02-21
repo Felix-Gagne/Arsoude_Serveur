@@ -8,7 +8,6 @@ namespace Arsoude_Backend.Models.DTOs
 
         public string? FirstName { get; set; }
 
-        [AreaCode]
         public string? AreaCode { get; set; }
 
         public int? HouseNo { get; set; }
