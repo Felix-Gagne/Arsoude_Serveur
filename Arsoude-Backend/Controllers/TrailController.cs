@@ -128,13 +128,13 @@ namespace Arsoude_Backend.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Hike>> CreateHike(Hike hike, Coordinates coord)
+        public async Task<ActionResult<Hike>> CreateHike(Hike hike)
         {
             IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             try
             {
-                await _trailService.CreateHike(hike, user, coord);
+                await _trailService.CreateHike(hike, user);
                 return Ok();
             }
             catch (UserNotFoundException)

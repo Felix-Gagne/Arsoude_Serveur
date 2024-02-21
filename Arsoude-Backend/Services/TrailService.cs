@@ -59,13 +59,8 @@ namespace Arsoude_Backend.Services
             return trail;
         }
 
-        public async Task<Hike> CreateHike(Hike hike, IdentityUser user, Coordinates endingCoordinates)
+        public async Task<Hike> CreateHike(Hike hike, IdentityUser user)
         {
-
-            if(endingCoordinates == null)
-            {
-                throw new CoordinateNotFoundException();
-            }
 
             if (user == null)
             {
