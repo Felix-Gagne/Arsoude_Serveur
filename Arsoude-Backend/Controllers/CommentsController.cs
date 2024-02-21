@@ -16,7 +16,7 @@ using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace Arsoude_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CommentsController : ControllerBase
     {

@@ -171,7 +171,7 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<ActionResult<User>> ChangeUserInfo(ModifUserDTO dto)
         {
             try
@@ -189,6 +189,38 @@ namespace Arsoude_Backend.Controllers
                 }
             }
             catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occured: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ModifUserDTO>> GetUserInfo()
+        {
+            try
+            {
+                IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+                User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+                ModifUserDTO dto = new ModifUserDTO();
+
+                if(currentUser != null)
+                {
+                    dto.LastName = currentUser.LastName;
+                    dto.FirstName = currentUser.FirstName;
+                    dto.AreaCode = currentUser.AreaCode;
+                    dto.HouseNo = currentUser.HouseNo;
+                    dto.Street = currentUser.Street;
+                    dto.City = currentUser.City;
+                    dto.State = currentUser.State;
+                    dto.YearOfBirth = currentUser.YearOfBirth;
+                    dto.MonthOfBirth = currentUser.MonthOfBirth;
+                }
+
+                return dto;
+            }
+            catch(Exception ex)
             {
                 return StatusCode(500, $"An error occured: {ex.Message}");
             }
