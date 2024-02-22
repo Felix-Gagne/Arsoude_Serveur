@@ -25,7 +25,7 @@ namespace Arsoude_Backend.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        readonly UserManager<IdentityUser> UserManager; 
+        readonly UserManager<IdentityUser> UserManager;
         readonly SignInManager<IdentityUser> SignInManager;
         private ApplicationDbContext _context;
         private readonly UserService _userService;
@@ -70,7 +70,7 @@ namespace Arsoude_Backend.Controllers
                     JwtSecurityToken token = new JwtSecurityToken(
                         issuer: "https://localhost:7127",
                         claims: authClaim,
-                        expires: DateTime.Now.AddMinutes(30),
+                        expires: DateTime.Now.AddMinutes(60),
                         signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature));
 
 
@@ -87,9 +87,9 @@ namespace Arsoude_Backend.Controllers
 
 
             }
-            
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "La création de l'utilisateur a échoué." });
-            
+
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "La création de l'utilisateur a échoué." });
+
         }
 
         [HttpPost]
@@ -119,7 +119,7 @@ namespace Arsoude_Backend.Controllers
                 JwtSecurityToken token = new JwtSecurityToken(
                     issuer: "https://localhost:7127",
                     claims: authClaim,
-                    expires: DateTime.Now.AddMinutes(30),
+                    expires: DateTime.Now.AddMinutes(60),
                     signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature));
 
 
@@ -127,15 +127,15 @@ namespace Arsoude_Backend.Controllers
 
 
                 return Ok(new
-                    {
-                        token = new JwtSecurityTokenHandler().WriteToken(token),
-                        validTo = token.ValidTo,
-                        Message = "Connection Réussie :)",
-                        roles = roles
-                    });
-                
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    validTo = token.ValidTo,
+                    Message = "Connection Réussie :)",
+                    roles = roles
+                });
 
-                
+
+
             }
             return BadRequest(new { Message = "Le mot de passe ou le nom d'utilisateur ne correspond pas." });
         }
@@ -164,6 +164,61 @@ namespace Arsoude_Backend.Controllers
                 {
                     return NotFound(new { Message = "User not found" });
                 }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occured: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<User>> ChangeUserInfo(ModifUserDTO dto)
+        {
+            try
+            {
+                IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+                if (user != null)
+                {
+                    User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+                    return await _userService.ChangeUserInfo(dto, currentUser);
+                }
+                else
+                {
+                    return NotFound(new { Message = "User not found" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occured: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ModifUserDTO>> GetUserInfo()
+        {
+            try
+            {
+                IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+                User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+                ModifUserDTO dto = new ModifUserDTO();
+
+                if(currentUser != null)
+                {
+                    dto.LastName = currentUser.LastName;
+                    dto.FirstName = currentUser.FirstName;
+                    dto.AreaCode = currentUser.AreaCode;
+                    dto.HouseNo = currentUser.HouseNo;
+                    dto.Street = currentUser.Street;
+                    dto.City = currentUser.City;
+                    dto.State = currentUser.State;
+                    dto.YearOfBirth = currentUser.YearOfBirth;
+                    dto.MonthOfBirth = currentUser.MonthOfBirth;
+                }
+
+                return dto;
             }
             catch(Exception ex)
             {

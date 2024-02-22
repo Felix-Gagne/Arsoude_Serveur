@@ -148,7 +148,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail2);
 
@@ -163,7 +164,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail3);
 
@@ -178,7 +180,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://californiathroughmylens.com/wp-content/uploads/2019/05/crystal-cove-el-moro-12-640x427.jpg",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail31);
 
@@ -193,7 +196,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://blog.ab.bluecross.ca/wp-content/uploads/2020/08/fav-hikes-part-three.jpg",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail32);
 
@@ -208,7 +212,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://www.tourismpei.com/sites/default/files/styles/hero_mobile/public/media/images/51271316495_139f7c6199_o_0.jpg?h=3cbfe8df&itok=dRMEGC9G",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail33);
 
@@ -223,7 +228,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://i.cbc.ca/1.4170049.1530218327!/fileImage/httpImage/hiking-trails.jpg",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail34);
 
@@ -238,7 +244,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://www.mississauga.ca/wp-content/uploads/2022/10/14143203/20221010_115918-scaled.jpg",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail35);
 
@@ -253,7 +260,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://www.lutsen.com/sites/default/files/styles/scale_1440/public/2021-10/Biking%20-%20Molly%20at%20Britton%20Peak%20-%20VCC%20UL%20-%20by%20Al%20%26%20Lyndsey%20Johnson%20%20%2842%29.jpg?itok=N7pFjnwx",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail36);
 
@@ -268,7 +276,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://www.surrey.ca/sites/default/files/styles/metatag_facebook/public/2020-08/InvergarryNatureTrail.JPG?h=d262251e&itok=oXPbDLYW",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail37);
 
@@ -283,7 +292,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://i.pinimg.com/originals/7f/e4/e2/7fe4e24eb9024d61139ac44a607e478a.jpg",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail38);
 
@@ -298,7 +308,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://www.nps.gov/hosp/planyourvisit/images/_DSC7261.jpg?maxwidth=650&autorotate=false",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail39);
 
@@ -313,7 +324,8 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAO_hEyiI2Tkfl5TI78QWQpncjBZ_7VWxtU4rceThJXeSRAKCutUx62Hfw5sdbX_QBEa4&usqp=CAU",
-                isPublic = true
+                isPublic = true,
+                IsApproved = true
             };
             builder.Entity<Trail>().HasData(trail40);
 
@@ -465,10 +477,16 @@ namespace Arsoude_Backend.Data
 
         public DbSet<Trail> Trails { get; set; } = default!;
 
+        public DbSet<Hike> Hikes { get; set; } = default!;
+
+
         public DbSet<UserFavoriteTrail> UserFavoriteTrails { get; set; } = default!;
 
 
         public DbSet<Coordinates> Coordinates { get; set; } = default!;   
+
+
+        public DbSet<Arsoude_Backend.Models.Comments>? Comments { get; set; }
 
     }
 }
