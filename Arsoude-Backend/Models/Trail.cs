@@ -40,6 +40,8 @@ namespace Arsoude_Backend.Models
         
         public int EndingCoordinatesId { get; set; }
 
+        public DateTime? CreationDate { get; set; }
+
         public int OwnerId { get; set; }
         public Boolean isPublic { get; set; } = false;
 

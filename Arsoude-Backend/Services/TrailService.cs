@@ -53,6 +53,7 @@ namespace Arsoude_Backend.Services
             _context.Coordinates.Add(trail.EndingCoordinates);
             _context.Coordinates.Add(trail.StartingCoordinates);
             trail.OwnerId = userOfficial.Id;
+            trail.CreationDate = DateTime.UtcNow;
             _context.Trails.Add(trail);
             await _context.SaveChangesAsync();
 
