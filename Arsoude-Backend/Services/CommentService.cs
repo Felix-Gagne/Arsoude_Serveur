@@ -44,16 +44,34 @@ namespace Arsoude_Backend.Services
             {
                 throw new NullReferenceException();
             }
-            Comments newCom = new Comments {
-                Id= 0,
-                userHasCompleted = hike.IsCompleted,
-                Date = DateTime.Now.ToString("MM-dd-yyyy"),
-                User = commentowner,
-                Text = comment.Text,
-                Trail = trail
-            };
-            await _context.AddAsync(newCom);
-            await _context.SaveChangesAsync();
+            if(hike == null)
+            {
+                Comments newCom = new Comments
+                {
+                    Id = 0,
+                    userHasCompleted = false,
+                    Date = DateTime.Now.ToString("MM-dd-yyyy"),
+                    User = commentowner,
+                    Text = comment.Text,
+                    Trail = trail
+                };
+                await _context.AddAsync(newCom);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                Comments newCom = new Comments
+                {
+                    Id = 0,
+                    userHasCompleted = hike.IsCompleted,
+                    Date = DateTime.Now.ToString("MM-dd-yyyy"),
+                    User = commentowner,
+                    Text = comment.Text,
+                    Trail = trail
+                };
+                await _context.AddAsync(newCom);
+                await _context.SaveChangesAsync();
+            }
         } 
 
     }
