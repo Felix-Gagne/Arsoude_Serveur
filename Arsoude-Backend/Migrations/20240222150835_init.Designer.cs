@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240221202754_hhd")]
-    partial class hhd
+    [Migration("20240222150835_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,7 +25,8 @@ namespace Arsoude_Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<string>("Date")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Text")
@@ -124,6 +125,9 @@ namespace Arsoude_Backend.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -579,7 +583,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "c519f58b-d056-4ab1-9005-bec8d1c615c3",
+                            ConcurrencyStamp = "161e153f-ba83-400e-819f-75f495019329",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -676,15 +680,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2ef00445-8031-4189-bd62-793f4cf350e7",
+                            ConcurrencyStamp = "7a2978de-30b0-4d4c-a04e-f4d78643080f",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEQLWvSav0drz8Cf4qNGlyozSvu1agD6OgNuAA8NMUP7dx4TXL+V1jRF06d3jhtMGQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBPC3jEJuHIgeg/1oiZ9saQgxe7/bRky9XvCNksD3U4NFW5/fNOMtDnhI58W5itjEQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5ea2cf3c-4b22-42bb-9216-fe83761c1c43",
+                            SecurityStamp = "a717a5b2-3097-4682-9a4b-e833ba7dec4b",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -692,15 +696,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "38e4b5a2-4587-499f-b87d-93f1146d2289",
+                            ConcurrencyStamp = "a583006a-463e-4198-a5b4-57cddd5764f4",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDEDCOm0oedAj6EIkxjy9oDFWQvccnBNS9HDOYni40YfAskfHurwVGRlivhDviQSzA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHgH1S/dvcWUxiN1cxM1NnowQgSf3iVwQBqUz6ScW2ZwxChDoQqBK9BkRLe9aUrl/Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "be73d46d-3e53-4a32-8c82-03c3c52729e2",
+                            SecurityStamp = "6197d533-c940-45fa-bf63-07533fb9eb2e",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
