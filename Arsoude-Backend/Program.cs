@@ -30,6 +30,7 @@ builder.Services.AddScoped<TrailService>();
 builder.Services.AddScoped<AdminService>();
 builder.Services.AddScoped<TrailService>();
 builder.Services.AddScoped<CommentService>();
+builder.Services.AddScoped<LevelService>();
 
 //Authentification JWT (token)
 builder.Services.AddAuthentication(options =>

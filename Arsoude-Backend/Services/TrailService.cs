@@ -12,12 +12,14 @@ namespace Arsoude_Backend.Services
     public class TrailService : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly LevelService _levelService;
 
 
-        public TrailService(ApplicationDbContext context)
+        public TrailService(ApplicationDbContext context, LevelService levelService)
         {
 
             _context = context;
+            _levelService = levelService;
         }
 
         public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user)
@@ -55,6 +57,8 @@ namespace Arsoude_Backend.Services
             trail.OwnerId = userOfficial.Id;
             trail.CreationDate = DateTime.UtcNow;
             _context.Trails.Add(trail);
+            userOfficial.Level.Experience += 25;
+            _levelService.CheckForLevelUp(userOfficial.Id);
             await _context.SaveChangesAsync();
 
             return trail;
@@ -156,6 +160,9 @@ namespace Arsoude_Backend.Services
                 trail.StartingCoordinates = coords.First();
                 trail.EndingCoordinates = coords.Last();
                 trail.Distance = coords.Count() * 10 / 1000;
+
+                owner.Level.Experience += 30;
+                _levelService.CheckForLevelUp(owner.Id);
 
                 await _context.SaveChangesAsync();
             }

@@ -43,7 +43,7 @@ namespace Arsoude_Backend.Models
         public DateTime? CreationDate { get; set; }
 
         public int OwnerId { get; set; }
-        public Boolean isPublic { get; set; } = false;
+        public Boolean isPublic { get; set; } = false;  
 
         public double? Distance { get; set; }
 

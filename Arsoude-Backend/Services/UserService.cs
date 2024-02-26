@@ -41,7 +41,14 @@ namespace Arsoude_Backend.Services
                 LastName = register.LastName,
                 FirstName = register.FirstName,
                 AreaCode = register.AreaCode,
-                IdentityUserId = identityUser.Id
+                IdentityUserId = identityUser.Id,
+                Level = new Level
+                {
+                    CurrentLevel = 1,
+                    Experience = 0,
+                    PreviousLevelExperience = 0,
+                    NextlevelsExperience = 30
+                }
             };
 
             await _context.TrailUsers.AddAsync(user);
