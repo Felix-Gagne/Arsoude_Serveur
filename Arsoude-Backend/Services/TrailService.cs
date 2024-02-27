@@ -57,8 +57,6 @@ namespace Arsoude_Backend.Services
             trail.OwnerId = userOfficial.Id;
             trail.CreationDate = DateTime.UtcNow;
             _context.Trails.Add(trail);
-            userOfficial.Level.Experience += 25;
-            _levelService.CheckForLevelUp(userOfficial.Id);
             await _context.SaveChangesAsync();
 
             return trail;

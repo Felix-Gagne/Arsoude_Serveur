@@ -226,6 +226,23 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<ActionResult<Level>> GetProgression()
+        {
+            IdentityUser? user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            if(currentUser != null )
+            {
+                return currentUser.Level;
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
 
         [HttpGet]
         public async Task<ActionResult> Logout()

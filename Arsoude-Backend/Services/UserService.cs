@@ -47,7 +47,7 @@ namespace Arsoude_Backend.Services
                     CurrentLevel = 1,
                     Experience = 0,
                     PreviousLevelExperience = 0,
-                    NextlevelsExperience = 30
+                    NextLevelExperience = 30
                 }
             };
 

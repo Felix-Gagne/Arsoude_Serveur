@@ -12,7 +12,7 @@ namespace Arsoude_Backend.Models
 
         public int PreviousLevelExperience { get; set; }
 
-        public int NextlevelsExperience { get; set; }
+        public int NextLevelExperience { get; set; }
 
         public int UserId { get; set; }
     }

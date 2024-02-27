@@ -8,14 +8,15 @@ namespace Arsoude_Backend.Services
     public class AdminService
     {
         private readonly ApplicationDbContext _context;
+        private readonly LevelService _levelService;
         
 
 
-        public AdminService( ApplicationDbContext context)
+        public AdminService( ApplicationDbContext context, LevelService levelService)
         {
 
             _context = context;
-           
+           _levelService = levelService;
 
 
         }
@@ -30,6 +31,14 @@ namespace Arsoude_Backend.Services
             }
             
             trail.IsApproved = status;
+
+            User userOfficial = await _context.TrailUsers.Where(x => x.Id == trail.OwnerId).FirstOrDefaultAsync();
+
+            if (trail.IsApproved == true)
+            {
+                userOfficial.Level.Experience += 25;
+                _levelService.CheckForLevelUp(userOfficial.Id);
+            }
 
             await _context.SaveChangesAsync();
 

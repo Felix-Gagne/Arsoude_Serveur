@@ -18,7 +18,7 @@ namespace Arsoude_Backend.Services
         {
             Level lvl = await _context.Levels.Where(x => x.UserId == UserId).FirstOrDefaultAsync();
 
-            if (lvl.Experience >= lvl.NextlevelsExperience)
+            if (lvl.Experience >= lvl.NextLevelExperience)
             {
                 lvl.CurrentLevel++;
                 UpdateLevel(UserId);
@@ -31,8 +31,9 @@ namespace Arsoude_Backend.Services
         {
             Level lvl = await _context.Levels.Where(x => x.UserId == UserId).FirstOrDefaultAsync();
 
-            lvl.PreviousLevelExperience = lvl.NextlevelsExperience;
-            lvl.NextlevelsExperience = Convert.ToInt32(lvl.NextlevelsExperience * 1.5);
+            lvl.Experience -= lvl.NextLevelExperience;
+            lvl.PreviousLevelExperience = lvl.NextLevelExperience;
+            lvl.NextLevelExperience = Convert.ToInt32(lvl.NextLevelExperience * 1.5);
 
             _context.SaveChanges();
         }
