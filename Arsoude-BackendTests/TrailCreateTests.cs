@@ -68,7 +68,7 @@ namespace Arsoude_BackendTests
             };
 
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, null);
 
             db.AddRange(user);
             db.AddRange(userTest);
@@ -105,7 +105,7 @@ namespace Arsoude_BackendTests
         public async Task CreateTrail_NullUser()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, null);
 
             Trail t = new Trail()
             {
@@ -121,7 +121,7 @@ namespace Arsoude_BackendTests
         public async Task CreateTrail_NullTrail()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, null);
 
             IdentityUser user = new IdentityUser
             {

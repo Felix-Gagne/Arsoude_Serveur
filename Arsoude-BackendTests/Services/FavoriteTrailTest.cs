@@ -111,7 +111,7 @@ namespace Arsoude_BackendTests.Services
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
 
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, null);
 
             User currentUser = await db.TrailUsers.Where(x => x.IdentityUserId == user.IdentityUserId).FirstOrDefaultAsync();
             Trail trail = await db.Trails.Where(x => x.Id == trailtIWantInTheFavorite.Id).FirstOrDefaultAsync();
@@ -132,7 +132,7 @@ namespace Arsoude_BackendTests.Services
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
 
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, null);
 
             User currentUser = await db.TrailUsers.Where(x => x.IdentityUserId == user.IdentityUserId).FirstOrDefaultAsync();
             Trail trail = await db.Trails.Where(x => x.Id == trailInTheFavorite.Id).FirstOrDefaultAsync();
@@ -154,7 +154,7 @@ namespace Arsoude_BackendTests.Services
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
 
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, null);
 
             
 
@@ -167,7 +167,7 @@ namespace Arsoude_BackendTests.Services
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
 
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, null);
 
             
 
