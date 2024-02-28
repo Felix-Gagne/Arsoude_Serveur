@@ -11,13 +11,45 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240215162044_init")]
-    partial class init
+    [Migration("20240228154614_Initial_Create")]
+    partial class Initial_Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
+
+            modelBuilder.Entity("Arsoude_Backend.Models.Comments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TrailId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("userHasCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrailId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
 
             modelBuilder.Entity("Arsoude_Backend.Models.Coordinates", b =>
                 {
@@ -55,11 +87,47 @@ namespace Arsoude_Backend.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Arsoude_Backend.Models.Hike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Distance")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Time")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TrailId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrailId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Hikes");
+                });
+
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -500,7 +568,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "30e35353-4e82-437d-9f1f-e37fb6521ed8",
+                            ConcurrencyStamp = "c3cbe227-09ec-4ae5-92e5-5b6f3a9ecc12",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -597,15 +665,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "698a5a56-de02-42e9-a682-8973c789abb2",
+                            ConcurrencyStamp = "80550122-b767-4cf7-89f1-3fa3efa7386e",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJuLeFgWOVBi9ZzGq+rXTSeiKJ2oXx39xfqrI27yGkxFBHR5b1hDF4bu4MhpUlJSiA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENowb09pxc9C3e1oIAUX6eN7/8wnvVcwO6KCGJnbVBDT6Iac/SToThZCg21yk7j+fQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2d560a25-0fde-485b-88e1-416a9cdd27ee",
+                            SecurityStamp = "30a10a62-0065-4ca5-8317-26da97c275c7",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -613,15 +681,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "50605a9a-5b7e-4aa3-95c5-711fd19aa4c7",
+                            ConcurrencyStamp = "11daf2c4-46b8-4084-ab0c-89915ee0335e",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEACTeiwZGoUnBmuSwLl++E5BHF1QBs1QjQp2I4OaUFQ2lcnTYuhxb0sKd5WtX7o04g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA4cr9xh8bNKt/qhJF3lba+3CFtK7qDImenRc0WszEdSesvnwHzcsr82ed/M5qDgmg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "59024c39-6210-424f-b61e-3d1da364d6d7",
+                            SecurityStamp = "cb0c7f3e-ccc5-4843-80c5-0e132b5d6d03",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -722,11 +790,49 @@ namespace Arsoude_Backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Arsoude_Backend.Models.Comments", b =>
+                {
+                    b.HasOne("Arsoude_Backend.Models.Trail", "Trail")
+                        .WithMany("Comments")
+                        .HasForeignKey("TrailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Arsoude_Backend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Trail");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Arsoude_Backend.Models.Coordinates", b =>
                 {
                     b.HasOne("Arsoude_Backend.Models.Trail", null)
                         .WithMany("Coordinates")
                         .HasForeignKey("TrailId");
+                });
+
+            modelBuilder.Entity("Arsoude_Backend.Models.Hike", b =>
+                {
+                    b.HasOne("Arsoude_Backend.Models.Trail", "Trail")
+                        .WithMany()
+                        .HasForeignKey("TrailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Arsoude_Backend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Trail");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
@@ -825,6 +931,8 @@ namespace Arsoude_Backend.Migrations
 
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Coordinates");
                 });
 
