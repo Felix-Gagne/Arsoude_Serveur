@@ -10,12 +10,14 @@ namespace Arsoude_Backend.Services
     public class CommentService
     {
         private readonly ApplicationDbContext _context;
+        private readonly LevelService _levelService;
 
 
 
-        public CommentService(ApplicationDbContext context)
+        public CommentService(ApplicationDbContext context, LevelService levelService)
         {
             _context = context;
+            _levelService = levelService;
         }
 
 
@@ -56,6 +58,10 @@ namespace Arsoude_Backend.Services
                     Trail = trail
                 };
                 await _context.AddAsync(newCom);
+
+                commentowner.Level.Experience += 15;
+                _levelService.CheckForLevelUp(commentowner.Id);
+
                 await _context.SaveChangesAsync();
             }
             else

@@ -1,4 +1,4 @@
-﻿using Arsoude_Backend.Models.Validations;
+using Arsoude_Backend.Models.Validations;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -45,5 +45,11 @@ namespace Arsoude_Backend.Models
 
         [JsonIgnore]
         public virtual IdentityUser? IdentityUser { get; set; }
+
+        [JsonIgnore]
+        public virtual Level Level { get; set; }
+
+        [JsonIgnore]
+        public virtual List<Comments> Comments { get; set; }
     }
 }
