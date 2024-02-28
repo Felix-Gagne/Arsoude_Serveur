@@ -183,6 +183,29 @@ namespace Arsoude_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Levels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CurrentLevel = table.Column<int>(type: "INTEGER", nullable: false),
+                    Experience = table.Column<int>(type: "INTEGER", nullable: false),
+                    PreviousLevelExperience = table.Column<int>(type: "INTEGER", nullable: false),
+                    NextLevelExperience = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Levels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Levels_TrailUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "TrailUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserFavoriteTrails",
                 columns: table => new
                 {
@@ -315,17 +338,17 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "c3cbe227-09ec-4ae5-92e5-5b6f3a9ecc12", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "fe4ebe67-37da-477f-aa61-6f639758d550", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "80550122-b767-4cf7-89f1-3fa3efa7386e", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAENowb09pxc9C3e1oIAUX6eN7/8wnvVcwO6KCGJnbVBDT6Iac/SToThZCg21yk7j+fQ==", null, false, "30a10a62-0065-4ca5-8317-26da97c275c7", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "1e8998dc-c2f7-4c9c-93f1-fe901250a41c", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEArj8S4nWlTP8jk1Sbq9sABQqEx1khBnAauIILlQ2ZdRxNMDbBTYuMkftDT71fUUIQ==", null, false, "46617e9d-a1b2-48f8-9937-be3079b3999a", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "11daf2c4-46b8-4084-ab0c-89915ee0335e", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEA4cr9xh8bNKt/qhJF3lba+3CFtK7qDImenRc0WszEdSesvnwHzcsr82ed/M5qDgmg==", null, false, "cb0c7f3e-ccc5-4843-80c5-0e132b5d6d03", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "008d1a44-3595-46f1-8560-2797dbaac909", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAENAsQZwODsxQ2lMWM007RUrY8IaL++gzrfcUwe4n39ng8SyjjC9DH58TAKe6d9GgOg==", null, false, "a7579607-1bb7-47fe-8351-9d833afc29ea", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
@@ -525,6 +548,12 @@ namespace Arsoude_Backend.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Levels_UserId",
+                table: "Levels",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Trails_EndingCoordinatesId",
                 table: "Trails",
                 column: "EndingCoordinatesId");
@@ -595,6 +624,9 @@ namespace Arsoude_Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Hikes");
+
+            migrationBuilder.DropTable(
+                name: "Levels");
 
             migrationBuilder.DropTable(
                 name: "UserFavoriteTrails");
