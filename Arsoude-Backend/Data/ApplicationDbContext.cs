@@ -470,5 +470,8 @@ namespace Arsoude_Backend.Data
 
         public DbSet<Coordinates> Coordinates { get; set; } = default!;   
 
+        public DbSet<Hike> Hikes { get; set; } = default!;
+
+        public DbSet<Comments> Comments { get; set; }
     }
 }
