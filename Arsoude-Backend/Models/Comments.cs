@@ -8,7 +8,5 @@
         public bool userHasCompleted { get; set; }
         public virtual User User { get; set; }
         public virtual Trail Trail { get; set; }
-        
-
     }
 }

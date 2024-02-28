@@ -1,4 +1,4 @@
-﻿using Arsoude_Backend.Models.Validations;
+using Arsoude_Backend.Models.Validations;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -33,8 +33,6 @@ namespace Arsoude_Backend.Models
 
         [Range(1, 12)]
         public int? MonthOfBirth { get; set; }
-
-        public string? AvatarUrl { get; set; }
 
         [JsonIgnore]
         public virtual List<Trail> Trails { get; set; }

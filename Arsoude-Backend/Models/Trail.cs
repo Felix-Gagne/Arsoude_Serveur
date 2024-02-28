@@ -55,5 +55,6 @@ namespace Arsoude_Backend.Models
 
         [JsonIgnore]
         public virtual List<Comments>? Comments { get; set; }
+
     }
 }
