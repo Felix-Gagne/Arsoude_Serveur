@@ -56,7 +56,12 @@ namespace Arsoude_Backend.Services
             _context.Coordinates.Add(trail.StartingCoordinates);
             trail.OwnerId = userOfficial.Id;
             _context.Trails.Add(trail);
-            await _context.SaveChangesAsync();
+
+            userOfficial.Level.Experience += 25;
+            _levelService.CheckForLevelUp(userOfficial.Id);
+
+
+        await _context.SaveChangesAsync();
 
             return trail;
         }

@@ -34,12 +34,6 @@ namespace Arsoude_Backend.Services
 
             User userOfficial = await _context.TrailUsers.Where(x => x.Id == trail.OwnerId).FirstOrDefaultAsync();
 
-            if (trail.IsApproved == true)
-            {
-                userOfficial.Level.Experience += 25;
-                _levelService.CheckForLevelUp(userOfficial.Id);
-            }
-
             await _context.SaveChangesAsync();
 
             return trail;
