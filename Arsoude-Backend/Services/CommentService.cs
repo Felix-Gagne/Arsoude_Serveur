@@ -38,6 +38,7 @@ namespace Arsoude_Backend.Services
 
         public async Task PostComment(CommentDTO comment, IdentityUser user) {
             User commentowner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
+            IdentityUser username = await _context.Users.Where(x => x.Id == user.Id).FirstOrDefaultAsync();
             Trail trail = await _context.Trails.FindAsync(comment.Trailid);
 
             Hike hike = await _context.Hikes.Where(x => x.UserId == commentowner.Id && x.TrailId == trail.Id).FirstOrDefaultAsync();
@@ -55,7 +56,8 @@ namespace Arsoude_Backend.Services
                     Date = DateTime.Now.ToString("MM-dd-yyyy"),
                     User = commentowner,
                     Text = comment.Text,
-                    Trail = trail
+                    Trail = trail,
+                    Username = username.UserName
                 };
                 await _context.AddAsync(newCom);
 
