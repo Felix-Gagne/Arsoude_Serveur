@@ -1,4 +1,4 @@
-﻿using Arsoude_Backend.Data;
+using Arsoude_Backend.Data;
 using Arsoude_Backend.Exceptions;
 using Arsoude_Backend.Models.Enums;
 using Arsoude_Backend.Models;

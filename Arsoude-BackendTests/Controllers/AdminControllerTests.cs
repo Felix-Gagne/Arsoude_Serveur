@@ -28,7 +28,7 @@ namespace Arsoude_Backend.Controllers.Tests
                        .UseInMemoryDatabase(databaseName: "AdminTest")
                        .Options;
             _dbContext = new ApplicationDbContext(options);
-            adminService = new AdminService(_dbContext);
+            adminService = new AdminService(_dbContext, null);
             var config = new Mock<IConfiguration>();
             _config = config.Object;
 
