@@ -599,7 +599,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "8b3bc9f2-beff-4e8b-b451-e6a334a08a15",
+                            ConcurrencyStamp = "c6bab9c6-fb92-414c-bbb9-dc3e572d5e76",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -696,15 +696,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c50dcb30-cc40-4ce7-8cf0-7e3c2446fc8a",
+                            ConcurrencyStamp = "ac283981-07d5-4fbc-9d1d-368657f2f5a8",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGrzWy8SV0xZ4GS2rmtUkvGSiR3lDRB/S85/OieaBN2K8/CkpywTJBY0/BVNlzOPpg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH9hcnhqOkerkEUMn3C5qVrWf1myz/O1mdI6HT9jWoSVcSxLywqD+EbPA4QqLfePhQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d71d04d9-ddb8-472b-acc0-bd8b76562777",
+                            SecurityStamp = "e6172202-ba66-4394-b159-f3c92c3f617d",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -712,15 +712,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "001449bd-782f-4305-9a45-376bfb71e642",
+                            ConcurrencyStamp = "d025802a-c036-496d-bf98-d8b9260aa4b6",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELkz4cZ73PNhbmPtS48qnnoklsCLXb7gx1lXFCJUeMMUdFSemX9ZcK1Wtzu/i2WUCA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELvUJeudJTDI2BR1FQcpH3vbrdjpITFfuPAGohcDx9Lny0okIkZnHzdL3jR4Hikh/w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "413289a7-aac6-4eda-9782-cc87d423d24a",
+                            SecurityStamp = "abdd63ee-7820-4339-8734-74ce85433e42",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });

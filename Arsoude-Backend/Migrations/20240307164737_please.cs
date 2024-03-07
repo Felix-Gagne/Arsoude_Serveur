@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class fixlevel : Migration
+    public partial class please : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -339,17 +339,17 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "8b3bc9f2-beff-4e8b-b451-e6a334a08a15", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "c6bab9c6-fb92-414c-bbb9-dc3e572d5e76", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "c50dcb30-cc40-4ce7-8cf0-7e3c2446fc8a", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEGrzWy8SV0xZ4GS2rmtUkvGSiR3lDRB/S85/OieaBN2K8/CkpywTJBY0/BVNlzOPpg==", null, false, "d71d04d9-ddb8-472b-acc0-bd8b76562777", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "ac283981-07d5-4fbc-9d1d-368657f2f5a8", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEH9hcnhqOkerkEUMn3C5qVrWf1myz/O1mdI6HT9jWoSVcSxLywqD+EbPA4QqLfePhQ==", null, false, "e6172202-ba66-4394-b159-f3c92c3f617d", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "001449bd-782f-4305-9a45-376bfb71e642", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAELkz4cZ73PNhbmPtS48qnnoklsCLXb7gx1lXFCJUeMMUdFSemX9ZcK1Wtzu/i2WUCA==", null, false, "413289a7-aac6-4eda-9782-cc87d423d24a", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "d025802a-c036-496d-bf98-d8b9260aa4b6", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAELvUJeudJTDI2BR1FQcpH3vbrdjpITFfuPAGohcDx9Lny0okIkZnHzdL3jR4Hikh/w==", null, false, "abdd63ee-7820-4339-8734-74ce85433e42", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
