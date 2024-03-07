@@ -1,5 +1,6 @@
 using Arsoude_Backend.Models.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Arsoude_Backend.Models
@@ -29,6 +30,9 @@ namespace Arsoude_Backend.Models
 
 
         public string? ImageUrl { get; set; }
+
+        [NotMapped]
+        public virtual List<string>? ImageList { get; set; }
 
         [Required]
         public virtual Coordinates StartingCoordinates { get; set; }

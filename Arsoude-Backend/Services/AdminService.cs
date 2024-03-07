@@ -8,16 +8,12 @@ namespace Arsoude_Backend.Services
     public class AdminService
     {
         private readonly ApplicationDbContext _context;
-        private readonly LevelService _levelService;
         
 
 
-        public AdminService( ApplicationDbContext context, LevelService levelService)
+        public AdminService( ApplicationDbContext context)
         {
-
             _context = context;
-           _levelService = levelService;
-
 
         }
 
