@@ -12,12 +12,14 @@ namespace Arsoude_Backend.Services
     public class TrailService : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly LevelService _levelService;
 
 
-        public TrailService(ApplicationDbContext context)
+        public TrailService(ApplicationDbContext context, LevelService levelService)
         {
 
             _context = context;
+            _levelService = levelService;
         }
 
         public async Task<List<Trail>> GetUserTrailsAsync(IdentityUser user)
@@ -53,33 +55,15 @@ namespace Arsoude_Backend.Services
             _context.Coordinates.Add(trail.EndingCoordinates);
             _context.Coordinates.Add(trail.StartingCoordinates);
             trail.OwnerId = userOfficial.Id;
-            trail.CreationDate = DateTime.UtcNow;
             _context.Trails.Add(trail);
-            await _context.SaveChangesAsync();
+
+            userOfficial.Level.Experience += 25;
+            _levelService.CheckForLevelUp(userOfficial.Id);
+
+
+        await _context.SaveChangesAsync();
 
             return trail;
-        }
-
-        public async Task<Hike> CreateHike(Hike hike, IdentityUser user)
-        {
-
-            if (user == null)
-            {
-                throw new UserNotFoundException();
-            }
-            if (hike == null)
-            {
-                throw new HikeNotFoundException();
-            }
-
-            User userOfficial = _context.TrailUsers.Where(_u => _u.IdentityUserId == user.Id).FirstOrDefault();
-
-            hike.UserId = userOfficial.Id;
-
-            _context.Hikes.Add(hike);
-            await _context.SaveChangesAsync();
-
-            return hike;
         }
 
         public async Task DeleteTrail(int id)
@@ -157,6 +141,9 @@ namespace Arsoude_Backend.Services
                 trail.EndingCoordinates = coords.Last();
                 trail.Distance = coords.Count() * 10 / 1000;
 
+                owner.Level.Experience += 30;
+                _levelService.CheckForLevelUp(owner.Id);
+
                 await _context.SaveChangesAsync();
             }
 
@@ -168,12 +155,7 @@ namespace Arsoude_Backend.Services
         {
             User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
-            Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
-
-            if (trail == null)
-            {
-                throw new NullReferenceException();
-            }
+            Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
 
             if (trail.Coordinates != null)
             {
@@ -191,7 +173,6 @@ namespace Arsoude_Backend.Services
 
         public async Task<List<Trail>> GetFilteredTrails(FilterDTO dto)
         {
-
             IQueryable<Trail> query = _context.Trails;
 
             if (!string.IsNullOrEmpty(dto.Keyword))
@@ -217,20 +198,13 @@ namespace Arsoude_Backend.Services
                     x.StartingCoordinates.Latitude, x.StartingCoordinates.Longitude) <= dto.Distance.Value && x.isPublic == true && x.IsApproved == true).ToList();
             }
 
-            if(string.IsNullOrEmpty(dto.Keyword) && dto.Type == null && !dto.Distance.HasValue)
-            {
-                trails = await _context.Trails.Where(x => x.isPublic == true && x.IsApproved == true).ToListAsync();
-            }
-
             if (trails.Count == 0)
             {
-                throw new NoHikesFoundException();
+                throw new Exception("Pas de randonn�es trouv� pour les filtres fournis");
             }
 
             return trails;
         }
-
-        public class NoHikesFoundException : Exception { }
 
         public async Task<bool> VerifyThatUserHaveTrailInFavorite(User currentUser, int trailId)
         {
