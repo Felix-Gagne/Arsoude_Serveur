@@ -3,6 +3,7 @@ using System;
 using Arsoude_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240307164737_please")]
+    partial class please
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
@@ -599,11 +601,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-<<<<<<< HEAD
-                            ConcurrencyStamp = "d59a7dec-a163-4f56-9be1-7380830f28ed",
-=======
                             ConcurrencyStamp = "c6bab9c6-fb92-414c-bbb9-dc3e572d5e76",
->>>>>>> FIX_Level
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -700,25 +698,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "c38ae49c-c7cd-40fb-8cc3-eaf11fbdee35",
-=======
                             ConcurrencyStamp = "ac283981-07d5-4fbc-9d1d-368657f2f5a8",
->>>>>>> FIX_Level
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEFp1FCzF7KIwVKaW5FRsknjCciRhiMbUaitd29iHNVEkb5H3opf02IRnEn9MVM7uOg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "edbcf842-81b8-45fc-ac3b-c272a282982a",
-=======
                             PasswordHash = "AQAAAAEAACcQAAAAEH9hcnhqOkerkEUMn3C5qVrWf1myz/O1mdI6HT9jWoSVcSxLywqD+EbPA4QqLfePhQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "e6172202-ba66-4394-b159-f3c92c3f617d",
->>>>>>> FIX_Level
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -726,25 +714,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "04a73c27-45af-496b-9233-9eaadae70fe3",
-=======
                             ConcurrencyStamp = "d025802a-c036-496d-bf98-d8b9260aa4b6",
->>>>>>> FIX_Level
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEHNmm2quowDtqMxFvJhTuOO9f7AfWhwxj3yexPczEGzosuE6SPpE1NXeoTzicbpLkQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e239a260-ec65-4d7b-8463-86236f5dec2a",
-=======
                             PasswordHash = "AQAAAAEAACcQAAAAELvUJeudJTDI2BR1FQcpH3vbrdjpITFfuPAGohcDx9Lny0okIkZnHzdL3jR4Hikh/w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "abdd63ee-7820-4339-8734-74ce85433e42",
->>>>>>> FIX_Level
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
