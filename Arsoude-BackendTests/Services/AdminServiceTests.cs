@@ -123,7 +123,7 @@ namespace Arsoude_Backend.Services.Tests
             {
 
                 // Arrange
-                AdminService service = new AdminService(_dbContext, null);
+                AdminService service = new AdminService(_dbContext);
                 bool newStatus = true;
                 int trailId = 400;
 
@@ -142,7 +142,7 @@ namespace Arsoude_Backend.Services.Tests
             public async Task setStatus_InvalidTrailId_ReturnsNull()
             {
                 // Arrange
-                AdminService service = new AdminService(_dbContext, null);
+                AdminService service = new AdminService(_dbContext);
                 bool newStatus = true;
                 int trailId = 999; // Invalid TrailId
 
@@ -157,7 +157,7 @@ namespace Arsoude_Backend.Services.Tests
             public async Task DeleteTrail_ValidTrailId_DeletesTrail()
             {
                 // Arrange
-                AdminService service = new AdminService(_dbContext, null);
+                AdminService service = new AdminService(_dbContext);
                 int trailId = 400;
 
                 // Act
@@ -175,7 +175,7 @@ namespace Arsoude_Backend.Services.Tests
             public async Task DeleteTrail_InvalidTrailId_ThrowsException()
             {
                 // Arrange
-                AdminService service = new AdminService(_dbContext, null);
+                AdminService service = new AdminService(_dbContext);
                 int trailId = 999; // Invalid TrailId
 
                 // Act
@@ -189,7 +189,7 @@ namespace Arsoude_Backend.Services.Tests
             public async Task GetList_ReturnsgoodTrails()
             {
                 // Arrange
-                AdminService service = new AdminService(_dbContext, null);
+                AdminService service = new AdminService(_dbContext);
 
                 // Act
                 List<Trail> trails = await service.GetList();

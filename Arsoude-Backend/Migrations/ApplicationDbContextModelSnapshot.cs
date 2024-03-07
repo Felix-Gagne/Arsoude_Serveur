@@ -599,15 +599,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            ConcurrencyStamp = "8b3bc9f2-beff-4e8b-b451-e6a334a08a15",
-=======
-                            ConcurrencyStamp = "af5250e2-d6fe-4c8a-847e-1fdf7020073e",
->>>>>>> FCT_ImageLis
-=======
-                            ConcurrencyStamp = "fe4ebe67-37da-477f-aa61-6f639758d550",
->>>>>>> Release
+                            ConcurrencyStamp = "d59a7dec-a163-4f56-9be1-7380830f28ed",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -704,35 +696,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            ConcurrencyStamp = "c50dcb30-cc40-4ce7-8cf0-7e3c2446fc8a",
-=======
-                            ConcurrencyStamp = "81d4c933-3a45-42eb-967f-6613cb7eff40",
->>>>>>> FCT_ImageLis
-=======
-                            ConcurrencyStamp = "1e8998dc-c2f7-4c9c-93f1-fe901250a41c",
->>>>>>> Release
+                            ConcurrencyStamp = "c38ae49c-c7cd-40fb-8cc3-eaf11fbdee35",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEGrzWy8SV0xZ4GS2rmtUkvGSiR3lDRB/S85/OieaBN2K8/CkpywTJBY0/BVNlzOPpg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFp1FCzF7KIwVKaW5FRsknjCciRhiMbUaitd29iHNVEkb5H3opf02IRnEn9MVM7uOg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d71d04d9-ddb8-472b-acc0-bd8b76562777",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEF/NIJeg4YtSDZqfPAPUgstjKe2/ptFHyj5bICVAGm9Oa3NuJTjbn3NCt3r0Zor2Zw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "04cd48c5-40e5-4509-be31-cab8616f1aef",
->>>>>>> FCT_ImageLis
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEArj8S4nWlTP8jk1Sbq9sABQqEx1khBnAauIILlQ2ZdRxNMDbBTYuMkftDT71fUUIQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "46617e9d-a1b2-48f8-9937-be3079b3999a",
->>>>>>> Release
+                            SecurityStamp = "edbcf842-81b8-45fc-ac3b-c272a282982a",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -740,35 +712,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            ConcurrencyStamp = "001449bd-782f-4305-9a45-376bfb71e642",
-=======
-                            ConcurrencyStamp = "e609a534-2dbb-4799-8098-01ff7996373e",
->>>>>>> FCT_ImageLis
-=======
-                            ConcurrencyStamp = "008d1a44-3595-46f1-8560-2797dbaac909",
->>>>>>> Release
+                            ConcurrencyStamp = "04a73c27-45af-496b-9233-9eaadae70fe3",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAELkz4cZ73PNhbmPtS48qnnoklsCLXb7gx1lXFCJUeMMUdFSemX9ZcK1Wtzu/i2WUCA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHNmm2quowDtqMxFvJhTuOO9f7AfWhwxj3yexPczEGzosuE6SPpE1NXeoTzicbpLkQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "413289a7-aac6-4eda-9782-cc87d423d24a",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAELSWXfub46jqp60VXgnOsMS/iUIdhY4+5hlnliN1REoCBDe4a+J7gE5YK2+JnG4xyQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0e55b274-6444-46b8-b52d-5d84af481784",
->>>>>>> FCT_ImageLis
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAENAsQZwODsxQ2lMWM007RUrY8IaL++gzrfcUwe4n39ng8SyjjC9DH58TAKe6d9GgOg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "a7579607-1bb7-47fe-8351-9d833afc29ea",
->>>>>>> Release
+                            SecurityStamp = "e239a260-ec65-4d7b-8463-86236f5dec2a",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });

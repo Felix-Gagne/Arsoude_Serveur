@@ -55,7 +55,6 @@ namespace Arsoude_Backend.Services
                     userHasCompleted = false,
                     Date = DateTime.Now.ToString("MM-dd-yyyy"),
                     User = commentowner,
-                    Username = user.Email,
                     Text = comment.Text,
                     Trail = trail,
                     Username = username.UserName

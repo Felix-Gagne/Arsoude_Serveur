@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240306184315_imagelist")]
-    partial class imagelist
+    [Migration("20240307181501_please")]
+    partial class please
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.27");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
 
             modelBuilder.Entity("Arsoude_Backend.Models.Comments", b =>
                 {
@@ -124,6 +124,35 @@ namespace Arsoude_Backend.Migrations
                     b.ToTable("Hikes");
                 });
 
+            modelBuilder.Entity("Arsoude_Backend.Models.Level", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CurrentLevel")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Experience")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NextLevelExperience")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PreviousLevelExperience")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Levels");
+                });
+
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
                 {
                     b.Property<int>("Id")
@@ -190,7 +219,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une randonnée pittoresque à travers une forêt luxuriante où les oiseaux chantent et les rivières murmurent.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba",
-                            IsApproved = true,
                             Location = "Parc National de la Forêt Verte",
                             Name = "Sentier de la Forêt Enchantée",
                             OwnerId = 1,
@@ -204,7 +232,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une aventure difficile menant au sommet d'une montagne majestueuse offrant une vue imprenable sur la vallée ci-dessous.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg",
-                            IsApproved = true,
                             Location = "Parc National des Montagnes Escarpées",
                             Name = "Escapade au Sommet",
                             OwnerId = 1,
@@ -218,7 +245,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une randonnée enchanteresse le long de plusieurs cascades étincelantes, où l'eau scintille au soleil et crée un spectacle magique. Ce sentier offre une expérience sensorielle unique avec le bruit apaisant de l'eau qui coule, les reflets chatoyants et la fraîcheur de l'air pur. Vous serez transporté dans un monde de beauté naturelle et de tranquillité.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://californiathroughmylens.com/wp-content/uploads/2019/05/crystal-cove-el-moro-12-640x427.jpg",
-                            IsApproved = true,
                             Location = "Parc National des Cascades Étincelantes",
                             Name = "Sentier des Cascades Étincelantes",
                             OwnerId = 1,
@@ -232,7 +258,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une promenade pittoresque à travers de vastes champs de fleurs colorées, où vous pourrez vous imprégner des parfums enivrants et des couleurs éclatantes de la nature. Ce sentier offre une expérience visuelle et olfactive unique, avec des vues panoramiques sur les champs à perte de vue et une ambiance paisible qui invite à la détente et à la contemplation.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://blog.ab.bluecross.ca/wp-content/uploads/2020/08/fav-hikes-part-three.jpg",
-                            IsApproved = true,
                             Location = "Champs de Fleurs en Fleur",
                             Name = "Promenade des Champs de Fleurs",
                             OwnerId = 1,
@@ -246,7 +271,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une randonnée jusqu'à un pittoresque lac de montagne, niché au creux des sommets enneigés et entouré d'une nature sauvage et préservée. Ce sentier offre des vues panoramiques spectaculaires sur les montagnes environnantes et une atmosphère paisible et relaxante près de l'eau cristalline du lac.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://www.tourismpei.com/sites/default/files/styles/hero_mobile/public/media/images/51271316495_139f7c6199_o_0.jpg?h=3cbfe8df&itok=dRMEGC9G",
-                            IsApproved = true,
                             Location = "Lac de Montagne Tranquille",
                             Name = "Escapade au Lac de Montagne",
                             OwnerId = 1,
@@ -260,7 +284,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une aventure à travers les ruines anciennes d'une civilisation disparue, où vous pourrez découvrir l'histoire fascinante de ce site archéologique. Ce sentier offre une expérience immersive dans le passé, avec des vestiges bien préservés et des paysages à couper le souffle qui témoignent de la grandeur passée de cette civilisation.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://i.cbc.ca/1.4170049.1530218327!/fileImage/httpImage/hiking-trails.jpg",
-                            IsApproved = true,
                             Location = "Site Archéologique des Ruines Anciennes",
                             Name = "Sentier des Ruines Anciennes",
                             OwnerId = 1,
@@ -274,7 +297,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une randonnée le long de falaises côtières majestueuses, offrant des vues spectaculaires sur l'océan et les côtes rocheuses. Ce sentier offre une expérience unique en bord de mer, avec des panoramas à couper le souffle et une ambiance maritime rafraîchissante.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://www.mississauga.ca/wp-content/uploads/2022/10/14143203/20221010_115918-scaled.jpg",
-                            IsApproved = true,
                             Location = "Falaises Côtières",
                             Name = "Randonnée des Falaises Côtières",
                             OwnerId = 1,
@@ -288,7 +310,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une balade à travers une vallée paisible et endormie, où le temps semble s'être arrêté. Ce sentier offre une expérience tranquille en pleine nature, avec des paysages pittoresques et une ambiance relaxante qui invite à la contemplation.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://www.lutsen.com/sites/default/files/styles/scale_1440/public/2021-10/Biking%20-%20Molly%20at%20Britton%20Peak%20-%20VCC%20UL%20-%20by%20Al%20%26%20Lyndsey%20Johnson%20%20%2842%29.jpg?itok=N7pFjnwx",
-                            IsApproved = true,
                             Location = "Vallée Endormie",
                             Name = "Sentier de la Vallée Endormie",
                             OwnerId = 1,
@@ -302,7 +323,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une randonnée jusqu'au sommet d'un pic vertigineux, offrant des vues à couper le souffle sur les vallées et les montagnes environnantes. Ce sentier offre une expérience exaltante pour les amateurs de sensations fortes, avec des panoramas spectaculaires et une montée stimulante.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://www.surrey.ca/sites/default/files/styles/metatag_facebook/public/2020-08/InvergarryNatureTrail.JPG?h=d262251e&itok=oXPbDLYW",
-                            IsApproved = true,
                             Location = "Pic Vertigineux",
                             Name = "Randonnée du Pic Vertigineux",
                             OwnerId = 1,
@@ -316,7 +336,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une balade le long de plusieurs chutes mystiques, cachées au cœur d'une forêt luxuriante. Ce sentier offre une expérience enchantée, avec des cascades paisibles et des paysages magiques qui émerveilleront les sens.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://i.pinimg.com/originals/7f/e4/e2/7fe4e24eb9024d61139ac44a607e478a.jpg",
-                            IsApproved = true,
                             Location = "Forêt des Chutes Mystiques",
                             Name = "Chemin des Chutes Mystiques",
                             OwnerId = 1,
@@ -330,7 +349,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une randonnée jusqu'à un magnifique lac de cristal, dont les eaux claires reflètent les montagnes environnantes. Ce sentier offre une expérience rafraîchissante en plein air, avec la possibilité de se baigner dans les eaux cristallines du lac.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://www.nps.gov/hosp/planyourvisit/images/_DSC7261.jpg?maxwidth=650&autorotate=false",
-                            IsApproved = true,
                             Location = "Lac de Cristal",
                             Name = "Randonnée du Lac de Cristal",
                             OwnerId = 1,
@@ -344,7 +362,6 @@ namespace Arsoude_Backend.Migrations
                             Description = "Une randonnée à travers un canyon étincelant, où la lumière du soleil se reflète sur les parois rocheuses pour créer un spectacle scintillant. Ce sentier offre une expérience visuelle saisissante, avec des jeux de lumière magiques et des formations rocheuses uniques.",
                             EndingCoordinatesId = 2,
                             ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAO_hEyiI2Tkfl5TI78QWQpncjBZ_7VWxtU4rceThJXeSRAKCutUx62Hfw5sdbX_QBEa4&usqp=CAU",
-                            IsApproved = true,
                             Location = "Canyon Étincelant",
                             Name = "Sentier du Canyon Étincelant",
                             OwnerId = 1,
@@ -481,9 +498,6 @@ namespace Arsoude_Backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AvatarUrl")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
@@ -587,7 +601,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "af5250e2-d6fe-4c8a-847e-1fdf7020073e",
+                            ConcurrencyStamp = "d59a7dec-a163-4f56-9be1-7380830f28ed",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -684,15 +698,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "81d4c933-3a45-42eb-967f-6613cb7eff40",
+                            ConcurrencyStamp = "c38ae49c-c7cd-40fb-8cc3-eaf11fbdee35",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF/NIJeg4YtSDZqfPAPUgstjKe2/ptFHyj5bICVAGm9Oa3NuJTjbn3NCt3r0Zor2Zw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFp1FCzF7KIwVKaW5FRsknjCciRhiMbUaitd29iHNVEkb5H3opf02IRnEn9MVM7uOg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "04cd48c5-40e5-4509-be31-cab8616f1aef",
+                            SecurityStamp = "edbcf842-81b8-45fc-ac3b-c272a282982a",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -700,15 +714,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e609a534-2dbb-4799-8098-01ff7996373e",
+                            ConcurrencyStamp = "04a73c27-45af-496b-9233-9eaadae70fe3",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELSWXfub46jqp60VXgnOsMS/iUIdhY4+5hlnliN1REoCBDe4a+J7gE5YK2+JnG4xyQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHNmm2quowDtqMxFvJhTuOO9f7AfWhwxj3yexPczEGzosuE6SPpE1NXeoTzicbpLkQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0e55b274-6444-46b8-b52d-5d84af481784",
+                            SecurityStamp = "e239a260-ec65-4d7b-8463-86236f5dec2a",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -854,6 +868,15 @@ namespace Arsoude_Backend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Arsoude_Backend.Models.Level", b =>
+                {
+                    b.HasOne("Arsoude_Backend.Models.User", null)
+                        .WithOne("Level")
+                        .HasForeignKey("Arsoude_Backend.Models.Level", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
                 {
                     b.HasOne("Arsoude_Backend.Models.Coordinates", "EndingCoordinates")
@@ -960,6 +983,9 @@ namespace Arsoude_Backend.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("FavouriteTrails");
+
+                    b.Navigation("Level")
+                        .IsRequired();
 
                     b.Navigation("Trails");
                 });
