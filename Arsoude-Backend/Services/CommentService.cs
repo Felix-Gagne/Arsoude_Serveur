@@ -54,6 +54,7 @@ namespace Arsoude_Backend.Services
                     userHasCompleted = false,
                     Date = DateTime.Now.ToString("MM-dd-yyyy"),
                     User = commentowner,
+                    Username = user.Email,
                     Text = comment.Text,
                     Trail = trail
                 };
@@ -76,6 +77,10 @@ namespace Arsoude_Backend.Services
                     Trail = trail
                 };
                 await _context.AddAsync(newCom);
+
+                commentowner.Level.Experience += 15;
+                _levelService.CheckForLevelUp(commentowner.Id);
+
                 await _context.SaveChangesAsync();
             }
         } 

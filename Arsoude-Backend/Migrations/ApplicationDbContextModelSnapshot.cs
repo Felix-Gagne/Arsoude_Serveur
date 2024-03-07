@@ -122,6 +122,35 @@ namespace Arsoude_Backend.Migrations
                     b.ToTable("Hikes");
                 });
 
+            modelBuilder.Entity("Arsoude_Backend.Models.Level", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CurrentLevel")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Experience")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NextLevelExperience")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PreviousLevelExperience")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Levels");
+                });
+
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
                 {
                     b.Property<int>("Id")
@@ -570,11 +599,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-<<<<<<< Updated upstream
-                            ConcurrencyStamp = "c3cbe227-09ec-4ae5-92e5-5b6f3a9ecc12",
-=======
-                            ConcurrencyStamp = "6ca717bb-22ff-42b9-86af-897a2fb3402a",
->>>>>>> Stashed changes
+                            ConcurrencyStamp = "8b3bc9f2-beff-4e8b-b451-e6a334a08a15",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -671,25 +696,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-<<<<<<< Updated upstream
-                            ConcurrencyStamp = "80550122-b767-4cf7-89f1-3fa3efa7386e",
-=======
-                            ConcurrencyStamp = "a9d7a029-70ac-404d-a378-9785d24275e1",
->>>>>>> Stashed changes
+                            ConcurrencyStamp = "c50dcb30-cc40-4ce7-8cf0-7e3c2446fc8a",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-<<<<<<< Updated upstream
-                            PasswordHash = "AQAAAAEAACcQAAAAENowb09pxc9C3e1oIAUX6eN7/8wnvVcwO6KCGJnbVBDT6Iac/SToThZCg21yk7j+fQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGrzWy8SV0xZ4GS2rmtUkvGSiR3lDRB/S85/OieaBN2K8/CkpywTJBY0/BVNlzOPpg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "30a10a62-0065-4ca5-8317-26da97c275c7",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEEWYghfdO4xV1kRASyV4YBMnzfPMx6fwwAqgcHVjBSqcHhdoNXFjwIZmag2PAjqy5g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1d92adac-8fa5-4978-8f75-16d12c12bac9",
->>>>>>> Stashed changes
+                            SecurityStamp = "d71d04d9-ddb8-472b-acc0-bd8b76562777",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -697,25 +712,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-<<<<<<< Updated upstream
-                            ConcurrencyStamp = "11daf2c4-46b8-4084-ab0c-89915ee0335e",
-=======
-                            ConcurrencyStamp = "7b8d66b7-2a76-4e93-83e2-693e7220255c",
->>>>>>> Stashed changes
+                            ConcurrencyStamp = "001449bd-782f-4305-9a45-376bfb71e642",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-<<<<<<< Updated upstream
-                            PasswordHash = "AQAAAAEAACcQAAAAEA4cr9xh8bNKt/qhJF3lba+3CFtK7qDImenRc0WszEdSesvnwHzcsr82ed/M5qDgmg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELkz4cZ73PNhbmPtS48qnnoklsCLXb7gx1lXFCJUeMMUdFSemX9ZcK1Wtzu/i2WUCA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb0c7f3e-ccc5-4843-80c5-0e132b5d6d03",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAELzZIIPxyVCFbc8U+eZMgibzBxbzHUQ3JS7REGZAMNQKdDcdRxlvRL0lCn6MXaGW7A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "58e05541-dbb2-4fa2-b9bb-e1072dfa1276",
->>>>>>> Stashed changes
+                            SecurityStamp = "413289a7-aac6-4eda-9782-cc87d423d24a",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -825,7 +830,7 @@ namespace Arsoude_Backend.Migrations
                         .IsRequired();
 
                     b.HasOne("Arsoude_Backend.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -859,6 +864,15 @@ namespace Arsoude_Backend.Migrations
                     b.Navigation("Trail");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Arsoude_Backend.Models.Level", b =>
+                {
+                    b.HasOne("Arsoude_Backend.Models.User", null)
+                        .WithOne("Level")
+                        .HasForeignKey("Arsoude_Backend.Models.Level", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Arsoude_Backend.Models.Trail", b =>
@@ -964,7 +978,12 @@ namespace Arsoude_Backend.Migrations
 
             modelBuilder.Entity("Arsoude_Backend.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("FavouriteTrails");
+
+                    b.Navigation("Level")
+                        .IsRequired();
 
                     b.Navigation("Trails");
                 });
