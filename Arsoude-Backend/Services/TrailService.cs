@@ -173,7 +173,7 @@ namespace Arsoude_Backend.Services
 
         public async Task<List<Trail>> GetFilteredTrails(FilterDTO dto)
         {
-            IQueryable<Trail> query = _context.Trails;
+            IQueryable<Trail> query = _context.Trails.Where(x => x.IsApproved == true && x.isPublic == true);
 
             if (!string.IsNullOrEmpty(dto.Keyword))
             {
