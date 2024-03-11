@@ -228,6 +228,36 @@ namespace Arsoude_Backend.Controllers
             return listOfTrails;
         }
 
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult<List<String>>> GetTrailImages(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            Trail trail = await _trailService.GetTrail(trailId);
+
+            try
+            {
+                var imageList = await _trailService.GetTrailImages(trail);
+                return imageList;
+            }
+            catch (UserNotFoundException)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "The selected trail does not exist" });
+            }
+            catch (NotOwnerExcpetion)
+            {
+                return Unauthorized(new { Message = "You cannot change the visibility of a trail you don't own" });
+            }
+
+
+        }
+
         private bool TrailExists(int id)
         {
             return (_context.Trails?.Any(e => e.Id == id)).GetValueOrDefault();

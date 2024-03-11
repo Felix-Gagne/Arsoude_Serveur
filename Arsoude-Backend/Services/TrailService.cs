@@ -123,7 +123,6 @@ namespace Arsoude_Backend.Services
             }
         }
 
-
         public async Task<Trail> AddCoordinates(IdentityUser user, List<Coordinates> coords, int trailId)
         {
             User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
@@ -282,6 +281,21 @@ namespace Arsoude_Backend.Services
                 result.Add(trail);
             }
 
+            return result;
+        }
+
+
+        public async Task<List<String>> GetTrailImages(Trail trail)
+        {
+
+            List<String> result = new List<String>();
+                
+            foreach(var img in trail.ImageList)
+            {
+                ImageTrail trailImage = await _context.TrailImages.Where(x => x.Id == img.Id).FirstOrDefaultAsync();
+                result.Add(trailImage.ImageUrl);
+            }
+                
             return result;
         }
 
