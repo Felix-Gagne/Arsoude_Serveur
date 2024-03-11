@@ -61,7 +61,7 @@ namespace Arsoude_Backend.Services
             _levelService.CheckForLevelUp(userOfficial.Id);
 
 
-        await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return trail;
         }
@@ -148,6 +148,33 @@ namespace Arsoude_Backend.Services
             }
 
             return trail;
+        }
+
+        public async Task SendImage(IdentityUser user, string url, int trailId)
+        {
+            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+
+            if (trail.OwnerId == owner.Id)
+            {
+
+                ImageTrail img = new ImageTrail
+                {
+                    ImageUrl = url,
+                    TrailId = trailId,
+                };
+
+                _context.TrailImages.Add(img);
+
+                trail.ImageList?.Add(img);
+
+                owner.Level.Experience += 30;
+                _levelService.CheckForLevelUp(owner.Id);
+
+                await _context.SaveChangesAsync();
+            }
+
         }
 
 

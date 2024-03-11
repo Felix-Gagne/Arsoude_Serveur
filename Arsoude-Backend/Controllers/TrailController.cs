@@ -276,6 +276,27 @@ namespace Arsoude_Backend.Controllers
             }
 
         }
+
+        [HttpPost("{trailId}")]
+        public async Task<ActionResult> SendImage(ImageRequestModel model, int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (user != null)
+            {
+                await _trailService.SendImage(user, model.Url, trailId);
+                return Ok();
+              
+            }
+            else
+            {
+                return NotFound("Add image to list: No user found");
+            }
+        }
     }
     
+}
+
+public class ImageRequestModel
+{
+    public string Url { get; set; }
 }

@@ -474,6 +474,8 @@ namespace Arsoude_Backend.Data
 
         public DbSet<Hike> Hikes { get; set; } = default!;
 
+        public DbSet<ImageTrail> TrailImages { get; set; } = default!;
+
         public DbSet<Comments> Comments { get; set; }
     }
 }

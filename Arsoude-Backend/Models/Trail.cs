@@ -31,8 +31,6 @@ namespace Arsoude_Backend.Models
 
         public string? ImageUrl { get; set; }
 
-        [NotMapped]
-        public virtual List<string>? ImageList { get; set; }
 
         [Required]
         public virtual Coordinates StartingCoordinates { get; set; }
@@ -59,6 +57,10 @@ namespace Arsoude_Backend.Models
 
         [JsonIgnore]
         public virtual List<Comments>? Comments { get; set; }
+
+        [JsonIgnore]
+        public virtual List<ImageTrail>? ImageList { get; set; }
+
 
     }
 }
