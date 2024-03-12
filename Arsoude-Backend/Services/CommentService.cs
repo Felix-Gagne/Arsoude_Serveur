@@ -10,12 +10,14 @@ namespace Arsoude_Backend.Services
     public class CommentService
     {
         private readonly ApplicationDbContext _context;
+        private readonly LevelService _levelService;
 
 
 
-        public CommentService(ApplicationDbContext context)
+        public CommentService(ApplicationDbContext context, LevelService levelService)
         {
             _context = context;
+            _levelService = levelService;
         }
 
 
@@ -36,6 +38,7 @@ namespace Arsoude_Backend.Services
 
         public async Task PostComment(CommentDTO comment, IdentityUser user) {
             User commentowner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
+            IdentityUser username = await _context.Users.Where(x => x.Id == user.Id).FirstOrDefaultAsync();
             Trail trail = await _context.Trails.FindAsync(comment.Trailid);
 
             Hike hike = await _context.Hikes.Where(x => x.UserId == commentowner.Id && x.TrailId == trail.Id).FirstOrDefaultAsync();
@@ -52,11 +55,15 @@ namespace Arsoude_Backend.Services
                     userHasCompleted = false,
                     Date = DateTime.Now.ToString("MM-dd-yyyy"),
                     User = commentowner,
-                    Username = user.Email,
                     Text = comment.Text,
-                    Trail = trail
+                    Trail = trail,
+                    Username = username.UserName
                 };
                 await _context.AddAsync(newCom);
+
+                commentowner.Level.Experience += 15;
+                _levelService.CheckForLevelUp(commentowner.Id);
+
                 await _context.SaveChangesAsync();
             }
             else
@@ -71,6 +78,10 @@ namespace Arsoude_Backend.Services
                     Trail = trail
                 };
                 await _context.AddAsync(newCom);
+
+                commentowner.Level.Experience += 15;
+                _levelService.CheckForLevelUp(commentowner.Id);
+
                 await _context.SaveChangesAsync();
             }
         } 

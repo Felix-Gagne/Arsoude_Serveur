@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Arsoude_Backend.Services;
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,8 @@ namespace Arsoude_BackendTests
     public class TrailCreateTests
     {
         DbContextOptions<ApplicationDbContext> options;
+        private readonly LevelService _levelService;
+
 
         public TrailCreateTests()
         {
@@ -68,7 +70,7 @@ namespace Arsoude_BackendTests
             };
 
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, _levelService);
 
             db.AddRange(user);
             db.AddRange(userTest);
@@ -105,7 +107,7 @@ namespace Arsoude_BackendTests
         public async Task CreateTrail_NullUser()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, _levelService);
 
             Trail t = new Trail()
             {
@@ -121,7 +123,7 @@ namespace Arsoude_BackendTests
         public async Task CreateTrail_NullTrail()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(db);
+            TrailService trailService = new TrailService(db, _levelService);
 
             IdentityUser user = new IdentityUser
             {

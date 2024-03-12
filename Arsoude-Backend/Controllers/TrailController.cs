@@ -5,9 +5,7 @@ using Arsoude_Backend.Models.DTOs;
 using Arsoude_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -126,7 +124,6 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-
         [HttpPost]
         public async Task<ActionResult<Hike>> CreateHike(Hike hike)
         {
@@ -151,7 +148,6 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-
         [HttpPost("{trailId}")]
         public async Task<ActionResult<Trail>> AddCoordinates(List<Coordinates> coords, int trailId)
         {
@@ -173,24 +169,11 @@ namespace Arsoude_Backend.Controllers
 
             if (user != null)
             {
-                try
-                {
-                    return await _trailService.GetTrailCoordinates(user, trailId);
-                }
-                catch (Exception e)
-                {
-
-                    if (e.GetType() == typeof(NullReferenceException))
-                    {
-
-                        return NotFound("Trail : trail not found");
-                    }
-                    else return BadRequest(e);
-                }
+                return await _trailService.GetTrailCoordinates(user, trailId);
             }
             else
             {
-                return Unauthorized("Get Trail Coordinates: No user found");
+                return NotFound("Get Trail Coordinates: No user found");
             }
         }
 
@@ -218,14 +201,7 @@ namespace Arsoude_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<List<Trail>>> GetFilteredTrails(FilterDTO dto)
         {
-            try
-            {
-                return await _trailService.GetFilteredTrails(dto);
-            }
-            catch (TrailService.NoHikesFoundException)
-            {
-                return BadRequest("NoHikesFound");
-            }
+            return await _trailService.GetFilteredTrails(dto);
         }
 
         [HttpGet("{trailId}")]
@@ -275,6 +251,36 @@ namespace Arsoude_Backend.Controllers
             return listOfTrails;
         }
 
+        [HttpGet("{trailId}")]
+        public async Task<ActionResult<List<String>>> GetTrailImages(int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            Trail trail = await _trailService.GetTrail(trailId);
+
+            try
+            {
+                var imageList = await _trailService.GetTrailImages(trail);
+                return imageList;
+            }
+            catch (UserNotFoundException)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "The selected trail does not exist" });
+            }
+            catch (NotOwnerExcpetion)
+            {
+                return Unauthorized(new { Message = "You cannot change the visibility of a trail you don't own" });
+            }
+
+
+        }
+
         private bool TrailExists(int id)
         {
             return (_context.Trails?.Any(e => e.Id == id)).GetValueOrDefault();
@@ -306,8 +312,6 @@ namespace Arsoude_Backend.Controllers
             }
         }
 
-
-
         [HttpGet("{trailId}")]
         public async Task<ActionResult<bool>> CheckOwnerByTrailId(int trailId)
         {
@@ -325,6 +329,51 @@ namespace Arsoude_Backend.Controllers
             }
 
         }
+
+        [HttpPost("{trailId}")]
+        public async Task<ActionResult> SendImage(ImageRequestModel model, int trailId)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (user != null)
+            {
+                await _trailService.SendImage(user, model.Url, trailId);
+                return Ok();
+
+            }
+            else
+            {
+                return NotFound("Add image to list: No user found");
+            }
+        }
+
+        [HttpPost("{trailId}")]
+        public async Task<ActionResult> RateTrail(int trailId, RatingRequestModel rating)
+        {
+            try
+            {
+                await _trailService.RateTrail(trailId, rating.Rating);
+                return Ok();
+            }
+            catch (UserNotFoundException)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+            catch (TrailNotFoundException)
+            {
+                return NotFound(new { Message = "The selected trail does not exist" });
+            }
+        }
     }
+
+}
+
+public class ImageRequestModel
+{
+    public string Url { get; set; }
+}
+
+public class RatingRequestModel
+{
+    public string Rating { get; set; }
 
 }

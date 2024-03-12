@@ -27,7 +27,7 @@ namespace Arsoude_Backend.Services.Tests
     {
 
         DbContextOptions<ApplicationDbContext> options;
-
+        private readonly LevelService _levelService;
         public TrailServiceTests()
         {
             options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -50,7 +50,7 @@ namespace Arsoude_Backend.Services.Tests
         public void GetFilteredTrailsNull()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(db);
+            TrailService service = new TrailService(db, _levelService);
 
             Coordinates starting = new Coordinates
             {
@@ -95,7 +95,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task GetFilteredTrailsKeywordOK()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(db);
+            TrailService service = new TrailService(db, _levelService);
 
             Coordinates starting = new Coordinates
             {
@@ -161,7 +161,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task GetFilteredTrailsTypeOK()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(db);
+            TrailService service = new TrailService(db, _levelService);
 
             Coordinates starting = new Coordinates
             {
@@ -227,7 +227,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task GetFilteredTrailsDistanceOK()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(db);
+            TrailService service = new TrailService(db  , _levelService);
 
             Coordinates starting = new Coordinates
             {
@@ -306,7 +306,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task GetFilteredTrailsOK()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
-            TrailService service = new TrailService(db);
+            TrailService service = new TrailService(db, _levelService);
 
             Coordinates starting = new Coordinates
             {
@@ -369,7 +369,7 @@ namespace Arsoude_Backend.Services.Tests
         public void SwictchVisibility_ValidData()
         {
             using ApplicationDbContext context = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(context);
+            TrailService trailService = new TrailService(context, _levelService);
 
             var coordinates = new Coordinates() { Id = 501, Latitude = 1, Longitude = 1 };
             var user = new User()
@@ -411,7 +411,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task SwictchVisibility_UserNotFound()
         {
             using ApplicationDbContext context = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(context);
+            TrailService trailService = new TrailService(context, _levelService);
             var coordinates = new Coordinates() { Id = 500, Latitude = 1, Longitude = 1 };
 
             var trail = new Trail()
@@ -439,7 +439,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task SwictchVisibility_TrailNotFound()
         {
             using ApplicationDbContext context = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(context);
+            TrailService trailService = new TrailService(context, _levelService);
             var coordinates = new Coordinates() { Id = 500, Latitude = 1, Longitude = 1 };
 
             var user = new User()
@@ -462,7 +462,7 @@ namespace Arsoude_Backend.Services.Tests
         public async Task SwictchVisibility_NotOwner()
         {
             using ApplicationDbContext context = new ApplicationDbContext(options);
-            TrailService trailService = new TrailService(context);
+            TrailService trailService = new TrailService(context, _levelService);
             var coordinates = new Coordinates() { Id = 500, Latitude = 1, Longitude = 1 };
 
             var trail = new Trail()

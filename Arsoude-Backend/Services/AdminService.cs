@@ -13,10 +13,7 @@ namespace Arsoude_Backend.Services
 
         public AdminService( ApplicationDbContext context)
         {
-
             _context = context;
-           
-
 
         }
 
@@ -30,6 +27,8 @@ namespace Arsoude_Backend.Services
             }
             
             trail.IsApproved = status;
+
+            User userOfficial = await _context.TrailUsers.Where(x => x.Id == trail.OwnerId).FirstOrDefaultAsync();
 
             await _context.SaveChangesAsync();
 
