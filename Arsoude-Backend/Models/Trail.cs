@@ -11,26 +11,17 @@ namespace Arsoude_Backend.Models
 
         [Required]
         public string Name { get; set; }
-
      
         [Required, MaxLength(255, ErrorMessage = "Description Trop Longue")]
         public string Description { get; set; }
 
-        /// <summary>
-        /// Place where the trail starts (ex : Mont Saint-Grégoire)
-        /// </summary>
         [Required]
         public string Location { get; set; }
 
-        /// <summary>
-        /// Enum Defining what the trail is made for
-        /// </summary>
         [Required]
         public virtual TrailType Type { get; set; }
 
-
         public string? ImageUrl { get; set; }
-
 
         [Required]
         public virtual Coordinates StartingCoordinates { get; set; }
@@ -45,12 +36,14 @@ namespace Arsoude_Backend.Models
         public DateTime? CreationDate { get; set; }
 
         public int OwnerId { get; set; }
-        public Boolean isPublic { get; set; } = false;  
+
+        public bool isPublic { get; set; } = false;  
 
         public double? Distance { get; set; }
 
-
         public bool? IsApproved { get; set; }
+
+        public double? Rating { get; set; }
 
         [JsonIgnore]
         public virtual List<Coordinates>? Coordinates { get; set; }

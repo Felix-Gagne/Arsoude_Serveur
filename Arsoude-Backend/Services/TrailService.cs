@@ -66,6 +66,28 @@ namespace Arsoude_Backend.Services
             return trail;
         }
 
+        public async Task<Hike> CreateHike(Hike hike, IdentityUser user)
+        {
+
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+            if (hike == null)
+            {
+                throw new HikeNotFoundException();
+            }
+
+            User userOfficial = _context.TrailUsers.Where(_u => _u.IdentityUserId == user.Id).FirstOrDefault();
+
+            hike.UserId = userOfficial.Id;
+
+            _context.Hikes.Add(hike);
+            await _context.SaveChangesAsync();
+
+            return hike;
+        }
+
         public async Task DeleteTrail(int id)
         {
             if (_context.Trails == null)
@@ -285,10 +307,10 @@ namespace Arsoude_Backend.Services
         }
 
 
-        public async Task<List<String>> GetTrailImages(Trail trail)
+        public async Task<List<string>> GetTrailImages(Trail trail)
         {
 
-            List<String> result = new List<String>();
+            List<string> result = new List<string>();
                 
             foreach(var img in trail.ImageList)
             {
@@ -297,6 +319,30 @@ namespace Arsoude_Backend.Services
             }
                 
             return result;
+        }
+
+        public async Task RateTrail(int trailId, string rating)
+        {
+            Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+
+            if (trail != null)
+            {
+                if(trail.Rating == null)
+                {
+                    trail.Rating = double.Parse(rating, System.Globalization.CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    double trailRating = trail.Rating.Value;
+
+                    double newRating = (trailRating + double.Parse(rating, System.Globalization.CultureInfo.InvariantCulture)) / 2;
+
+                    trail.Rating = newRating;
+                }
+
+            }
+            await _context.SaveChangesAsync();
+
         }
 
         public async Task RemoveTrailFromFavorite(User currentUser, int trailId)
