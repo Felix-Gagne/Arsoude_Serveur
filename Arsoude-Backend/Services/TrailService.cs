@@ -180,6 +180,29 @@ namespace Arsoude_Backend.Services
             if (trail.OwnerId == owner.Id)
             {
 
+                if(trail.ImageList.Count == 0)
+                {
+
+                    ImageTrail ogImg = new ImageTrail
+                    {
+                        ImageUrl = trail.ImageUrl,
+                        TrailId = trailId,
+                    };
+
+                    _context.TrailImages.Add(ogImg);
+
+                    trail.ImageList?.Add(ogImg);
+                }
+
+                if (trail.ImageUrl == "")
+                {
+                    trail.ImageUrl = url;
+                    await _context.SaveChangesAsync();
+
+                    return;
+                }
+
+
                 ImageTrail img = new ImageTrail
                 {
                     ImageUrl = url,
