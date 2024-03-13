@@ -177,23 +177,22 @@ namespace Arsoude_Backend.Services
 
             Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
 
-            if (trail.OwnerId == owner.Id)
+            if (trail.ImageList.Count == 0)
             {
 
-                if(trail.ImageList.Count == 0)
+                ImageTrail ogImg = new ImageTrail
                 {
+                    ImageUrl = trail.ImageUrl,
+                    TrailId = trailId,
+                };
 
-                    ImageTrail ogImg = new ImageTrail
-                    {
-                        ImageUrl = trail.ImageUrl,
-                        TrailId = trailId,
-                    };
+                _context.TrailImages.Add(ogImg);
 
-                    _context.TrailImages.Add(ogImg);
+                trail.ImageList?.Add(ogImg);
+            }
 
-                    trail.ImageList?.Add(ogImg);
-                }
-
+            if(trail.OwnerId == owner.Id)
+            {
                 if (trail.ImageUrl == "")
                 {
                     trail.ImageUrl = url;
@@ -201,23 +200,22 @@ namespace Arsoude_Backend.Services
 
                     return;
                 }
-
-
-                ImageTrail img = new ImageTrail
-                {
-                    ImageUrl = url,
-                    TrailId = trailId,
-                };
-
-                _context.TrailImages.Add(img);
-
-                trail.ImageList?.Add(img);
-
-                owner.Level.Experience += 30;
-                _levelService.CheckForLevelUp(owner.Id);
-
-                await _context.SaveChangesAsync();
             }
+
+            ImageTrail img = new ImageTrail
+            {
+                ImageUrl = url,
+                TrailId = trailId,
+            };
+
+            _context.TrailImages.Add(img);
+
+            trail.ImageList?.Add(img);
+
+            owner.Level.Experience += 30;
+            _levelService.CheckForLevelUp(owner.Id);
+
+            await _context.SaveChangesAsync();
 
         }
 
@@ -358,7 +356,10 @@ namespace Arsoude_Backend.Services
                 {
                     double trailRating = trail.Rating.Value;
 
-                    double newRating = (trailRating + double.Parse(rating, System.Globalization.CultureInfo.InvariantCulture)) / 2;
+                    double newRating = Math.Round((trailRating + double.Parse(rating, System.Globalization.CultureInfo.InvariantCulture)) / 2);
+
+
+
 
                     trail.Rating = newRating;
                 }
