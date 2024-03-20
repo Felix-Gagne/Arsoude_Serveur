@@ -61,9 +61,31 @@ namespace Arsoude_Backend.Services
             _levelService.CheckForLevelUp(userOfficial.Id);
 
 
-        await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return trail;
+        }
+
+        public async Task<Hike> CreateHike(Hike hike, IdentityUser user)
+        {
+
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+            if (hike == null)
+            {
+                throw new HikeNotFoundException();
+            }
+
+            User userOfficial = _context.TrailUsers.Where(_u => _u.IdentityUserId == user.Id).FirstOrDefault();
+
+            hike.UserId = userOfficial.Id;
+
+            _context.Hikes.Add(hike);
+            await _context.SaveChangesAsync();
+
+            return hike;
         }
 
         public async Task DeleteTrail(int id)
@@ -123,7 +145,6 @@ namespace Arsoude_Backend.Services
             }
         }
 
-
         public async Task<Trail> AddCoordinates(IdentityUser user, List<Coordinates> coords, int trailId)
         {
             User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
@@ -148,6 +169,54 @@ namespace Arsoude_Backend.Services
             }
 
             return trail;
+        }
+
+        public async Task SendImage(IdentityUser user, string url, int trailId)
+        {
+            User? owner = await _context.TrailUsers.Where(u => u.IdentityUserId == user.Id).FirstOrDefaultAsync();
+
+            Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+
+            if (trail.ImageList.Count == 0)
+            {
+
+                ImageTrail ogImg = new ImageTrail
+                {
+                    ImageUrl = trail.ImageUrl,
+                    TrailId = trailId,
+                };
+
+                _context.TrailImages.Add(ogImg);
+
+                trail.ImageList?.Add(ogImg);
+            }
+
+            if(trail.OwnerId == owner.Id)
+            {
+                if (trail.ImageUrl == "")
+                {
+                    trail.ImageUrl = url;
+                    await _context.SaveChangesAsync();
+
+                    return;
+                }
+            }
+
+            ImageTrail img = new ImageTrail
+            {
+                ImageUrl = url,
+                TrailId = trailId,
+            };
+
+            _context.TrailImages.Add(img);
+
+            trail.ImageList?.Add(img);
+
+            owner.Level.Experience += 30;
+            _levelService.CheckForLevelUp(owner.Id);
+
+            await _context.SaveChangesAsync();
+
         }
 
 
@@ -263,6 +332,48 @@ namespace Arsoude_Backend.Services
             }
 
             return result;
+        }
+
+
+        public async Task<List<string>> GetTrailImages(Trail trail)
+        {
+
+            List<string> result = new List<string>();
+                
+            foreach(var img in trail.ImageList)
+            {
+                ImageTrail trailImage = await _context.TrailImages.Where(x => x.Id == img.Id).FirstOrDefaultAsync();
+                result.Add(trailImage.ImageUrl);
+            }
+                
+            return result;
+        }
+
+        public async Task RateTrail(int trailId, string rating)
+        {
+            Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+
+            if (trail != null)
+            {
+                if(trail.Rating == null)
+                {
+                    trail.Rating = double.Parse(rating, System.Globalization.CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    double trailRating = trail.Rating.Value;
+
+                    double newRating = Math.Round((trailRating + double.Parse(rating, System.Globalization.CultureInfo.InvariantCulture)) / 2);
+
+
+
+
+                    trail.Rating = newRating;
+                }
+
+            }
+            await _context.SaveChangesAsync();
+
         }
 
         public async Task RemoveTrailFromFavorite(User currentUser, int trailId)

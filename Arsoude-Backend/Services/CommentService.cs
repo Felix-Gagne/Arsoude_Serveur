@@ -78,6 +78,10 @@ namespace Arsoude_Backend.Services
                     Trail = trail
                 };
                 await _context.AddAsync(newCom);
+
+                commentowner.Level.Experience += 15;
+                _levelService.CheckForLevelUp(commentowner.Id);
+
                 await _context.SaveChangesAsync();
             }
         } 
