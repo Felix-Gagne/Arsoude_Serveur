@@ -194,8 +194,15 @@ namespace Arsoude_Backend.Services
                 double userLatitude = dto.Coordinates.Latitude;
                 double userLongitude = dto.Coordinates.Longitude;
 
-                trails = trails.Where(x => CalculateDistance(userLatitude, userLongitude,
+                if(dto.Distance != 0) {
+                    trails = trails.Where(x => CalculateDistance(userLatitude, userLongitude,
                     x.StartingCoordinates.Latitude, x.StartingCoordinates.Longitude) <= dto.Distance.Value && x.isPublic == true && x.IsApproved == true).ToList();
+                }
+                else
+                {
+                    trails = trails.Where(x => x.isPublic == true && x.IsApproved == true).ToList();
+                }
+                
             }
 
             if (trails.Count == 0)
