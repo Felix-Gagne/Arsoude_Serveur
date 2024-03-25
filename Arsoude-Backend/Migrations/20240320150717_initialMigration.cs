@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Arsoude_Backend.Migrations
 {
-    public partial class newcoords : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -344,14 +344,14 @@ namespace Arsoude_Backend.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
-                    TrailId = table.Column<int>(type: "INTEGER", nullable: false)
+                    trailId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TrailImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TrailImages_Trails_TrailId",
-                        column: x => x.TrailId,
+                        name: "FK_TrailImages_Trails_trailId",
+                        column: x => x.trailId,
                         principalTable: "Trails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -360,17 +360,17 @@ namespace Arsoude_Backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111113", "dac9ef57-3c9b-4655-8f80-bc6bf528eabc", "Admin", "ADMIN" });
+                values: new object[] { "11111111-1111-1111-1111-111111111113", "e10fdd50-7589-4232-8d04-4e15ece9ba67", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "9642f1e1-6760-4225-9a98-16bd81da6336", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEIfhYlSsswLw6V/KM4Ihe6fRnWaLCrtElCHxfL8GJDBj3VK0hN+eVC5GX63zd6h06w==", null, false, "e840105f-5430-4483-8d5b-9386c390a849", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "63da95a7-9062-4171-9cbe-ac30cb4a69bb", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEFv+r0txub3uXX1Hr2bNwtVfTylVTl4YXbGp2Q/D0YVZtNxBSaBV+htGoIL/g46zBA==", null, false, "aa6c4ee8-b263-4c1f-a169-3dbde2e20977", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "82170ac7-60c9-4e75-a322-a49543292355", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEMEsEGSxslLV5QtX+3dirzq29fPq9qDRrZp+0XcYlQg+B63SiZNxykdJ6PtVF/Wk7w==", null, false, "2e89eba4-1538-4dbe-93bc-c5cb98be6666", false, "user@user.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111112", 0, "40bdc9f4-e6a4-4830-b0ca-47e71bceeea7", "user@user.com", true, false, null, "USER@USER.COM", "USER@USER.COM", "AQAAAAEAACcQAAAAEI9/iWyrGXL4PvOive+YxA9FKcoEMcDBHjZDJIjunZD49TYeeYb6IfWYMk0si3+OmA==", null, false, "700bdf6f-6833-49f9-a965-20759a6700a8", false, "user@user.com" });
 
             migrationBuilder.InsertData(
                 table: "Coordinates",
@@ -707,6 +707,21 @@ namespace Arsoude_Backend.Migrations
                 columns: new[] { "Id", "CreationDate", "Description", "Distance", "EndingCoordinatesId", "ImageUrl", "IsApproved", "Location", "Name", "OwnerId", "Rating", "StartingCoordinatesId", "Type", "UserId", "isPublic" },
                 values: new object[] { 50, null, "Une balade à travers une vallée mystique, où les brumes matinales créent une atmosphère envoûtante. Ce sentier offre une expérience magique en plein air, avec des paysages enveloppés de brume et une ambiance tranquille qui invite à la contemplation.", null, 42, "https://gowanderwild.com/wp-content/uploads/2022/12/The-Garden-Wall-Shelly-Pabis.jpg", null, "Vallée des Brumes", "Sentier de la Vallée des Brumes", 1, null, 41, 1, null, false });
 
+            migrationBuilder.InsertData(
+                table: "TrailImages",
+                columns: new[] { "Id", "ImageUrl", "trailId" },
+                values: new object[] { 1, "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba", 2 });
+
+            migrationBuilder.InsertData(
+                table: "TrailImages",
+                columns: new[] { "Id", "ImageUrl", "trailId" },
+                values: new object[] { 2, "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg", 2 });
+
+            migrationBuilder.InsertData(
+                table: "TrailImages",
+                columns: new[] { "Id", "ImageUrl", "trailId" },
+                values: new object[] { 3, "https://californiathroughmylens.com/wp-content/uploads/2019/05/crystal-cove-el-moro-12-640x427.jpg", 2 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -776,9 +791,9 @@ namespace Arsoude_Backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TrailImages_TrailId",
+                name: "IX_TrailImages_trailId",
                 table: "TrailImages",
-                column: "TrailId");
+                column: "trailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trails_EndingCoordinatesId",

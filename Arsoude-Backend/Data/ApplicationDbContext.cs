@@ -3,6 +3,7 @@ using Arsoude_Backend.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace Arsoude_Backend.Data
 {
@@ -85,7 +86,7 @@ namespace Arsoude_Backend.Data
             user.PasswordHash = hasher2.HashPassword(user, "Passw0rd!");
             builder.Entity<IdentityUser>().HasData(user);
             builder.Entity<User>().HasData(test);
-            
+
 
             List<Coordinates> coordinates = new List<Coordinates>();
 
@@ -260,7 +261,7 @@ namespace Arsoude_Backend.Data
                 Latitude = 54.012407,
                 Longitude = -82.219066
             };
-            Coordinates c24= new Coordinates()
+            Coordinates c24 = new Coordinates()
             {
                 Id = 24,
                 Latitude = 55.002627,
@@ -419,9 +420,21 @@ namespace Arsoude_Backend.Data
                 EndingCoordinatesId = 2,
                 OwnerId = test.Id,
                 ImageUrl = "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba",
-                isPublic = true
+                isPublic = true,
             };
             builder.Entity<Trail>().HasData(trail2);
+
+
+            ImageTrail image1 = new ImageTrail { Id = 1, ImageUrl = "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba", trailId = trail2.Id };
+            ImageTrail image2 = new ImageTrail { Id = 2, ImageUrl = "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg", trailId = trail2.Id };
+            ImageTrail image3 = new ImageTrail { Id = 3, ImageUrl = "https://californiathroughmylens.com/wp-content/uploads/2019/05/crystal-cove-el-moro-12-640x427.jpg", trailId = trail2.Id };
+            ImageTrail image4 = new ImageTrail { Id = 4, ImageUrl = "https://blog.ab.bluecross.ca/wp-content/uploads/2020/08/fav-hikes-part-three.jpg", trailId = trail2.Id };
+            ImageTrail image5 = new ImageTrail { Id = 5, ImageUrl = "https://i.cbc.ca/1.4170049.1530218327!/fileImage/httpImage/hiking-trails.jpg", trailId = trail2.Id };
+            ImageTrail image6 = new ImageTrail { Id = 6, ImageUrl = "https://www.surrey.ca/sites/default/files/styles/metatag_facebook/public/2020-08/InvergarryNatureTrail.JPG?h=d262251e&itok=oXPbDLYW", trailId = trail2.Id };
+            builder.Entity<ImageTrail>().HasData(image1, image2, image3, image4, image5, image6);
+            /*trail2.ImageList.Add(image1);
+            trail2.ImageList.Add(image2);
+            trail2.ImageList.Add(image3);*/
 
             Trail trail3 = new Trail()
             {
@@ -729,7 +742,7 @@ namespace Arsoude_Backend.Data
             };
             builder.Entity<Trail>().HasData(trail50);
 
-
+            
         }
 
         public DbSet<User> TrailUsers { get; set; } = default!;

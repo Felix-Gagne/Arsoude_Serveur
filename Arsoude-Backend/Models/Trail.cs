@@ -51,9 +51,6 @@ namespace Arsoude_Backend.Models
         [JsonIgnore]
         public virtual List<Comments>? Comments { get; set; }
 
-        [JsonIgnore]
-        public virtual List<ImageTrail>? ImageList { get; set; }
-
 
     }
 }

@@ -9,6 +9,6 @@ namespace Arsoude_Backend.Models
         [Required]
         public string ImageUrl { get; set; }
 
-        public int TrailId { get; set; }
+        public int trailId { get; set; }
     }
 }

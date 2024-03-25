@@ -255,9 +255,6 @@ namespace Arsoude_Backend.Controllers
         [HttpGet("{trailId}")]
         public async Task<ActionResult<List<String>>> GetTrailImages(int trailId)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == user.Id).FirstOrDefaultAsync();
 
             Trail trail = await _trailService.GetTrail(trailId);
 
@@ -265,10 +262,6 @@ namespace Arsoude_Backend.Controllers
             {
                 var imageList = await _trailService.GetTrailImages(trail);
                 return imageList;
-            }
-            catch (UserNotFoundException)
-            {
-                return NotFound(new { Message = "User not found" });
             }
             catch (TrailNotFoundException)
             {

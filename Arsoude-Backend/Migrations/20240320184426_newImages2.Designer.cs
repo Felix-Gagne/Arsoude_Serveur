@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240313184301_newcoords")]
-    partial class newcoords
+    [Migration("20240320184426_newImages2")]
+    partial class newImages2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -374,14 +374,50 @@ namespace Arsoude_Backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TrailId")
+                    b.Property<int>("trailId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TrailId");
-
                     b.ToTable("TrailImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImageUrl = "https://www.parksconservancy.org/sites/default/files/styles/basic/public/programs/A_PRSF_111020_MCu_020-2104x1440.jpg?itok=Cp14Z3ba",
+                            trailId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImageUrl = "https://cdn.kimkim.com/files/a/images/47739a6ddfef20df8e214fb3bd457adf1f27feab/original-fd1e0fff538a1dd6ebb2ab679ffbab4d.jpg",
+                            trailId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImageUrl = "https://californiathroughmylens.com/wp-content/uploads/2019/05/crystal-cove-el-moro-12-640x427.jpg",
+                            trailId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImageUrl = "https://blog.ab.bluecross.ca/wp-content/uploads/2020/08/fav-hikes-part-three.jpg",
+                            trailId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImageUrl = "https://i.cbc.ca/1.4170049.1530218327!/fileImage/httpImage/hiking-trails.jpg",
+                            trailId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImageUrl = "https://www.surrey.ca/sites/default/files/styles/metatag_facebook/public/2020-08/InvergarryNatureTrail.JPG?h=d262251e&itok=oXPbDLYW",
+                            trailId = 2
+                        });
                 });
 
             modelBuilder.Entity("Arsoude_Backend.Models.Level", b =>
@@ -864,7 +900,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "dac9ef57-3c9b-4655-8f80-bc6bf528eabc",
+                            ConcurrencyStamp = "c0a860fb-e022-41e0-b3ef-9703a793f890",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -961,15 +997,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9642f1e1-6760-4225-9a98-16bd81da6336",
+                            ConcurrencyStamp = "6e654279-30aa-4393-b822-59d527d41432",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIfhYlSsswLw6V/KM4Ihe6fRnWaLCrtElCHxfL8GJDBj3VK0hN+eVC5GX63zd6h06w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOM4OOf0C5GTNNYhD3wwEx4l4EyRlmDsLkRLdcp92IIJCGLcIzZUUXC6VKLF0X3R3Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e840105f-5430-4483-8d5b-9386c390a849",
+                            SecurityStamp = "35d5f160-88ff-43ad-823e-558566a13865",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -977,15 +1013,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "82170ac7-60c9-4e75-a322-a49543292355",
+                            ConcurrencyStamp = "39efd774-eb92-4acd-86e8-748bd3f68f7d",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMEsEGSxslLV5QtX+3dirzq29fPq9qDRrZp+0XcYlQg+B63SiZNxykdJ6PtVF/Wk7w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDtsfKpeyuqCPK6bObeTuZk8Lya2kR5ycrEXSLfiEUSyWF3z0xkV6/g+rla9oz/nsw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2e89eba4-1538-4dbe-93bc-c5cb98be6666",
+                            SecurityStamp = "840b6048-a3b4-4c6a-b53c-f60e29345a57",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
@@ -1131,15 +1167,6 @@ namespace Arsoude_Backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Arsoude_Backend.Models.ImageTrail", b =>
-                {
-                    b.HasOne("Arsoude_Backend.Models.Trail", null)
-                        .WithMany("ImageList")
-                        .HasForeignKey("TrailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Arsoude_Backend.Models.Level", b =>
                 {
                     b.HasOne("Arsoude_Backend.Models.User", null)
@@ -1248,8 +1275,6 @@ namespace Arsoude_Backend.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Coordinates");
-
-                    b.Navigation("ImageList");
                 });
 
             modelBuilder.Entity("Arsoude_Backend.Models.User", b =>

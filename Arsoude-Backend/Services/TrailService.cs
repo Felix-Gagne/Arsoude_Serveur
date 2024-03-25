@@ -177,18 +177,19 @@ namespace Arsoude_Backend.Services
 
             Trail trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
 
-            if (trail.ImageList.Count == 0)
+            List<ImageTrail> imageList = await _context.TrailImages.Where(x => x.trailId == trail.Id).ToListAsync();
+
+            if (imageList.Count == 0)
             {
 
                 ImageTrail ogImg = new ImageTrail
                 {
                     ImageUrl = trail.ImageUrl,
-                    TrailId = trailId,
+                    trailId = trail.Id,
                 };
 
                 _context.TrailImages.Add(ogImg);
 
-                trail.ImageList?.Add(ogImg);
             }
 
             if(trail.OwnerId == owner.Id)
@@ -205,12 +206,10 @@ namespace Arsoude_Backend.Services
             ImageTrail img = new ImageTrail
             {
                 ImageUrl = url,
-                TrailId = trailId,
+                trailId = trail.Id,
             };
 
             _context.TrailImages.Add(img);
-
-            trail.ImageList?.Add(img);
 
             owner.Level.Experience += 30;
             _levelService.CheckForLevelUp(owner.Id);
@@ -339,8 +338,10 @@ namespace Arsoude_Backend.Services
         {
 
             List<string> result = new List<string>();
-                
-            foreach(var img in trail.ImageList)
+
+            List<ImageTrail> imageList = await _context.TrailImages.Where(x => x.trailId == trail.Id).ToListAsync();
+
+            foreach (var img in imageList)
             {
                 ImageTrail trailImage = await _context.TrailImages.Where(x => x.Id == img.Id).FirstOrDefaultAsync();
                 result.Add(trailImage.ImageUrl);
