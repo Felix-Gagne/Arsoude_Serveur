@@ -116,7 +116,13 @@ namespace Arsoude_Backend.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> ApplyMigrations()
+        {
+            await _adminService.ApplyMigrations();
 
+            return Ok();
+        }
 
 
 

@@ -55,14 +55,26 @@ namespace Arsoude_Backend.Services
 
          public async Task<List<Trail>> GetList()
         {
-
+            
            List<Trail> trails = await _context.Trails.Where(t => t.isPublic == true && t.IsApproved == null).ToListAsync();
 
             return trails;
 
 
 
-        } 
+        }
+
+        public async Task ApplyMigrations()
+        {
+
+            await _context.Database.MigrateAsync();
+
+
+
+        }
+
+        
+
 
 
 
