@@ -599,11 +599,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-<<<<<<< HEAD
-                            ConcurrencyStamp = "d59a7dec-a163-4f56-9be1-7380830f28ed",
-=======
-                            ConcurrencyStamp = "c6bab9c6-fb92-414c-bbb9-dc3e572d5e76",
->>>>>>> FIX_Level
+                            ConcurrencyStamp = "9b05ce5d-0d59-4236-9850-b07ffb3a54d1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -700,25 +696,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "c38ae49c-c7cd-40fb-8cc3-eaf11fbdee35",
-=======
-                            ConcurrencyStamp = "ac283981-07d5-4fbc-9d1d-368657f2f5a8",
->>>>>>> FIX_Level
+                            ConcurrencyStamp = "40548015-e91e-4515-96b8-bf821e316070",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEFp1FCzF7KIwVKaW5FRsknjCciRhiMbUaitd29iHNVEkb5H3opf02IRnEn9MVM7uOg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJfAZJXFhZ3UYlMfIOhgTZ1SQm0DTHuG4OuazfOd1BnuKCVnGYu9rhuTultId5XiEA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "edbcf842-81b8-45fc-ac3b-c272a282982a",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEH9hcnhqOkerkEUMn3C5qVrWf1myz/O1mdI6HT9jWoSVcSxLywqD+EbPA4QqLfePhQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e6172202-ba66-4394-b159-f3c92c3f617d",
->>>>>>> FIX_Level
+                            SecurityStamp = "b48d9a7c-5112-485f-84e0-3bbc96cf6ef8",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -726,25 +712,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "04a73c27-45af-496b-9233-9eaadae70fe3",
-=======
-                            ConcurrencyStamp = "d025802a-c036-496d-bf98-d8b9260aa4b6",
->>>>>>> FIX_Level
+                            ConcurrencyStamp = "e5ad4b00-6b97-46ee-8396-cfc6a122a45b",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEHNmm2quowDtqMxFvJhTuOO9f7AfWhwxj3yexPczEGzosuE6SPpE1NXeoTzicbpLkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKfRlpRuwR4MdqV6eSKwL6bgVPc1jvuwdf1dS3NwFZwlKcQh5nV02rx1BEphXjLNCQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e239a260-ec65-4d7b-8463-86236f5dec2a",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAELvUJeudJTDI2BR1FQcpH3vbrdjpITFfuPAGohcDx9Lny0okIkZnHzdL3jR4Hikh/w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "abdd63ee-7820-4339-8734-74ce85433e42",
->>>>>>> FIX_Level
+                            SecurityStamp = "382e3f41-fb97-4c6d-8c93-dc9912a1460d",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
