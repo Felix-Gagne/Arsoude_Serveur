@@ -7,6 +7,7 @@ namespace Arsoude_Backend.Models
 {
     public class Trail
     {
+               
         public int Id { get; set; }
 
         [Required]
@@ -44,6 +45,8 @@ namespace Arsoude_Backend.Models
         public bool? IsApproved { get; set; }
 
         public double? Rating { get; set; }
+
+        public int TotalRatings { get; set; } = 0;
 
         [JsonIgnore]
         public virtual List<Coordinates>? Coordinates { get; set; }

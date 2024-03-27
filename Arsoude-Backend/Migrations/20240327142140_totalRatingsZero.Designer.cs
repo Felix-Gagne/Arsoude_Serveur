@@ -3,6 +3,7 @@ using System;
 using Arsoude_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240327142140_totalRatingsZero")]
+    partial class totalRatingsZero
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
@@ -886,11 +888,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-<<<<<<< HEAD
-                            ConcurrencyStamp = "0bc0ab4a-2441-4c43-8952-f103fe87c9cc",
-=======
                             ConcurrencyStamp = "508e7776-d044-4dbe-bbd7-97943f58b994",
->>>>>>> FCT_FixRatings
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -987,25 +985,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "9f051af4-2d25-43b3-b304-fb795b266ca5",
-=======
                             ConcurrencyStamp = "0173e868-ca35-43be-91ad-de571bbb81fb",
->>>>>>> FCT_FixRatings
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEDgCY+roww8/m0khId4PCQ3WivUYUYGWuAXxe/NTnqdolMh/JBovjfxKTjDbVx2WBw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7c062ec-84ab-4fb1-8c79-010a7fdfe44d",
-=======
                             PasswordHash = "AQAAAAEAACcQAAAAEALGk9b1I/1WZ8+smvA1Ia73UuHxT7c7kRbjsb3fWMWSYJE/ThkSa9FS8Rlz7KO7sg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "e3465182-e378-4854-ba09-b3d837624a46",
->>>>>>> FCT_FixRatings
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -1013,25 +1001,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "c7b844fa-c673-430b-b28e-e54369a58dcc",
-=======
                             ConcurrencyStamp = "76a1a5af-9abb-4490-8bc0-c745501ee16f",
->>>>>>> FCT_FixRatings
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAENgJPW+yx4cgno5bHkrbQf2STqEAg1fbMRig41fZflMprKnsgeNugPyB4Sqt2TFP8g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8cb3709f-f629-4739-bc81-2012335a200d",
-=======
                             PasswordHash = "AQAAAAEAACcQAAAAEDG3UOQJR7ovBnTJLCjkaoNoSdrQQtbEl7/aPBNytBpyHz21aRmOn5WsSsx5MkkZZw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "372d60ad-588d-4845-abd1-fc39d2986722",
->>>>>>> FCT_FixRatings
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });

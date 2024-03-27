@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Plugins;
+using System.Globalization;
 
 namespace Arsoude_Backend.Services
 {
@@ -348,20 +349,23 @@ namespace Arsoude_Backend.Services
 
             if (trail != null)
             {
-                if(trail.Rating == null)
+                double newRating = double.Parse(rating, CultureInfo.InvariantCulture);
+
+
+                if (trail.Rating == null)
                 {
                     trail.Rating = double.Parse(rating, System.Globalization.CultureInfo.InvariantCulture);
+                    trail.TotalRatings = 1;
                 }
                 else
                 {
-                    double trailRating = trail.Rating.Value;
+                    double currentRating = trail.Rating.Value;
+                    int totalRatings = trail.TotalRatings;
 
-                    double newRating = Math.Round((trailRating + double.Parse(rating, System.Globalization.CultureInfo.InvariantCulture)) / 2);
-
-
-
+                    newRating = ((currentRating * totalRatings) + newRating) / (totalRatings + 1);
 
                     trail.Rating = newRating;
+                    trail.TotalRatings++;
                 }
 
             }
