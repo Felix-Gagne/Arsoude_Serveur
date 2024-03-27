@@ -66,7 +66,7 @@ namespace Arsoude_Backend.Services
 
         public async Task ApplyMigrations()
         {
-            await _context.Database.EnsureCreatedAsync();
+
             await _context.Database.MigrateAsync();
 
         }
