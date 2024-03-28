@@ -773,6 +773,27 @@ namespace Arsoude_Backend.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Arsoude_Backend.Models.TrailUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TrailId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("VoteValue")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TrailRatingUser");
+                });
+
             modelBuilder.Entity("Arsoude_Backend.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -886,11 +907,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-<<<<<<< HEAD
-                            ConcurrencyStamp = "0bc0ab4a-2441-4c43-8952-f103fe87c9cc",
-=======
-                            ConcurrencyStamp = "508e7776-d044-4dbe-bbd7-97943f58b994",
->>>>>>> FCT_FixRatings
+                            ConcurrencyStamp = "31d2c198-a5d8-4f1d-b9a7-a613d61c619c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -987,25 +1004,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "9f051af4-2d25-43b3-b304-fb795b266ca5",
-=======
-                            ConcurrencyStamp = "0173e868-ca35-43be-91ad-de571bbb81fb",
->>>>>>> FCT_FixRatings
+                            ConcurrencyStamp = "f0185283-fa90-4dd8-aac2-26dfdea85dd0",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEDgCY+roww8/m0khId4PCQ3WivUYUYGWuAXxe/NTnqdolMh/JBovjfxKTjDbVx2WBw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEXSES6bMbqCJ952hM6I40F+IAA5UDdBgU3NJEVq4MSPLVjaGgwJe3VTQNc+J1Ag7w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7c062ec-84ab-4fb1-8c79-010a7fdfe44d",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEALGk9b1I/1WZ8+smvA1Ia73UuHxT7c7kRbjsb3fWMWSYJE/ThkSa9FS8Rlz7KO7sg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e3465182-e378-4854-ba09-b3d837624a46",
->>>>>>> FCT_FixRatings
+                            SecurityStamp = "4785a578-4e82-4ae3-a416-1c9ec796bd82",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -1013,25 +1020,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-<<<<<<< HEAD
-                            ConcurrencyStamp = "c7b844fa-c673-430b-b28e-e54369a58dcc",
-=======
-                            ConcurrencyStamp = "76a1a5af-9abb-4490-8bc0-c745501ee16f",
->>>>>>> FCT_FixRatings
+                            ConcurrencyStamp = "dbb8fd41-bfee-4ba9-9ab9-459d7d0dacaf",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAENgJPW+yx4cgno5bHkrbQf2STqEAg1fbMRig41fZflMprKnsgeNugPyB4Sqt2TFP8g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEARK9k18clW0E4TEceQz3q7KP2tMX4hsJg9ZYRlyyjmzVJsBSSAmTYC6NoBRvISiaQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8cb3709f-f629-4739-bc81-2012335a200d",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEDG3UOQJR7ovBnTJLCjkaoNoSdrQQtbEl7/aPBNytBpyHz21aRmOn5WsSsx5MkkZZw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "372d60ad-588d-4845-abd1-fc39d2986722",
->>>>>>> FCT_FixRatings
+                            SecurityStamp = "ca675a69-2df1-4f46-bb83-2faeae30e09d",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });

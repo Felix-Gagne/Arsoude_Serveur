@@ -738,7 +738,6 @@ namespace Arsoude_Backend.Data
 
         public DbSet<UserFavoriteTrail> UserFavoriteTrails { get; set; } = default!;
 
-
         public DbSet<Coordinates> Coordinates { get; set; } = default!;
 
         public DbSet<Level> Levels { get; set; } = default!;
@@ -748,5 +747,7 @@ namespace Arsoude_Backend.Data
         public DbSet<ImageTrail> TrailImages { get; set; } = default!;
 
         public DbSet<Comments> Comments { get; set; }
+
+        public DbSet<TrailUser> TrailRatingUser { get; set; } = default!;
     }
 }

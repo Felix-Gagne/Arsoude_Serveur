@@ -343,31 +343,57 @@ namespace Arsoude_Backend.Services
             return result;
         }
 
-        public async Task RateTrail(int trailId, string rating)
+        public async Task RateTrail(int trailId, string rating, IdentityUser userIdentity)
         {
             Trail? trail = await _context.Trails.Where(t => t.Id == trailId).FirstOrDefaultAsync();
+            User currentUser = await _context.TrailUsers.Where(x => x.IdentityUserId == userIdentity.Id).FirstOrDefaultAsync();
+
 
             if (trail != null)
             {
-                double newRating = double.Parse(rating, CultureInfo.InvariantCulture);
-
-
-                if (trail.Rating == null)
+                if(currentUser != null)
                 {
-                    trail.Rating = double.Parse(rating, System.Globalization.CultureInfo.InvariantCulture);
-                    trail.TotalRatings = 1;
+                    TrailUser trailUser = await _context.TrailRatingUser.Where(x => x.TrailId == trailId && x.UserId == currentUser.IdentityUserId).FirstOrDefaultAsync();
+                    double newRating = double.Parse(rating, CultureInfo.InvariantCulture);
+
+                    if(trailUser == null)
+                    {
+                        TrailUser newVote = new TrailUser()
+                        {
+                            TrailId = trailId,
+                            UserId = currentUser.IdentityUserId,
+                            VoteValue = newRating,
+                        };
+
+                        await _context.TrailRatingUser.AddAsync(newVote);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        trailUser.VoteValue = newRating;
+                    }
+
+                    List<TrailUser> nbVotes = await _context.TrailRatingUser.ToListAsync();
+                    double votesTotalValue = 0;
+                    foreach(var vote in  nbVotes)
+                    {
+                        votesTotalValue += vote.VoteValue;
+                    }
+                    double voteAvearge = (votesTotalValue / nbVotes.Count);
+                    trail.Rating = voteAvearge;
+
+                    trail.TotalRatings = nbVotes.Count();
+                    await _context.SaveChangesAsync();
+
                 }
                 else
                 {
-                    double currentRating = trail.Rating.Value;
-                    int totalRatings = trail.TotalRatings;
-
-                    newRating = ((currentRating * totalRatings) + newRating) / (totalRatings + 1);
-
-                    trail.Rating = newRating;
-                    trail.TotalRatings++;
+                    throw new UserNotFoundException();
                 }
-
+            }
+            else
+            {
+                throw new TrailNotFoundException();
             }
             await _context.SaveChangesAsync();
 

@@ -37,6 +37,7 @@ namespace Arsoude_Backend.Models
         [JsonIgnore]
         public virtual List<Trail> Trails { get; set; }
 
+
         [JsonIgnore]
         public virtual List<UserFavoriteTrail>? FavouriteTrails { get; set; }
 
