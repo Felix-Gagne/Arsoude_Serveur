@@ -349,9 +349,10 @@ namespace Arsoude_Backend.Controllers
         [HttpPost("{trailId}")]
         public async Task<ActionResult> RateTrail(int trailId, RatingRequestModel rating)
         {
+            IdentityUser user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
             try
             {
-                await _trailService.RateTrail(trailId, rating.Rating);
+                await _trailService.RateTrail(trailId, rating.Rating, user);
                 return Ok();
             }
             catch (UserNotFoundException)

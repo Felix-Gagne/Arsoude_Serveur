@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arsoude_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240326132449_ok")]
-    partial class ok
+    [Migration("20240327181020_test2")]
+    partial class test2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -456,6 +456,9 @@ namespace Arsoude_Backend.Migrations
                     b.Property<int>("StartingCoordinatesId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("TotalRatings")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
@@ -486,6 +489,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Sentier de la Forêt Enchantée",
                             OwnerId = 1,
                             StartingCoordinatesId = 1,
+                            TotalRatings = 0,
                             Type = 0,
                             isPublic = true
                         },
@@ -499,6 +503,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Escapade au Sommet",
                             OwnerId = 1,
                             StartingCoordinatesId = 3,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = true
                         },
@@ -512,6 +517,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Sentier des Cascades Étincelantes",
                             OwnerId = 1,
                             StartingCoordinatesId = 5,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = true
                         },
@@ -525,6 +531,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Promenade des Champs de Fleurs",
                             OwnerId = 1,
                             StartingCoordinatesId = 7,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = true
                         },
@@ -538,6 +545,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Escapade au Lac de Montagne",
                             OwnerId = 1,
                             StartingCoordinatesId = 9,
+                            TotalRatings = 0,
                             Type = 0,
                             isPublic = true
                         },
@@ -551,6 +559,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Sentier des Ruines Anciennes",
                             OwnerId = 1,
                             StartingCoordinatesId = 11,
+                            TotalRatings = 0,
                             Type = 0,
                             isPublic = true
                         },
@@ -564,6 +573,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Randonnée des Falaises Côtières",
                             OwnerId = 1,
                             StartingCoordinatesId = 13,
+                            TotalRatings = 0,
                             Type = 0,
                             isPublic = true
                         },
@@ -577,6 +587,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Sentier de la Vallée Endormie",
                             OwnerId = 1,
                             StartingCoordinatesId = 15,
+                            TotalRatings = 0,
                             Type = 0,
                             isPublic = true
                         },
@@ -590,6 +601,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Randonnée du Pic Vertigineux",
                             OwnerId = 1,
                             StartingCoordinatesId = 17,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = true
                         },
@@ -603,6 +615,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Chemin des Chutes Mystiques",
                             OwnerId = 1,
                             StartingCoordinatesId = 19,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = true
                         },
@@ -616,6 +629,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Randonnée du Lac de Cristal",
                             OwnerId = 1,
                             StartingCoordinatesId = 21,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = true
                         },
@@ -629,6 +643,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Sentier du Canyon Étincelant",
                             OwnerId = 1,
                             StartingCoordinatesId = 23,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = true
                         },
@@ -642,6 +657,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Promenade des Jardins Enchantés",
                             OwnerId = 1,
                             StartingCoordinatesId = 25,
+                            TotalRatings = 0,
                             Type = 0,
                             isPublic = false
                         },
@@ -655,6 +671,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Randonnée du Sommet Enneigé",
                             OwnerId = 1,
                             StartingCoordinatesId = 27,
+                            TotalRatings = 0,
                             Type = 0,
                             isPublic = false
                         },
@@ -668,6 +685,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Sentier des Marais Brumeux",
                             OwnerId = 1,
                             StartingCoordinatesId = 29,
+                            TotalRatings = 0,
                             Type = 0,
                             isPublic = false
                         },
@@ -681,6 +699,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Sentier de la Cascade Éternelle",
                             OwnerId = 1,
                             StartingCoordinatesId = 31,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = false
                         },
@@ -694,6 +713,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Promenade du Lac Serein",
                             OwnerId = 1,
                             StartingCoordinatesId = 33,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = false
                         },
@@ -707,6 +727,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Randonnée des Montagnes Miroir",
                             OwnerId = 1,
                             StartingCoordinatesId = 35,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = false
                         },
@@ -720,6 +741,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Sentier du Coucher de Soleil",
                             OwnerId = 1,
                             StartingCoordinatesId = 37,
+                            TotalRatings = 0,
                             Type = 0,
                             isPublic = false
                         },
@@ -733,6 +755,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Randonnée du Canyon Profond",
                             OwnerId = 1,
                             StartingCoordinatesId = 39,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = false
                         },
@@ -746,6 +769,7 @@ namespace Arsoude_Backend.Migrations
                             Name = "Sentier de la Vallée des Brumes",
                             OwnerId = 1,
                             StartingCoordinatesId = 41,
+                            TotalRatings = 0,
                             Type = 1,
                             isPublic = false
                         });
@@ -864,7 +888,7 @@ namespace Arsoude_Backend.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111113",
-                            ConcurrencyStamp = "48171196-8fa9-416d-b2b4-5ee9eae76816",
+                            ConcurrencyStamp = "428e09b5-a208-481b-bd29-c035398edc46",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -961,15 +985,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "de975661-f2bb-45fc-859d-469e2a7496d5",
+                            ConcurrencyStamp = "74d63021-c744-4d2d-9ae0-34b6c0173e19",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEERvgFA7V1lq4m6myhfK6GZdhS2dQybFvVnruLMUECJN8rBfqD6w5n3Wgk6uLTNPCw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMhu1/taRSpyRrp/BSFpfFNxp1Df7odna20o1TdKQy1Mq4qNt0jF2qUGWcSYdY0CTA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f551a014-36c4-4bc0-b91b-7659b2a781e9",
+                            SecurityStamp = "6cceb1fa-2975-4adf-aa2e-867fa9313ac7",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -977,15 +1001,15 @@ namespace Arsoude_Backend.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "818f9492-3010-4230-bdd6-02e2db352685",
+                            ConcurrencyStamp = "2bfb94db-01ec-4729-938a-31d73f54c098",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER@USER.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELqZb4l+uBqWpF8vMo8ky/tdHdWV0chwIEQrIARlndF1fEbsW8FsHCppTebbJ1LGRg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBFd8FozRvmYENHreK9kr/9Dt5tPZ+UFKOuIbwpiSKAjFvT69q/86d4sVkdq1r2j4A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b2a0c8df-30b1-4b25-ad1e-9d0eb8c834b0",
+                            SecurityStamp = "f1e24da1-9421-4370-9d2e-b2f0c6ebd257",
                             TwoFactorEnabled = false,
                             UserName = "user@user.com"
                         });
